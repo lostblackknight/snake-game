@@ -1,0 +1,91 @@
+
+#rectangle
+{
+	-fx-background-color: #3C3C3C;
+	-fx-opacity: 0.7;
+	-fx-background-radius: 20 20 20 20;
+}
+
+#l_title
+{
+	-fx-text-fill: #d0d0d0;
+	-fx-font-weight: bold;
+	-fx-font-size: 24px;
+
+}
+
+#t_username,#t_password,#t_mobilePhone
+{
+	-fx-background-color: #ffffff00;
+	-fx-border-width: 0px 0px 1px 0px;
+	-fx-border-color: rgb(128,128,128);
+	-fx-text-fill: white;
+}
+
+#register,#back
+{
+	-fx-text-fill: white;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+}
+
+#register:hover
+{
+	-fx-text-fill: #FFFF37;
+}
+
+#back:hover
+{
+	-fx-text-fill: #FFFF37;
+}
+
+#l_fail,#l_fail_username,#l_fail_password
+{
+	-fx-text-fill: #84C1FF;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+
+}
+
+#b_signIn,#b_signUp
+{
+	-fx-text-fill: white;
+	-fx-font-weight: 700;
+	-fx-font-size: 12px;
+	-fx-background-color: #FF60AF;
+ 	-fx-background-radius: 50 50 50 50;
+}
+
+#b_signIn:hover
+{
+	-fx-text-fill: #FFFF37;
+}
+
+#b_signUp:hover
+{
+	-fx-text-fill: #FFFF37;
+}
+
+#r_l_success
+{
+	-fx-text-fill: #84C1FF;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+
+}
+
+#r_l_fail,#r_l_fail_username,#r_l_fail_password,#r_l_fail_number
+{
+	-fx-text-fill: 	#ff7575;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+
+}
+
+#r_l_tip1,#r_l_tip2,#r_l_tip3
+{
+	-fx-text-fill: 	#53FF53;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+
+}
