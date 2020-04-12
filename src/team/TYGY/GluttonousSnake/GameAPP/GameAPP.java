@@ -44,7 +44,7 @@ public class GameAPP extends Application {
 		primaryStage.setHeight(GAME_STAGE_H);								//设置窗口的高度
 		primaryStage.setX(GAME_STAGE_X);									//设置窗口的坐标X
 		primaryStage.setY(GAME_STAGE_Y);									//设置窗口的坐标Y
-		primaryStage.setResizable(true);									//设置窗口大小不可变
+		primaryStage.setResizable(false);									//设置窗口大小不可变
 		primaryStage.show();												//显示窗口
 		primaryStage.setScene(scene);										//将场景图加到窗口中
 //		primaryStage.setFullScreen(true);									//全屏

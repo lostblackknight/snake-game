@@ -44,10 +44,10 @@ public class LoadingPanel extends BasePanel {
 		mp.setAutoPlay(true);
 		
 		//绑定
-		ap.prefWidthProperty().bind(GameAPP.root.widthProperty());
-		ap.prefHeightProperty().bind(GameAPP.root.heightProperty());
-		mv.fitWidthProperty().bind(ap.widthProperty());
-		mv.fitHeightProperty().bind(ap.heightProperty());
+//		ap.prefWidthProperty().bind(GameAPP.root.widthProperty());
+//		ap.prefHeightProperty().bind(GameAPP.root.heightProperty());
+//		mv.fitWidthProperty().bind(ap.widthProperty());
+//		mv.fitHeightProperty().bind(ap.heightProperty());
 	}
 
 	public void start() {
