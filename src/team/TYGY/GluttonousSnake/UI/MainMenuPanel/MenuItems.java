@@ -47,7 +47,7 @@ public class MenuItems {
 		menuItems.get("LEISURE").setPadding(new Insets(-7, 0, -3, 0));
 		menuItems.get("ADVENTURE").setPadding(new Insets(-7, 0, -3, 0));
 		menuItems.get("OPTIONS").setPadding(new Insets(-5, 0, -3, 0));
-		menuItems.get("EXIT_TO_WINDOWS").setPadding(new Insets(-3, 0, -3, 0));
+		menuItems.get("EXIT_TO_WINDOWS").setPadding(new Insets(-4, 0, -3, 0));
 		menuBox.setMargin(menuItems.get("LEISURE"), new Insets(0, 0, 8, 67));
 		menuBox.setMargin(menuItems.get("ADVENTURE"), new Insets(0, 0, 26, 67));
 		menuBox.setMargin(menuItems.get("OPTIONS"), new Insets(0, 0, 225, 67));

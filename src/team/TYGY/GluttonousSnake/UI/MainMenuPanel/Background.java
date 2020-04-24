@@ -17,7 +17,7 @@ public class Background {
 	}
 	
 	private void initBackground() {
-		im = new Image("images/MainMenuPanel.png", 1280, 720, true, true);
+		im = new Image("images/MainMenuPanel1.png", 1280, 720, true, true);
 		iv = new ImageView(im);
 	}
 	public void addBackground() {

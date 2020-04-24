@@ -20,7 +20,7 @@ public class MenuBox extends GridPane {
 		this.setPrefSize(303, 413);
 		this.setLayoutX(0);
 		this.setLayoutY(307);
-		this.setStyle("-fx-background-color:#000000");
+//		this.setStyle("-fx-background-color:#000000");
 	}
 	public void addMenuBox() {
 		subRoot.getChildren().add(this);

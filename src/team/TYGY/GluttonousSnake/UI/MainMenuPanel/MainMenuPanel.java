@@ -19,6 +19,7 @@ public class MainMenuPanel extends BasePanel {
 	private Title title;
 	private MenuBox menuBox;
 	private MenuItems menuItems;
+	private Hand mouseHand;
 	
 	
 	public MainMenuPanel() {
@@ -34,14 +35,12 @@ public class MainMenuPanel extends BasePanel {
 		title = new Title(this);
 		menuBox = new MenuBox(this);
 		menuItems = new MenuItems(menuBox);
+		mouseHand = new Hand(this);
 		
 		GameAPP.root.setLeftAnchor(this, 0.0);
 		GameAPP.root.setRightAnchor(this, 0.0);
 		GameAPP.root.setTopAnchor(this, 0.0);
 		GameAPP.root.setBottomAnchor(this, 0.0);
-		
-//		this.setStyle("-fx-background-color:#FF79BC");	
-		
 	}
 
 	@Override
@@ -50,6 +49,7 @@ public class MainMenuPanel extends BasePanel {
 		title.addTitle();
 		menuBox.addMenuBox();
 		menuItems.addMenuItems();
+		mouseHand.setHand();
 	}
 
 	@Override
