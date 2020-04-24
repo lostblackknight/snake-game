@@ -1,4 +1,4 @@
-package team.TYGY.GluttonousSnake.UI;
+package team.TYGY.GluttonousSnake.UI.LoginPanel;
 
 import java.net.URL;
 
@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import team.TYGY.GluttonousSnake.UI.BasePanel;
+import team.TYGY.GluttonousSnake.UI.UIManager;
 
 /**
  * 

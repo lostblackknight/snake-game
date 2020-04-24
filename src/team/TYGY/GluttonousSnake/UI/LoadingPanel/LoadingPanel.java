@@ -1,4 +1,4 @@
-package team.TYGY.GluttonousSnake.UI;
+package team.TYGY.GluttonousSnake.UI.LoadingPanel;
 
 import java.net.URL;
 
@@ -6,7 +6,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import team.TYGY.GluttonousSnake.GameAPP.GameAPP;
+import team.TYGY.GluttonousSnake.UI.BasePanel;
+import team.TYGY.GluttonousSnake.UI.UIManager;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class LoadingPanel extends BasePanel {
 		mv = new MediaView(mp);
 
 		//设置自动播放
-		mp.setAutoPlay(true);
+//		mp.setAutoPlay(true);
 		
 		//绑定
 //		ap.prefWidthProperty().bind(GameAPP.root.widthProperty());

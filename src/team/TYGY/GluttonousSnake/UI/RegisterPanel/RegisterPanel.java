@@ -1,4 +1,4 @@
-package team.TYGY.GluttonousSnake.UI;
+package team.TYGY.GluttonousSnake.UI.RegisterPanel;
 
 import java.net.URL;
 import java.util.function.UnaryOperator;
@@ -20,6 +20,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import team.TYGY.GluttonousSnake.UI.BasePanel;
+import team.TYGY.GluttonousSnake.UI.UIManager;
 
 /**
  * 
@@ -300,7 +302,6 @@ public class RegisterPanel extends BasePanel{
 					r_l_tip3.setStyle("-fx-opacity: 0");
 					
 				}else {
-					
 					r_l_success.setStyle("-fx-opacity: 1");
 					r_l_fail.setStyle("-fx-opacity: 0");
 					r_l_fail_password.setStyle("-fx-opacity: 0");
@@ -309,6 +310,7 @@ public class RegisterPanel extends BasePanel{
 					r_l_tip1.setStyle("-fx-opacity: 0");
 					r_l_tip2.setStyle("-fx-opacity: 0");
 					r_l_tip3.setStyle("-fx-opacity: 0");
+					//TO DO
 				}
 			}
 		});
@@ -331,7 +333,7 @@ public class RegisterPanel extends BasePanel{
 			@Override
 			public Change apply(Change t) {
 				String value = t.getText();
-				System.out.println("value = " + value);
+//				System.out.println("value = " + value);
 				if (value.matches("[a-z]*") || value.matches("[0-9]*") ||value.matches("[A-Z]*")) {
 					return t;
 				}

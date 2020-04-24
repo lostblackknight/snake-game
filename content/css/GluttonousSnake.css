@@ -1,4 +1,6 @@
 
+/*<------------------------------------以下是LoginPanelPanel部分------------------------------------> */
+
 #rectangle
 {
 	-fx-background-color: #3C3C3C;
@@ -88,4 +90,34 @@
 	-fx-font-weight: 600;
 	-fx-font-size: 14px;
 
+}
+
+/*<------------------------------------以下是MainMenuPanel部分------------------------------------> */
+
+#LEISURE,#ADVENTURE
+{
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 34px;
+	-fx-font-weight: 500;
+	-fx-opacity: 0.9;
+}
+
+#OPTIONS
+{
+	-fx-text-fill: #909090;
+	-fx-font-size: 26px;
+	-fx-font-weight: 500;
+
+}
+
+#EXIT_TO_WINDOWS
+{
+	-fx-text-fill: #cecece;
+	-fx-font-size: 16px;
+	-fx-font-weight: 800;
+}
+
+#LEISURE:hover,#ADVENTURE:hover,#OPTIONS:hover,#EXIT_TO_WINDOWS:hover
+{
+	-fx-text-fill: #d4b600;
 }
