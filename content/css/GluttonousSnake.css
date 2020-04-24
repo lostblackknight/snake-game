@@ -115,9 +115,26 @@
 	-fx-text-fill: #cecece;
 	-fx-font-size: 14px;
 	-fx-font-weight: 900;
+
 }
 
-#LEISURE:hover,#ADVENTURE:hover,#OPTIONS:hover,#EXIT_TO_WINDOWS:hover
+#LEISURE:hover,#ADVENTURE:hover,#OPTIONS:hover,#EXIT_TO_WINDOWS:hover,
+#NEW_GAME:hover,#CONTINUE:hover,#BACK:hover
 {
 	-fx-text-fill: #d4b600;
+}
+
+#NEW_GAME,#CONTINUE
+{
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 34px;
+	-fx-font-weight: 500;
+	-fx-opacity: 0.9;
+}
+
+#BACK
+{
+	-fx-text-fill: #cecece;
+	-fx-font-size: 14px;
+	-fx-font-weight: 900;
 }

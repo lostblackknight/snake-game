@@ -20,6 +20,10 @@ public class MainMenuPanel extends BasePanel {
 	private MenuBox menuBox;
 	private MenuItems menuItems;
 	private Hand mouseHand;
+	private LeiSureMenuBox leiSureMenuBox;
+	private LeiSureMenuItems leiSureMenuItems;
+	private AdventureMenuBox adventureMenuBox;
+	private AdventureMenuItems adventureMenuItems;
 	
 	
 	public MainMenuPanel() {
@@ -35,7 +39,12 @@ public class MainMenuPanel extends BasePanel {
 		title = new Title(this);
 		menuBox = new MenuBox(this);
 		menuItems = new MenuItems(menuBox);
+		leiSureMenuBox = new LeiSureMenuBox(this);
+		leiSureMenuItems = new LeiSureMenuItems(leiSureMenuBox);
+		adventureMenuBox = new AdventureMenuBox(this);
+		adventureMenuItems = new AdventureMenuItems(adventureMenuBox);
 		mouseHand = new Hand(this);
+
 		
 		GameAPP.root.setLeftAnchor(this, 0.0);
 		GameAPP.root.setRightAnchor(this, 0.0);
@@ -45,11 +54,16 @@ public class MainMenuPanel extends BasePanel {
 
 	@Override
 	public void start() {
+		mouseHand.setHand();
 		background.addBackground();
 		title.addTitle();
 		menuBox.addMenuBox();
 		menuItems.addMenuItems();
-		mouseHand.setHand();
+		leiSureMenuBox.addLeiSureMenuBox();
+		leiSureMenuItems.addLeiSureMenuItems();
+		adventureMenuBox.addAdventureMenuBox();
+		adventureMenuItems.addLeiSureMenuItems();
+		
 	}
 
 	@Override
