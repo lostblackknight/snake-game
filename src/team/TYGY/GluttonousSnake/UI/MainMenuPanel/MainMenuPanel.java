@@ -24,6 +24,7 @@ public class MainMenuPanel extends BasePanel {
 	private LeiSureMenuItems leiSureMenuItems;
 	private AdventureMenuBox adventureMenuBox;
 	private AdventureMenuItems adventureMenuItems;
+	private OptionsMenuBox optionsMenuBox;
 	
 	
 	public MainMenuPanel() {
@@ -43,6 +44,7 @@ public class MainMenuPanel extends BasePanel {
 		leiSureMenuItems = new LeiSureMenuItems(leiSureMenuBox);
 		adventureMenuBox = new AdventureMenuBox(this);
 		adventureMenuItems = new AdventureMenuItems(adventureMenuBox);
+		optionsMenuBox = new OptionsMenuBox(this);
 		mouseHand = new Hand(this);
 
 		
@@ -63,7 +65,7 @@ public class MainMenuPanel extends BasePanel {
 		leiSureMenuItems.addLeiSureMenuItems();
 		adventureMenuBox.addAdventureMenuBox();
 		adventureMenuItems.addLeiSureMenuItems();
-		
+		optionsMenuBox.addOptionsMenuBox();
 	}
 
 	@Override
