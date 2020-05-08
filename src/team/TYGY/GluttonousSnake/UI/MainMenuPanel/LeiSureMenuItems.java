@@ -1,6 +1,5 @@
 package team.TYGY.GluttonousSnake.UI.MainMenuPanel;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -11,16 +10,13 @@ import javafx.scene.control.Label;
 
 public class LeiSureMenuItems {
 
-	private LeiSureMenuBox leiSureMenuBox;
 	private HashMap<String,Label> menuItems;
 	
 	
-	public LeiSureMenuItems(LeiSureMenuBox leiSureMenuBox) {
-		this.leiSureMenuBox = leiSureMenuBox;
+	public LeiSureMenuItems() {
 		initLeiSureMenuItems();
 	}
 	
-	@SuppressWarnings("static-access")
 	private void initLeiSureMenuItems() {
 		/**
 		 * 创建对象
@@ -45,21 +41,6 @@ public class LeiSureMenuItems {
 		menuItems.get("NEW_GAME").setPadding(new Insets(-6, 0, -4, 0));
 		menuItems.get("CONTINUE").setPadding(new Insets(-6, 0, -4, 0));
 		menuItems.get("BACK").setPadding(new Insets(-1, 0, 0, 0));
-		leiSureMenuBox.setMargin(menuItems.get("NEW_GAME"), new Insets(0, 0, 8, 60));
-		leiSureMenuBox.setMargin(menuItems.get("CONTINUE"), new Insets(0, 0, 276, 60));
-		leiSureMenuBox.setMargin(menuItems.get("BACK"), new Insets(0, 0, 43, 68));
-		
-		/**
-		 * 设置menuItems的CSS样式
-		 */
-		URL cssUrl = this.getClass().getClassLoader().getResource("css/GluttonousSnake.css");
-		leiSureMenuBox.getStylesheets().add(cssUrl.toExternalForm());
-	}
-	
-	public void addLeiSureMenuItems() {
-		leiSureMenuBox.add(menuItems.get("NEW_GAME"), 0, 1);
-		leiSureMenuBox.add(menuItems.get("CONTINUE"), 0, 2);
-		leiSureMenuBox.add(menuItems.get("BACK"), 0, 3);
 	}
 	
 	public HashMap<String, Label> getMenuItems() {

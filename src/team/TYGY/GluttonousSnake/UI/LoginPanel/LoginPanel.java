@@ -199,4 +199,10 @@ public class LoginPanel extends BasePanel {
 			}
 		});
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

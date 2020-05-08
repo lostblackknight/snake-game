@@ -15,5 +15,6 @@ public abstract class BasePanel extends AnchorPane {
 	
 	public abstract void init();						//面板初始化
 	public abstract void start();						//面板启动
+	public abstract void update();
 	public abstract void stop();						//面板退出
 }

@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import team.TYGY.GluttonousSnake.GameAPP.GameAPP;
 import team.TYGY.GluttonousSnake.GameAPP.Manager;
+import team.TYGY.GluttonousSnake.UI.GameOverPanel.GameOverPanel;
 import team.TYGY.GluttonousSnake.UI.LoadingPanel.LoadingPanel;
 import team.TYGY.GluttonousSnake.UI.LoginPanel.LoginPanel;
 import team.TYGY.GluttonousSnake.UI.MainMenuPanel.MainMenuPanel;
@@ -16,11 +17,13 @@ import team.TYGY.GluttonousSnake.UI.RegisterPanel.RegisterPanel;
 
 /**
  * 
- * @ClassName: UIManager
- * @Description: TODO UI管理器
- * @author: 陈思祥
- * @version: 1.3
- * @date: 2020年4月10日-下午8:37:06
+ * ClassName: UIManager
+ * Description: TODO 
+ * Date: 2020-05-05 07:17:03
+ * 
+ * @author 陈思祥
+ * @version 1.3
+ * @since JDK 1.8
  *
  */
 public class UIManager implements Manager {
@@ -74,11 +77,13 @@ public class UIManager implements Manager {
 	
 	/**
 	 * 
-	 * @Title: initRegister
-	 * @Description: TODO 注册所有面板
-	 * @param: 
-	 * @return: void
-	 * @throws
+	 * MethodName: initRegister
+	 * Description: TODO 
+	 * Date: 2020-05-05 07:22:37
+	 * 
+	 * @author 陈思祥
+	 * @param 
+	 * @return void
 	 */
 	private void initRegister() {
 		regPanel("loadingPanel", new LoadingPanel());
@@ -91,11 +96,13 @@ public class UIManager implements Manager {
 	
 	/**
 	 * 
-	 * @Title: gotoPanel
-	 * @Description: TODO 跳转到指定面板
-	 * @param: @param panelName
-	 * @return: void
-	 * @throws
+	 * MethodName: gotoPanel
+	 * Description: TODO 
+	 * Date: 2020-05-05 07:24:48
+	 * 
+	 * @author 陈思祥
+	 * @param panelName
+	 * @return void
 	 */
 	public void gotoPanel(String panelName) {
 		BasePanel panel = panelMap.get(panelName);
@@ -106,11 +113,12 @@ public class UIManager implements Manager {
 	
 	/**
 	 * 
-	 * @Title: getCurrentPanel
-	 * @Description: TODO 获取当前面板
-	 * @param: @return
-	 * @return: BasePanel
-	 * @throws
+	 * MethodName: getCurrentPanel
+	 * Description: TODO 
+	 * Date: 2020-05-05 07:24:08
+	 * 
+	 * @author 陈思祥
+	 * @return BasePanel
 	 */
 	public BasePanel getCurrentPanel() {
 		return currentPanel.get();
@@ -122,12 +130,14 @@ public class UIManager implements Manager {
 	
 	/**
 	 * 
-	 * @Title: regPanel
-	 * @Description: TODO 注册面板
-	 * @param: @param panelName
-	 * @param: @param panel
-	 * @return: void
-	 * @throws
+	 * MethodName: regPanel
+	 * Description: TODO 
+	 * Date: 2020-05-05 07:23:44
+	 * 
+	 * @author 陈思祥
+	 * @param panelName
+	 * @param panel
+	 * @return void
 	 */
 	public void regPanel(String panelName,BasePanel panel) {
 		panelMap.put(panelName, panel);
@@ -135,11 +145,13 @@ public class UIManager implements Manager {
 	
 	/**
 	 * 
-	 * @Title: delPanel
-	 * @Description: TODO 删除面板
-	 * @param: @param panelName
-	 * @return: void
-	 * @throws
+	 * MethodName: delPanel
+	 * Description: TODO 
+	 * Date: 2020-05-05 07:23:56
+	 * 
+	 * @author 陈思祥
+	 * @param panelName
+	 * @return void
 	 */
 	public void delPanel(String panelName) {
 		panelMap.remove(panelName);

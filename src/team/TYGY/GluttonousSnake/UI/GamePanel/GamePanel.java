@@ -1,4 +1,4 @@
-package team.TYGY.GluttonousSnake.UI;
+package team.TYGY.GluttonousSnake.UI.GamePanel;
 
 /**
  * 

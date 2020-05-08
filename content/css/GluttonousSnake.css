@@ -110,7 +110,7 @@
 
 }
 
-#EXIT_TO_WINDOWS
+#EXIT_TO_WINDOWS,#back_options
 {
 	-fx-text-fill: #cecece;
 	-fx-font-size: 14px;
@@ -119,7 +119,7 @@
 }
 
 #LEISURE:hover,#ADVENTURE:hover,#OPTIONS:hover,#EXIT_TO_WINDOWS:hover,
-#NEW_GAME:hover,#CONTINUE:hover,#BACK:hover
+#NEW_GAME:hover,#CONTINUE:hover,#BACK:hover,#back_options:hover
 {
 	-fx-text-fill: #d4b600;
 }
@@ -139,18 +139,44 @@
 	-fx-font-weight: 900;
 }
 
-#DISPLAY,#GAME_PLAY,#KEY_BINDING
+#KEY_BINDING
 {
 	-fx-text-fill: #ffffff;
 	-fx-font-size: 24px;
 	-fx-font-weight: 500;
 	-fx-opacity: 0.9;
 }
-
-#DISPLAY_SETTINGS
+#GAME_PLAY
 {
-	-fx-text-fill: #ffffff;
+	-fx-text-fill: #d5b700;
+	-fx-font-size: 24px;
+	-fx-font-weight: 500;
+	-fx-opacity: 0.9;
+}
+
+#GAME_BACKGROUND,#AUDIO,#MOVEMENT,#SPEED,#ATTACK
+{
+	-fx-text-fill: #d5b700;
 	-fx-font-size: 16px;
 	-fx-font-weight: 800;
 }
 
+#text1,#text2,#text3,#text4,#text5,#text6,#text7,#text8,#soundEffects,#music
+{
+	-fx-text-fill: #c0c0c0;
+	-fx-font-size: 14px;
+	-fx-font-weight: 600;
+}
+
+#up,#down,#left,#right,#speedUp,#speedDown
+{
+	-fx-text-fill: #c0c0c0;
+	-fx-font-size: 14px;
+	-fx-font-weight: 800;
+}
+#up_key,#down_key,#left_key,#right_key,#speedDown_key,#speedUp_key
+{
+	-fx-text-fill: #c0c0c0;
+	-fx-font-size: 16px;
+	-fx-font-weight: 800;
+}

@@ -1,9 +1,11 @@
-package team.TYGY.GluttonousSnake.UI;
+package team.TYGY.GluttonousSnake.UI.GameOverPanel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import team.TYGY.GluttonousSnake.UI.BasePanel;
+import team.TYGY.GluttonousSnake.UI.UIManager;
 
 /**
  * 
@@ -53,6 +55,11 @@ public class GameOverPanel extends BasePanel{
 				Platform.exit();
 			}
 		});
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
