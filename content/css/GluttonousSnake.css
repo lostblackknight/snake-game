@@ -180,3 +180,18 @@
 	-fx-font-size: 16px;
 	-fx-font-weight: 800;
 }
+
+/*<------------------------------------以下是GamePanel部分------------------------------------> */
+#ScorePanel
+{
+	-fx-background-color: #ffffff;
+	-fx-opacity: 0.4;
+	-fx-background-radius: 10 10 10 10;
+}
+
+#length,#score,#length_value,#score_value
+{
+	-fx-text-fill: #000000;
+	-fx-font-size: 28px;
+	-fx-font-weight: 800;
+}
