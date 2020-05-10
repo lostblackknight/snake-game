@@ -1,8 +1,15 @@
 package team.TYGY.GluttonousSnake.UI.GamePanel;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import team.TYGY.GluttonousSnake.GameAPP.GameAPP;
 import team.TYGY.GluttonousSnake.UI.BasePanel;
+import team.TYGY.GluttonousSnake.UI.UIManager;
+import team.TYGY.GluttonousSnake.UI.MainMenuPanel.MainMenuPanel;
 
 /**
  * 
@@ -20,7 +27,7 @@ public class GamePanel extends BasePanel{
 	private ScorePanel scorePanel;
 	private SubMenu subMenu;
 	private GameOverPanel gameOverPanel;
-	
+	private boolean flag = false;
 	
 	public GamePanel() {
 		init();
@@ -60,11 +67,82 @@ public class GamePanel extends BasePanel{
 
 	@Override
 	public void update() {
-		
+		gamePause();
+		subMenu.getContinueGame().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				subRoot.getChildren().remove(subMenu);
+				flag = false;
+			}
+		});
 	}
 
 	@Override
 	public void stop() {
+		subMenu.getEXIT_TO_MainMenu().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				subRoot.getChildren().remove(subMenu);
+				UIManager.getUiManager().delPanel("GamePanel");
+				UIManager.getUiManager().regPanel("MainMenuPanel", new MainMenuPanel());
+				UIManager.getUiManager().gotoPanel("GamePanel");
+				UIManager.getUiManager().gotoPanel("MainMenuPanel");
+			}
+		});
 		
+		subMenu.getEXIT_TO_WINDOWS().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				Platform.exit();
+			}
+		});
+	}
+	
+	/**
+	 * 
+	 * MethodName: gamePause
+	 * Description: TODO 暂停游戏
+	 * Date: 2020-05-10 06:03:50
+	 * 
+	 * @author 陈思祥
+	 * @return void
+	 */
+	public void gamePause() {
+		subRoot.setFocusTraversable(true);
+		subRoot.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.ESCAPE && flag == false) {
+					subRoot.getChildren().add(subMenu);
+					flag =true;
+				}else if (event.getCode() == KeyCode.ESCAPE && flag == true) {
+					subRoot.getChildren().remove(subMenu);
+					flag =false;
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 
+	 * MethodName: gameContinue
+	 * Description: TODO 继续游戏
+	 * Date: 2020-05-10 06:06:42
+	 * 
+	 * @author 陈思祥
+	 * @return void
+	 */
+	public void gameContinue() {
+		subMenu.getContinueGame().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				subRoot.getChildren().remove(subMenu);
+			}
+		});
 	}
 }

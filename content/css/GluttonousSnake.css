@@ -195,3 +195,16 @@
 	-fx-font-size: 28px;
 	-fx-font-weight: 800;
 }
+
+#continueGame,#EXIT_TO_MainMenu
+{
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 34px;
+	-fx-font-weight: 500;
+	-fx-opacity: 0.9;
+}
+
+#continueGame:hover,#EXIT_TO_MainMenu:hover
+{
+	-fx-text-fill: #d4b600;
+}
