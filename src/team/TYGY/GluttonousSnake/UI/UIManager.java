@@ -91,6 +91,7 @@ public class UIManager implements Manager {
 		regPanel("RegisterPanel", new RegisterPanel());
 		regPanel("MainMenuPanel", new MainMenuPanel());
 		regPanel("GamePanel", new GamePanel());
+	
 	}
 	
 	/**
