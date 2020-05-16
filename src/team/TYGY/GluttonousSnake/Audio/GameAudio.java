@@ -28,7 +28,6 @@ public class GameAudio {
 		// TODO Auto-generated method stub
 		
 	}
-	
 		public void start() throws UnsupportedEncodingException
 		{
 			URL url1 = this.getClass().getClassLoader().getResource("content/music/snakebgm.wav");
