@@ -9,7 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import team.TYGY.GluttonousSnake.GameAPP.GameAPP;
 import team.TYGY.GluttonousSnake.GameAPP.Manager;
-import team.TYGY.GluttonousSnake.UI.GameOverPanel.GameOverPanel;
+import team.TYGY.GluttonousSnake.UI.GamePanel.GamePanel;
 import team.TYGY.GluttonousSnake.UI.LoadingPanel.LoadingPanel;
 import team.TYGY.GluttonousSnake.UI.LoginPanel.LoginPanel;
 import team.TYGY.GluttonousSnake.UI.MainMenuPanel.MainMenuPanel;
@@ -49,9 +49,9 @@ public class UIManager implements Manager {
 		
 		initRegister();
 		
-		gotoPanel("mainMenuPanel");											//首先切换到加载面板
+		gotoPanel("MainMenuPanel");											//首先切换到加载面板
 		System.out.println(getCurrentPanel());
-		GameAPP.root.getChildren().add(getPanel("mainMenuPanel"));			//将加载面板加到根节点上
+		GameAPP.root.getChildren().add(getPanel("MainMenuPanel"));			//将加载面板加到根节点上
 		
 		//面板切换
 		currentPanel.addListener(new ChangeListener<BasePanel>() {
@@ -60,11 +60,11 @@ public class UIManager implements Manager {
 			public void changed(ObservableValue<? extends BasePanel> observable, BasePanel oldValue, BasePanel newValue) {
 				if(oldValue != null) {
 					GameAPP.root.getChildren().remove(oldValue);
-					System.out.println("oldValue = " + oldValue);
+//					System.out.println("oldValue = " + oldValue);
 				}
 				if(newValue != null) {
 					GameAPP.root.getChildren().add(newValue);
-					System.out.println("newValue = " + newValue);
+//					System.out.println("newValue = " + newValue);
 				}
 			}
 		});
@@ -89,9 +89,7 @@ public class UIManager implements Manager {
 		regPanel("loadingPanel", new LoadingPanel());
 		regPanel("LoginPanel", new LoginPanel());
 		regPanel("RegisterPanel", new RegisterPanel());
-		regPanel("mainMenuPanel", new MainMenuPanel());
-		regPanel("gameOverPanel", new GameOverPanel());
-		
+		regPanel("MainMenuPanel", new MainMenuPanel());
 	}
 	
 	/**
