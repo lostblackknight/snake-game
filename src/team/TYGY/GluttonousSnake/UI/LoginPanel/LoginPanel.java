@@ -198,7 +198,6 @@ public class LoginPanel extends BasePanel {
 			public void handle(MouseEvent event) {
 				
 				UIManager.getUiManager().gotoPanel("RegisterPanel");
-				
 			}
 		});
 	}
