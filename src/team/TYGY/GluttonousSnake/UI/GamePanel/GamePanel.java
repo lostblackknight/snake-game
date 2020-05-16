@@ -59,6 +59,7 @@ public class GamePanel extends BasePanel{
 	@Override
 	public void start() {
 		background.addBackground();
+		
 		scorePanel.addScorePanel();
 		
 		this.getChildren().add(subRoot);

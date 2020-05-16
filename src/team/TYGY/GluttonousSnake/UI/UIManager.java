@@ -60,11 +60,11 @@ public class UIManager implements Manager {
 			public void changed(ObservableValue<? extends BasePanel> observable, BasePanel oldValue, BasePanel newValue) {
 				if(oldValue != null) {
 					GameAPP.root.getChildren().remove(oldValue);
-					System.out.println("oldValue = " + oldValue);
+//					System.out.println("oldValue = " + oldValue);
 				}
 				if(newValue != null) {
 					GameAPP.root.getChildren().add(newValue);
-					System.out.println("newValue = " + newValue);
+//					System.out.println("newValue = " + newValue);
 				}
 			}
 		});

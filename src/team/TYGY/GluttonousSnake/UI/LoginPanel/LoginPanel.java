@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import team.TYGY.GluttonousSnake.UI.BasePanel;
 import team.TYGY.GluttonousSnake.UI.UIManager;
+import team.TYGY.GluttonousSnake.UI.MainMenuPanel.MainMenuPanel;
 
 /**
  * 
@@ -169,6 +170,7 @@ public class LoginPanel extends BasePanel {
 				String password = t_password.getText(); 
 				
 				if (t_username.getUserData().equals(name) && t_password.getUserData().equals(password)) {
+					UIManager.getUiManager().regPanel("mainMenuPanel", new MainMenuPanel());
 					UIManager.getUiManager().gotoPanel("mainMenuPanel");
 					
 				}else if (name.equals("")) {
