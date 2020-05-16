@@ -16,7 +16,7 @@ public class ScorePanel extends GridPane{
 	Label score;
 	Label length_value;
 	Label score_value;
-	String length_relValue = "0";
+	String length_relValue = "3";
 	String score_relValue = "0";
 	
 	public ScorePanel(AnchorPane subRoot) {

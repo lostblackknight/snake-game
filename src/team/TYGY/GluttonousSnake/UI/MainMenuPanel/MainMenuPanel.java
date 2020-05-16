@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import team.TYGY.GluttonousSnake.GameAPP.GameAPP;
 import team.TYGY.GluttonousSnake.UI.BasePanel;
+import team.TYGY.GluttonousSnake.UI.UIManager;
+import team.TYGY.GluttonousSnake.UI.GamePanel.GamePanel;
 
 /**
  * 
@@ -37,7 +39,7 @@ public class MainMenuPanel extends BasePanel {
 	private AdventureMenuBox adventureMenuBox;
 	private AdventureMenuItems adventureMenuItems;
 	private OptionsMenuBox optionsMenuBox;
-	
+
 	private HashMap<String,Pane> boxMap = new HashMap<String, Pane>();
 	private ObjectProperty<Pane> currentBox = new SimpleObjectProperty<Pane>();
 	
@@ -171,7 +173,45 @@ public class MainMenuPanel extends BasePanel {
 	
 	@Override
 	public void stop() {
+		leiSureMenuItems.getMenuItems().get("NEW_GAME").setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				UIManager.getUiManager().delPanel("MainMenuPanel");
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel());
+				UIManager.getUiManager().gotoPanel("GamePanel");
+			}
+		});
 		
+		leiSureMenuItems.getMenuItems().get("CONTINUE").setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				UIManager.getUiManager().delPanel("MainMenuPanel");
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel());
+				UIManager.getUiManager().gotoPanel("GamePanel");
+			}
+		});
+		
+		adventureMenuItems.getMenuItems().get("NEW_GAME").setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				UIManager.getUiManager().delPanel("MainMenuPanel");
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel());
+				UIManager.getUiManager().gotoPanel("GamePanel");
+			}
+		});
+		
+		adventureMenuItems.getMenuItems().get("CONTINUE").setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				UIManager.getUiManager().delPanel("MainMenuPanel");
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel());
+				UIManager.getUiManager().gotoPanel("GamePanel");
+			}
+		});
 	}
 	
 	public void gotoBox(String boxName) {

@@ -12,7 +12,8 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.AnchorPane;  
+
 
 import team.TYGY.GluttonousSnake.Animation.Map;
 import team.TYGY.GluttonousSnake.Animation.NPC.Food;
@@ -26,6 +27,7 @@ public class GamePanel extends BasePanel{
 	private AnchorPane subRoot;
 	private Background background;
 	private ScorePanel scorePanel;
+	
 	private SubMenu subMenu;
 	private GameOverPanel gameOverPanel;
 	

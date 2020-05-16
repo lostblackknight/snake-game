@@ -26,4 +26,20 @@ public class Title {
 	public void addTitle() {
 		subRoot.getChildren().add(iv);
 	}
+
+	public Image getIm() {
+		return im;
+	}
+
+	public void setIm(Image im) {
+		this.im = im;
+	}
+
+	public ImageView getIv() {
+		return iv;
+	}
+
+	public void setIv(ImageView iv) {
+		this.iv = iv;
+	}
 }

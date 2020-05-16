@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class Background {
 
-	AnchorPane subRoot;
+	private AnchorPane subRoot;
 	private Image im;
 	private ImageView iv;
 	
