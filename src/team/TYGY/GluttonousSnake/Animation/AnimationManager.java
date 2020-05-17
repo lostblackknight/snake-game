@@ -1,5 +1,6 @@
 package team.TYGY.GluttonousSnake.Animation;
 
+
 /**
  * 
  * @ClassName: AnimationManager
@@ -20,5 +21,13 @@ public class AnimationManager {
 
 	public static AnimationManager getAnimationManager() {
 		return animationManager;
+	}
+	
+	public void onLaunch() {
+		
+		
+	}
+	public void onFinish() {
+		System.out.println("Animation管理器退出");
 	}
 }

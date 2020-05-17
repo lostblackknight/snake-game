@@ -32,7 +32,7 @@ public class GameAPP extends Application {
 	public void init() throws Exception {
 		root = new AnchorPane();
 		scene = new Scene(root);
-		
+//		AnimationManager.getAnimationManager().onLaunch();
 		UIManager.getUiManager().onLaunch();
 	}
 
@@ -52,7 +52,8 @@ public class GameAPP extends Application {
 
 	@Override
 	public void stop() throws Exception {
-		UIManager.getUiManager().onFinish();
+//		AnimationManager.getAnimationManager().onFinish();
+          UIManager.getUiManager().onFinish();
 		System.out.println("应用退出");
 	}
 }
