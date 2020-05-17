@@ -6,16 +6,15 @@ import java.net.URLDecoder;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-
-
 /**
  * 
- * @ClassName: GameAudio
- * @Description: TODO 
- * @author: 陈思祥
- * @version: 1.3
- * @date: 2020年4月10日-下午9:20:33
+ * ClassName: GameAudio
+ * Description: TODO 
+ * Date: 2020-05-17 10:08:07
+ * 
+ * @author 陈思祥
+ * @version 1.3
+ * @since JDK 1.8
  *
  */
 public class GameAudio {
