@@ -1,19 +1,11 @@
 
-/*<------------------------------------以下是LoginPanelPanel部分------------------------------------> */
+/*<-----------------------以下是LoginPanelPanel、RegisterPanel和ForgotPanel的CSS样式-----------------------> */
 
-#rectangle
+#loginBox,#registerBox,#forgotBox
 {
 	-fx-background-color: #3C3C3C;
-	-fx-opacity: 0.7;
+	-fx-opacity: 0.9;
 	-fx-background-radius: 20 20 20 20;
-}
-
-#l_title
-{
-	-fx-text-fill: #d0d0d0;
-	-fx-font-weight: bold;
-	-fx-font-size: 24px;
-
 }
 
 #t_username,#t_password,#t_mobilePhone
@@ -24,32 +16,61 @@
 	-fx-text-fill: white;
 }
 
-#register,#back
+#l_title
+{
+	-fx-text-fill: #d0d0d0;
+	-fx-font-weight: bold;
+	-fx-font-size: 24px;
+}
+
+#l_fail_username,#l_fail_password,#l_fail_mobilePhone,#l_login_fail
+{
+	-fx-text-fill: 	rgb(255, 91, 91);
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+}
+
+#l_tip1,#l_tip2,#l_tip3
+{
+	-fx-text-fill: 	#53FF53;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+}
+
+#l_msg
+{
+	-fx-text-fill: #84C1FF;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+}
+
+#back
 {
 	-fx-text-fill: white;
 	-fx-font-weight: 600;
 	-fx-font-size: 14px;
 }
 
-#register:hover
+#register
 {
-	-fx-text-fill: #FFFF37;
-}
-
-#back:hover
-{
-	-fx-text-fill: #FFFF37;
-}
-
-#l_fail,#l_fail_username,#l_fail_password
-{
-	-fx-text-fill: #84C1FF;
+	-fx-text-fill: #87CEFA;
 	-fx-font-weight: 600;
 	-fx-font-size: 14px;
-
 }
 
-#b_signIn,#b_signUp
+#forgot_password
+{
+	-fx-text-fill: #53FF53;
+	-fx-font-weight: 600;
+	-fx-font-size: 14px;
+}
+
+#register:hover,#back:hover,#forgot_password:hover
+{
+	-fx-text-fill: #FFFF37;
+}
+
+#b_signIn,#b_signUp,#b_lookUp
 {
 	-fx-text-fill: white;
 	-fx-font-weight: 700;
@@ -58,41 +79,12 @@
  	-fx-background-radius: 50 50 50 50;
 }
 
-#b_signIn:hover
+#b_signIn:hover,#b_signUp:hover,#b_lookUp:hover
 {
 	-fx-text-fill: #FFFF37;
 }
 
-#b_signUp:hover
-{
-	-fx-text-fill: #FFFF37;
-}
-
-#r_l_success
-{
-	-fx-text-fill: #84C1FF;
-	-fx-font-weight: 600;
-	-fx-font-size: 14px;
-
-}
-
-#r_l_fail,#r_l_fail_username,#r_l_fail_password,#r_l_fail_number
-{
-	-fx-text-fill: 	#ff7575;
-	-fx-font-weight: 600;
-	-fx-font-size: 14px;
-
-}
-
-#r_l_tip1,#r_l_tip2,#r_l_tip3
-{
-	-fx-text-fill: 	#53FF53;
-	-fx-font-weight: 600;
-	-fx-font-size: 14px;
-
-}
-
-/*<------------------------------------以下是MainMenuPanel部分------------------------------------> */
+/*<--------------------------------以下是MainMenuPanel的CSS样式--------------------------------> */
 
 #LEISURE,#ADVENTURE
 {
@@ -181,7 +173,8 @@
 	-fx-font-weight: 800;
 }
 
-/*<------------------------------------以下是GamePanel部分------------------------------------> */
+/*<----------------------------------以下是GamePanel的CSS样式----------------------------------> */
+
 #ScorePanel
 {
 	-fx-background-color: #ffffff;
