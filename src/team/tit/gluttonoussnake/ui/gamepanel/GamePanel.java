@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import team.tit.gluttonoussnake.animation.Map;
 import team.tit.gluttonoussnake.animation.npc.Food;
 import team.tit.gluttonoussnake.animation.npc.Wall;
@@ -62,6 +66,10 @@ public class GamePanel extends BasePanel{
 		int anjian;
 		Wall wall=new Wall();
 		protected GameState mGameState;
+		private Timeline timeline;
+		private KeyFrame keyFrame;
+		private int duration = 10;
+		Thread thread;
 	
 	
 	public GamePanel() {
@@ -119,30 +127,21 @@ public class GamePanel extends BasePanel{
 				subRoot.getChildren().add(canvas);
 				this.getChildren().add(subRoot);
 				
-		//animationtimer1
-				 at1=new AnimationTimer() {		
-					@Override
-					public void handle(long now)
-					{				
-						draw(gc);
-						drawupdate();	
-					}
-				};
-			
-		//animationtimer1开始	
-				at1.start();
+		//线程              
+                thread = new Thread() {              	 
+                   @Override
+                   public void run() 
+                   {                   
+                   	drawupdate();                                      	           	
+                   }        
+               };              
+               initTimeLine();
+                timeline.play();
+                thread.start();  
 				mGameState= GameState.GAME_START;
 				
-		//加入监听
-			GameAPP.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-							@Override
-							public void handle(KeyEvent event)
-							{                        
-								onKeyPressed(event);	
-							}		
-						});
-			GameAPP.scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+//加入监听
+			subRoot.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
 							@Override
 							public void handle(KeyEvent event)
@@ -152,6 +151,19 @@ public class GamePanel extends BasePanel{
 							}			
 						});
 	}
+	
+//时间线 用于画东西
+		private void initTimeLine() {
+			timeline = new Timeline();
+			timeline.setCycleCount(Timeline.INDEFINITE);
+			keyFrame = new KeyFrame(Duration.millis(duration), new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					draw(gc);				
+				}
+			});
+			timeline.getKeyFrames().add(keyFrame);
+		}		
 
 	@Override
 	public void update() {
@@ -217,6 +229,9 @@ public class GamePanel extends BasePanel{
 
 			@Override
 			public void handle(KeyEvent event) {
+				//控制蛇转向的监听
+				onKeyPressed(event);
+				//控制游戏暂停
 				if (event.getCode() == KeyCode.ESCAPE && flag == false) {
 					subRoot.getChildren().add(subMenu);
 					flag =true;
@@ -265,24 +280,22 @@ public class GamePanel extends BasePanel{
 	//更新
 	
 		public void drawupdate() {			  
-			if(snake.isLife()) {
-				if(snake.isPause() == false) {
+			while(snake.isLife()) {
+				if(snake.isPause() == false) 
+				{
 					if(food.isFoodEated(snake)) {
 						snake.eatFood();
 						food.newFood(food);
 					}
 					snake.move(snake);
-					draw(gc);
 					if(snake.isEatBody()||wall.isKnockWall(snake)) {				
 						at1.stop();
 						snake.die();											
 						mGameState= GameState.GAME_END;
 						//跳转到游戏结束界面	
 						System.out.println("gameover");
-					}				
-					
-				}
-			}
+					}									
+				}			
 			try
 			{
 				Thread.sleep(snake.getSleepTime());
@@ -291,7 +304,8 @@ public class GamePanel extends BasePanel{
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}			
+			}	
+			}		
 		}
 	
 	
@@ -324,7 +338,7 @@ public class GamePanel extends BasePanel{
 					}		
 				snake.ismove=1;
 				break;
-			case SPACE :
+			case  ESCAPE:
 				if(snake.isPause()==true) {
 					snake.setPause(false);
 					mGameState= GameState.GAME_CONTINUE;
