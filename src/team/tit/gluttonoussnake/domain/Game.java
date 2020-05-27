@@ -2,6 +2,7 @@ package team.tit.gluttonoussnake.domain;
 
 
 import team.tit.gluttonoussnake.animation.npc.Food;
+import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.animation.player.Snake;
 
 /**
@@ -17,16 +18,16 @@ public class Game {
 
 	private int uid;		//用户的id
 	private int type;		//游戏模式的游戏类型(0:表示休闲模式，1：表示冒险模式)
-	private int sid;		//1:休闲模式的蛇 2.冒险模式的蛇
-	private int fid;		//1:休闲模式的蛇 2.冒险模式的蛇
-	private int mid;		//1：地图1 2：地图2 3：地图3 4：地图4
+	private int sid;
+	private int fid;
+	private int wid;		//1：地图1 2：地图2 3：地图3 4：地图4
 	
 	private Snake sanke;
 	private Food food;
+	private Wall wall;
 
 	
 	public Game() {
-		
 	}
 	
 	public Game(int uid, int type) {
@@ -34,14 +35,12 @@ public class Game {
 		this.type = type;
 	}
 	
-	
-	
 	public Game(int uid, int type, int sid, int fid, int mid) {
 		this.uid = uid;
 		this.type = type;
 		this.sid = sid;
 		this.fid = fid;
-		this.mid = mid;
+		this.wid = mid;
 	}
 	
 	public Game(int uid, int type, int sid, int fid, int mid, Snake sanke, Food food) {
@@ -49,7 +48,7 @@ public class Game {
 		this.type = type;
 		this.sid = sid;
 		this.fid = fid;
-		this.mid = mid;
+		this.wid = mid;
 		this.sanke = sanke;
 		this.food = food;
 
@@ -58,43 +57,72 @@ public class Game {
 	public int getUid() {
 		return uid;
 	}
+	
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
+	
 	public int getType() {
 		return type;
 	}
+	
 	public void setType(int type) {
 		this.type = type;
 	}
+	
 	public int getSid() {
 		return sid;
 	}
+	
 	public void setSid(int sid) {
 		this.sid = sid;
 	}
+	
 	public int getFid() {
 		return fid;
 	}
+	
 	public void setFid(int fid) {
 		this.fid = fid;
 	}
+	
 	public int getMid() {
-		return mid;
+		return wid;
 	}
+	
 	public void setMid(int mid) {
-		this.mid = mid;
+		this.wid = mid;
 	}
+	
 	public Snake getSanke() {
 		return sanke;
 	}
+	
 	public void setSanke(Snake sanke) {
 		this.sanke = sanke;
 	}
+	
 	public Food getFood() {
 		return food;
 	}
+	
 	public void setFood(Food food) {
 		this.food = food;
+	}
+
+	public Wall getWall() {
+		return wall;
+	}
+
+	public void setWall(Wall wall) {
+		this.wall = wall;
+	}
+
+	public int getWid() {
+		return wid;
+	}
+
+	public void setWid(int wid) {
+		this.wid = wid;
 	}
 }

@@ -19,7 +19,7 @@ import team.tit.gluttonoussnake.dao.MapDao;
 public class MapDaoImpl implements MapDao {
 
 	@Override
-	public ArrayList<Point> findByMid(int mid) {
+	public ArrayList<Point> findByWid(int wid) {
 		// TODO 通过mid查询地图表
 		
 		

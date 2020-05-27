@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import team.tit.gluttonoussnake.animation.info.GameInfo;
 import team.tit.gluttonoussnake.animation.npc.Food;
 import team.tit.gluttonoussnake.animation.npc.Grid;
+import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.animation.player.Snake.DIR;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
@@ -31,6 +32,7 @@ public class GameScreen extends GScreen {
 	GameInfo info = new GameInfo();
 	Snake snake = new Snake();
 	Food food = new Food();
+	Wall wall = new Wall();
 	SubMenu subMenu;
 	AnchorPane subRoot;
 	private GameOverPanel gameOverPanel;
@@ -43,6 +45,7 @@ public class GameScreen extends GScreen {
 		addObject(grid);
 		addObject(info);
 		addObject(food);
+		addObject(wall);
 		addObject(snake);
 	}
 	
@@ -129,6 +132,7 @@ public class GameScreen extends GScreen {
 				super.update();
 				eatFood(snake);
 				eatBody(snake);
+				eatWall(snake);
 			}
 			try {
 				Thread.sleep(snake.getSleepTime());
@@ -156,8 +160,9 @@ public class GameScreen extends GScreen {
 	}
 	
 	public void eatWall(Snake snake) {
-		if (snake.isEatWall()) {
+		if (snake.isEatWall(wall)) {
 			gameState = GameState.GAME_END;
+			loadSnakeDeathAudio();
 		}
 	}
 	

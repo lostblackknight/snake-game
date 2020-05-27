@@ -22,6 +22,6 @@ public interface MapDao {
 	 * @param mid
 	 * @return
 	 */
-	ArrayList<Point> findByMid(int mid);
+	ArrayList<Point> findByWid(int wid);
 
 }

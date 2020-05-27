@@ -20,7 +20,6 @@ import team.tit.gluttonoussnake.animation.BaseObject;
  */
 public class GameInfo extends BaseObject {
 
-	private boolean isLive;
 	private int score = 0;
 	private int length = 2;
 	
@@ -47,14 +46,6 @@ public class GameInfo extends BaseObject {
 	@Override
 	public void update() {
 		
-	}
-	
-	public boolean isLive() {
-		return isLive;
-	}
-	
-	public void setLive(boolean isLive) {
-		this.isLive = isLive;
 	}
 	
 	public int getScore() {

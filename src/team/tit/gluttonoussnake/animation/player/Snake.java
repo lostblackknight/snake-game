@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import team.tit.gluttonoussnake.animation.BaseObject;
 import team.tit.gluttonoussnake.animation.npc.Food;
+import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.util.MyUtils;
 
 
@@ -184,7 +185,18 @@ public class Snake extends BaseObject {
 		return false;
 	}
 	
-	public boolean isEatWall() {
+	public boolean isEatWall(Wall wall) {
+		int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
+		int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
+		int x1 = wall.getX() * wall.getWidth() + (wall.getWidth() >> 1);
+		int y1 = wall.getY() * wall.getHeight() + (wall.getHeight() >> 1);
+		int w = (getWidth() + wall.getWidth()) >> 1;
+		int h = (getHeight() + wall.getHeight()) >> 1;
+		int disCurrent = MyUtils.distance(x0, y0, x1, y1);
+		int disCrashed = MyUtils.distance(w, h);
+		if (disCurrent < disCrashed) {
+			return true;
+		}
 		return false;
 	}
 	

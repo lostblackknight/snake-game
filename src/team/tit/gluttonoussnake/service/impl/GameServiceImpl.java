@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import team.tit.gluttonoussnake.animation.npc.Food;
+import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
 import team.tit.gluttonoussnake.dao.FoodDao;
@@ -55,8 +56,8 @@ public class GameServiceImpl implements GameService {
 		//2.1获取蛇头
 		Snake snake = snakeDao.findBySid(g.getSid());
 		//2.2获取蛇身体
-		LinkedList<SnakeNode> body = snakeBodyDao.findBodyBySid(g.getSid());
-//		snake.setBody(body);
+		LinkedList<SnakeNode> list = snakeBodyDao.findBodyBySid(g.getSid());
+		snake.setList(list);
 		g.setSanke(snake);
 		
 		//3.获取食物对象
@@ -64,10 +65,11 @@ public class GameServiceImpl implements GameService {
 		g.setFood(food);
 		
 		//4.获取地图对象
-		ArrayList<Point> wall = mapDao.findByMid(g.getMid());
-//		Map map = new Map(g.getMid(),wall);
-//		g.setMap(map);
-		
+		ArrayList<Point> wall = mapDao.findByWid(g.getMid());
+		Wall w = new Wall();
+		w.setId(g.getWid());
+		w.setPoints(wall);
+		g.setWall(w);
 		return g;
 	}
 
