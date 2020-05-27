@@ -1,250 +1,250 @@
 package team.tit.gluttonoussnake.animation.player;
 
-import static team.tit.gluttonoussnake.animation.ConstantUtil.DOWN;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.LEFT;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.RIGHT;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.SNAKE_CELL_SIZE;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.SNAKE_GRID_H;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.SNAKE_GRID_W;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.UP;
+import static team.tit.gluttonoussnake.constant.Constant.DEFAULT_LENGTH;
+import static team.tit.gluttonoussnake.constant.Constant.GRID_H;
+import static team.tit.gluttonoussnake.constant.Constant.GRID_SIZE;
+import static team.tit.gluttonoussnake.constant.Constant.GRID_W;
+import static team.tit.gluttonoussnake.constant.Constant.ROOT_PANEL_H;
+import static team.tit.gluttonoussnake.constant.Constant.ROOT_PANEL_W;
+import static team.tit.gluttonoussnake.constant.Constant.SNAKE_H;
+import static team.tit.gluttonoussnake.constant.Constant.SNAKE_W;
 
 import java.util.LinkedList;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import team.tit.gluttonoussnake.animation.player.SnakeNode;
+import team.tit.gluttonoussnake.animation.BaseObject;
+import team.tit.gluttonoussnake.animation.npc.Food;
+import team.tit.gluttonoussnake.util.MyUtils;
 
 
-public class Snake {
+public class Snake extends BaseObject {
 	
+	public enum DIR {
+		UP, DOWN, LEFT, RIGHT
+	};
 	
-	private int sid;
-	private LinkedList<SnakeNode> body;		                        //存储蛇的链表结构
-	private int snakeHeadX;
-	private int snakeHeadY;
-	private boolean life;											//是否活着
-	private boolean pause;											//是否暂停游戏
-	private int foodCount;											//吃掉食物的数量
-	private SnakeNode oldTail;										//旧的尾巴（在吃掉食物的时候使用）
-	private Color headColor;										//头的颜色
-	private Color bodyColor;										//身体的颜色
-	private int sleepTime;											//控制蛇的速度
-	public int ismove=0;                                            //用来判断蛇是否移动（处理连续快速转向BUG）
-
+	private LinkedList<SnakeNode> list = new LinkedList<SnakeNode>();		//蛇的节点
+	private DIR dir;														//蛇的方向
+	private int length;														//蛇的长度
+	private Color color;													//蛇的颜色
+	private int sleepTime;													//控制蛇的速度
+	private SnakeNode tail;
+	private boolean isEnough;
+	
 	public Snake() {
-	  body = new LinkedList<SnakeNode>();
 		init();
-		
 	}
 	
-	public LinkedList<SnakeNode> getBody() {
-		return body;
-	}
-
-	public void setBody(LinkedList<SnakeNode> body) {
-		this.body = body;
-	}
-
-
-	public Snake(int sid) {
-		this.sid = sid;
+	public Snake(int id, int x, int y) {
+		this.id = id;
+		this.x = x;
+		this.y = y;
 	}
 	
-	public Snake(int sid, int snakeHeadX, int snakeHeadY) {
-		super();
-		this.sid = sid;
-		this.snakeHeadX = snakeHeadX;
-		this.snakeHeadY = snakeHeadY;
+	public Snake(int id, LinkedList<SnakeNode> list) {
+		this.id = id;
+		this.list = list;
 	}
 
-	public int getSnakeHeadX() {
-		return snakeHeadX;
-	}
-
-	public void setSnakeHeadX(int snakeHeadX) {
-		this.snakeHeadX = snakeHeadX;
-	}
-
-	public int getSnakeHeadY() {
-		return snakeHeadY;
-	}
-
-	public void setSnakeHeadY(int snakeHeadY) {
-		this.snakeHeadY = snakeHeadY;
-	}
-
-	public int getSid() {
-		return sid;
-	}
-
-
-	public void setSid(int sid) {
-		this.sid = sid;
-	}
-
-
-	//初始化
-	private void init() {
-		int x = SNAKE_GRID_W>>1;												//相当于SNAKE_GRID_W/2
-		int y = SNAKE_GRID_H>>1;												//相当于SNAKE_GRID_H/2
-		for (int i = 0; i < 3; i++) {
-			body.addLast(new SnakeNode(x, y, RIGHT));
-			x--;
+	@Override
+	public void init() {
+		super.init();
+		setX((GRID_W >> 1) * GRID_SIZE);
+		setY((GRID_H >> 1) * GRID_SIZE);
+		setWidth(SNAKE_W);
+		setHeight(SNAKE_H);
+		setDir(DIR.RIGHT);
+		setLength(DEFAULT_LENGTH);
+		for (int i = 0; i < getLength(); i++) {
+			list.addLast(new SnakeNode(getX(), getY()));
+			x = x - getWidth();
 		}
-		foodCount = 0;
-		life = true;
-		pause = false;
-		if(sleepTime==0) {
-			sleepTime = 300;
+		if (sleepTime == 0) {
+			setSleepTime(300);
 		}
 	}
 	
-	
-//清空蛇的节点的方法（用来开始一次新的游戏）
-	public void clear() {
-		body.clear();
+	@Override
+	public void draw(GraphicsContext gc) {
+		for (int i = 1; i < list.size(); i++) {
+			gc.setFill(Color.WHITE);
+			gc.fillOval(list.get(i).getX(), list.get(i).getY(), SNAKE_W, SNAKE_H);
+		}
+		gc.setFill(Color.YELLOW);
+		gc.fillOval(getHead().getX(), getHead().getY(), SNAKE_W, SNAKE_H);
+		setX(getHead().getX());
+		setY(getHead().getY());
 	}
-	
-	
-//蛇死亡
-	public void die() {
-		life = false;
-	}
-	
-	
-//获取蛇的头节点
-	public SnakeNode getHead() {
-		return body.getFirst();
-	}
-	
-	
-	//蛇移动的方法，通过去尾加头的方法实现蛇的移动
-	public void move(Snake snake) {
-		oldTail = body.removeLast();	
-		//去掉尾节点
-		int x = body.getFirst().getX();
-		int y = body.getFirst().getY();		
-		switch (getHead().getDir()) {
+
+	@Override
+	public void update() {
+		int x = getHead().getX();
+		int y = getHead().getY();
+		switch (dir) {
 		case UP:
-			y=y-1;
-			//System.out.println("move1");
-			/**
-			 * 解决越界问题，以下类同
-			 */
-			if(y<0) {
-				y = SNAKE_GRID_H -1;
+			y = y - GRID_SIZE;
+			if (y < 0) {
+				y = ROOT_PANEL_H - GRID_SIZE;
 			}
 			break;
 		case DOWN:
-			y=y+1;
-			//System.out.println("move1");
-			if(y >= SNAKE_GRID_H) {
+			y = y + GRID_SIZE;
+			if (y > ROOT_PANEL_H - GRID_SIZE) {
 				y = 0;
 			}
 			break;
 		case LEFT:
-			x=x-1;
-			//System.out.println("move1");
-			if(x < 0) {
-				x = SNAKE_GRID_W -1;
+			x = x - GRID_SIZE;
+			if (x < 0) {
+				x = ROOT_PANEL_W - GRID_SIZE;
 			}
 			break;
 		case RIGHT:
-			x=x+1;
-			if(x >= SNAKE_GRID_W) {
+			x = x + GRID_SIZE;
+			if (x > ROOT_PANEL_W - GRID_SIZE) {
 				x = 0;
 			}
 			break;
+		default:
+			break;
 		}
-		SnakeNode newhead = new SnakeNode(x, y, getHead().getDir());
-		body.addFirst(newhead);				//增加头结点
-        snake.ismove=0;
+		isEnough = true;
+		tail = list.removeLast();
+		SnakeNode newHead = new SnakeNode(x, y);
+		list.addFirst(newHead);
+	}	
+	
+	/**
+	 * 键盘监听，改变蛇的方向
+	 * @param event
+	 */
+	public void onKeyPressed(KeyEvent event) {
+		KeyCode tmpCode = event.getCode();
+		// 如果反方向那么不处理，蛇不会掉头
+		if ((tmpCode == KeyCode.W && dir == DIR.DOWN)
+				|| (tmpCode == KeyCode.S && dir == DIR.UP)
+				|| (tmpCode == KeyCode.D && dir == DIR.LEFT)
+				|| (tmpCode == KeyCode.A && dir == DIR.RIGHT)) {
+			return;
+		}
+		updateDir(tmpCode);
 	}
 	
-	
-//蛇吃到食物后身体变长
-	public void eatFood() {		
-		body.addLast(oldTail);
-		foodCount++;
+	public void updateDir(KeyCode code) {
+		if (isEnough()) {
+			if (code == KeyCode.W) {
+				dir = DIR.UP;
+			} else if (code == KeyCode.S) {
+				dir = DIR.DOWN;
+			} else if (code == KeyCode.A) {
+				dir = DIR.LEFT;
+			} else if (code == KeyCode.D) {
+				dir = DIR.RIGHT;
+			} else if (code == KeyCode.U) {
+				if (getSleepTime() != 50) {
+					setSleepTime(50);
+				}
+			} else if (code == KeyCode.I) {
+				if (getSleepTime() != 550) {
+					setSleepTime(550);
+				}
+			}
+			setEnough(false);
+		}
 	}
 	
+	public void grow() {
+		list.add(tail);
+		length = length + 1;
+	}
 	
-//判断蛇是否吃到了自己的身体
+	public boolean isEatFood(Food food) {
+		int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
+		int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
+		int x1 = food.getX() * food.getWidth() + (food.getWidth() >> 1);
+		int y1 = food.getY() * food.getHeight() + (food.getHeight() >> 1);
+		int w = (getWidth() + food.getWidth()) >> 1;
+		int h = (getHeight() + food.getHeight()) >> 1;
+		int disCurrent = MyUtils.distance(x0, y0, x1, y1);
+		int disCrashed = MyUtils.distance(w, h);
+		if (disCurrent < disCrashed) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean isEatBody() {
-		for(int i=1;i<body.size();i++) {
-			if(body.get(i).getX() == getHead().getX() && body.get(i).getY() == getHead().getY()) 
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i).getX() == getHead().getX() && list.get(i).getY() == getHead().getY())
 				return true;
-		}	
-			return false;	
-	}
-	
-	
-	//画蛇头
-	public void paintHead(GraphicsContext gc) {
-		
-//		Color color = Color.web("#38a3fd", 1.0);
-//		gc.setFill(color);
-		gc.setFill(Color.YELLOW);
-		gc.fillOval(body.getFirst().getX()*SNAKE_CELL_SIZE, body.getFirst().getY()*SNAKE_CELL_SIZE,
-				SNAKE_CELL_SIZE, SNAKE_CELL_SIZE);
-	}
-	
-	
-//画蛇
-	public void paintSnake(GraphicsContext gc) {
-		for (int i = 1; i < body.size(); i++) {
-			gc.setFill(Color.WHITE);
-
-					//注释掉的时原来画的蛇
-			gc.fillRect(body.get(i).getX()*SNAKE_CELL_SIZE, body.get(i).getY()*SNAKE_CELL_SIZE, 
-					SNAKE_CELL_SIZE, SNAKE_CELL_SIZE);
 		}
-		paintHead(gc);
-	}		
+		return false;
+	}
 	
+	public boolean isEatWall() {
+		return false;
+	}
 	
+	public SnakeNode getHead() {
+		return list.getFirst();
+	}
 	
-	
-	public boolean isLife() {
-		return life;
+	public LinkedList<SnakeNode> getList() {
+		return list;
 	}
-	public void setLife(boolean life) {
-		this.life = life;
+
+	public void setList(LinkedList<SnakeNode> list) {
+		this.list = list;
 	}
-	public boolean isPause() {
-		return pause;
+
+	public DIR getDir() {
+		return dir;
 	}
-	public void setPause(boolean pause) {
-		this.pause = pause;
+
+	public void setDir(DIR dir) {
+		this.dir = dir;
 	}
-	public Color getHeadColor() {
-		return headColor;
+
+	public Color getColor() {
+		return color;
 	}
-	public void setHeadColor(Color headColor) {
-		this.headColor = headColor;
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
-	public Color getBodyColor() {
-		return bodyColor;
-	}
-	public void setBodyColor(Color bodyColor) {
-		this.bodyColor = bodyColor;
-	}
-	public int getFoodCount() {
-		return foodCount;
-	}
-	public void setFoodCount(int foodCount) {
-		this.foodCount = foodCount;
-	}
-	public SnakeNode getOldTail() {
-		return oldTail;
-	}
-	public void setOldTail(SnakeNode oldTail) {
-		this.oldTail = oldTail;
-	}
+
 	public int getSleepTime() {
 		return sleepTime;
 	}
+
 	public void setSleepTime(int sleepTime) {
 		this.sleepTime = sleepTime;
+	}
+
+	public int getLength() {
+		return this.length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public SnakeNode getTail() {
+		return tail;
+	}
+
+	public void setTail(SnakeNode tail) {
+		this.tail = tail;
+	}
+	
+	public boolean isEnough() {
+		return isEnough;
+	}
+
+	public void setEnough(boolean isEnough) {
+		this.isEnough = isEnough;
 	}
 }

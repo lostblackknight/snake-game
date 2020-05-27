@@ -1,10 +1,5 @@
 package team.tit.gluttonoussnake.util;
 
-import static team.tit.gluttonoussnake.animation.ConstantUtil.GAME_PANEL_H;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.GAME_PANEL_W;
-import static team.tit.gluttonoussnake.animation.ConstantUtil.SNAKE_CELL_SIZE;
-
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 public class MyUtils
 {
@@ -35,14 +30,8 @@ public class MyUtils
 		int disY = y0 - y1;
 		return (int)Math.sqrt(disX * disX + disY * disY);
 	}
-	//画网格
-	public void paintGrid(GraphicsContext gc) {
-		gc.setStroke(Color.WHITE);
-		for (int i = 0; i < GAME_PANEL_W/20; i++) {
-			gc.strokeLine(i*SNAKE_CELL_SIZE, 0, i*SNAKE_CELL_SIZE, GAME_PANEL_H);
-		}
-		for (int i = 0; i < GAME_PANEL_H/20; i++) {
-			gc.strokeLine(0, i*SNAKE_CELL_SIZE, GAME_PANEL_W, i*SNAKE_CELL_SIZE);
-		}
+	
+	public static int distance(int width, int height) {
+		return (int)Math.sqrt(width * width + height * height);
 	}
 } 

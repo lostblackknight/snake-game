@@ -1,5 +1,11 @@
 package team.tit.gluttonoussnake.ui.gamepanel;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import team.tit.gluttonoussnake.util.URLUtils;
+
 /**
  * 游戏结束面板
  * @author 陈思祥
@@ -9,6 +15,30 @@ package team.tit.gluttonoussnake.ui.gamepanel;
  * @version 1.4
  * @since JDK1.8 2020年5月23日
  */
-public class GameOverPanel {
+public class GameOverPanel extends GridPane {
+
+	private Label gameover;
+	private Label l_tip;
 	
+	public GameOverPanel() {
+		init();
+	}
+	
+	@SuppressWarnings("static-access")
+	public void init() {
+		gameover = new Label("游戏结束");
+		l_tip = new Label("请按ESC键回到主菜单");
+		
+		gameover.setId("gameover");
+		l_tip.setId("l_tip");
+		
+		this.setMargin(l_tip, new Insets(0, 0, 0, 8));
+		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.setStyle("-fx-background-color: #000000;-fx-background-radius: 20 20 20 20;");
+		this.setPrefSize(400, 200);
+		this.setAlignment(Pos.CENTER);
+		this.setVgap(10);
+		this.add(gameover, 0, 0);
+		this.add(l_tip, 0, 3);
+	}
 }

@@ -2,8 +2,6 @@ package team.tit.gluttonoussnake.ui.mainmenupanel;
 
 import java.util.HashMap;
 
-import javax.sound.midi.Soundbank;
-
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,7 +14,6 @@ import javafx.scene.layout.Pane;
 import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.domain.ResultInfo;
 import team.tit.gluttonoussnake.domain.User;
-import team.tit.gluttonoussnake.gameapp.GameAPP;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.manager.impl.UIManager;
 import team.tit.gluttonoussnake.service.GameService;
@@ -47,17 +44,16 @@ public class MainMenuPanel extends BasePanel {
 	private OptionsMenuBox optionsMenuBox;
 	private HashMap<String,Pane> boxMap = new HashMap<String, Pane>();
 	private ObjectProperty<Pane> currentBox = new SimpleObjectProperty<Pane>();
-	private ResultInfo logInfo;
-	private ResultInfo mainInfo = null;
+	private ResultInfo infoLogin;
+	private ResultInfo infoMain = null;
 	
 	public MainMenuPanel() {
 	}
 
 	public MainMenuPanel(ResultInfo info) {
-		this.logInfo = info;
+		this.infoLogin = info;
 	}
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public void init() {
 		//1.实例化对象
@@ -80,14 +76,6 @@ public class MainMenuPanel extends BasePanel {
 		
 		//3.首先切换到主菜单盒子
 		gotoBox("menuBox");
-		GameAPP.root.setLeftAnchor(this, 0.0);
-		GameAPP.root.setRightAnchor(this, 0.0);
-		GameAPP.root.setTopAnchor(this, 0.0);
-		GameAPP.root.setBottomAnchor(this, 0.0);
-		this.setLeftAnchor(subRoot, 0.0);
-		this.setRightAnchor(subRoot, 0.0);
-		this.setTopAnchor(subRoot, 0.0);
-		this.setBottomAnchor(subRoot, 0.0);
 		
 		//4.音频
 		loadMainMenuAudio();
@@ -202,8 +190,6 @@ public class MainMenuPanel extends BasePanel {
 				// TODO 加载用户的游戏数据
 				
 				//1.注册游戏面板
-//				User user = (User)logInfo.getData();
-//				int id = user.getUid();
 				UIManager.getUiManager().regPanel("GamePanel", new GamePanel());
 				
 				//2.切换到游戏面板
@@ -229,26 +215,27 @@ public class MainMenuPanel extends BasePanel {
 				 * 6.找到设置数据库中的数据
 				 */
 				
-				//1.获取用户的uid和设置游戏类型为0
-				User u = (User)logInfo.getData();
-				int uid = u.getUid();
-				int type = 0;
-				
-				//2.封装数据
-				Game game = new Game(uid,type);
-				
-				//3.调用service完成查询游戏数据，返回一个game对象
-				GameService service = new GameServiceImpl();
-				boolean flag = service.haveOldData(game);
-				Game g = null;
-				if (flag) {
-					 g = service.findOne(game);
+				if (infoLogin != null && infoLogin.isFlag()) {
+					//1.获取用户的uid和设置游戏类型为0
+					User u = (User)infoLogin.getData();
+					int uid = u.getUid();
+					int type = 0;
+					
+					//2.封装数据
+					Game game = new Game(uid,type);
+					
+					//3.调用service完成查询游戏数据，返回一个game对象
+					GameService service = new GameServiceImpl();
+					boolean flag = service.haveOldData(game);
+					Game g = null;
+					if (flag) {
+						 g = service.findOne(game);
+					}
+					infoMain = new ResultInfo(flag,g);
 				}
 				
-				mainInfo = new ResultInfo(flag,g);
-				
 				//1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel());
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
 				
 				//2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -334,6 +321,5 @@ public class MainMenuPanel extends BasePanel {
 		AudioManager.getAudioManager().getAudio("MainMenuAudio").init();
 		AudioManager.getAudioManager().getAudio("MainMenuAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("MainMenuAudio").play();
-
 	}
 }

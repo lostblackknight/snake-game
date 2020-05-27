@@ -6,7 +6,6 @@ package team.tit.gluttonoussnake.dao.impl;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import team.tit.gluttonoussnake.animation.Map;
 import team.tit.gluttonoussnake.dao.MapDao;
 
 /**

@@ -26,8 +26,20 @@ public class Constant {
 	public static final int GAME_STAGE_H = ROOT_PANEL_H + 					//窗口的高
 			GAME_STAGE_BORDER_TOP + GAME_STAGE_BORDER_BOTTOM;
 	
-	public static final int SNAKE_CELL_SIZE = 20;							
-	public static final int SNAKE_GRID_W = ROOT_PANEL_W/20;				
-	public static final int SNAKE_GRID_H = ROOT_PANEL_W/20;	
+	public static final int GRID_W = ROOT_PANEL_W/20;				
+	public static final int GRID_H = ROOT_PANEL_H/20;
+	public static final int GRID_SIZE = 20;
+	
+	public static final int DEFAULT_LENGTH = 10;
+	
+	public static final int SNAKE_W = 20;						
+	public static final int SNAKE_H = 20;							
+
+	public static final int FOOD_W = 20;
+	public static final int FOOD_H = 20;
+	
+	public static final int WALL_W = 20;
+	public static final int WALL_H = 20;
+	
 	
 }

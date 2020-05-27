@@ -107,7 +107,6 @@
 	-fx-text-fill: #cecece;
 	-fx-font-size: 14px;
 	-fx-font-weight: 900;
-
 }
 
 #LEISURE:hover,#ADVENTURE:hover,#OPTIONS:hover,#EXIT_TO_WINDOWS:hover,
@@ -175,20 +174,6 @@
 
 /*<----------------------------------以下是GamePanel的CSS样式----------------------------------> */
 
-#ScorePanel
-{
-	-fx-background-color: #ffffff;
-	-fx-opacity: 0.4;
-	-fx-background-radius: 10 10 10 10;
-}
-
-#length,#score,#length_value,#score_value
-{
-	-fx-text-fill: #000000;
-	-fx-font-size: 28px;
-	-fx-font-weight: 800;
-}
-
 #continueGame,#EXIT_TO_MainMenu
 {
 	-fx-text-fill: #ffffff;
@@ -200,4 +185,20 @@
 #continueGame:hover,#EXIT_TO_MainMenu:hover
 {
 	-fx-text-fill: #d4b600;
+}
+
+#gameover
+{
+	-fx-text-fill: #FFFF37;
+	-fx-font-size: 38px;
+	-fx-font-weight: 500;
+	-fx-opacity: 0.8;
+}
+
+#l_tip
+{
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 14px;
+	-fx-font-weight: 500;
+	-fx-opacity: 0.7;
 }

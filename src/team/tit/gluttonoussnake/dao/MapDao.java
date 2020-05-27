@@ -6,7 +6,7 @@ package team.tit.gluttonoussnake.dao;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import team.tit.gluttonoussnake.animation.Map;
+
 
 /**
  * @author 陈思祥

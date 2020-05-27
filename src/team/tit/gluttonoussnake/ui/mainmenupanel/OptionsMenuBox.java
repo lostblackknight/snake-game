@@ -132,8 +132,8 @@ public class OptionsMenuBox extends AnchorPane {
 		speedContent = new GridPane();
 		speedUp = new Label("加速");
 		speedDown = new Label("减速");
-		speedUp_key =new Label("J");
-		speedDown_key =new Label("K");
+		speedUp_key =new Label("U");
+		speedDown_key =new Label("I");
 		slider1 = new Slider(0, 1, 0.5);
 		slider2 = new Slider(0, 1, 0.5);
 		
@@ -189,7 +189,7 @@ public class OptionsMenuBox extends AnchorPane {
 		audioContent.setMargin(soundEffects, new Insets(16, 0, 24, 0));
 		audioContent.setMargin(slider1, new Insets(-7, 0, 0, 106));
 		audioContent.setMargin(slider2, new Insets(0, 0, 0, 106));
-		content1.setPrefHeight(592);
+		content1.setPrefHeight(532);
 		content1.setMargin(gameBackgroundContent, new Insets(0,0,60,0));
 		content1.add(gameBackground, 0, 0);
 		content1.add(gameBackgroundContent, 0, 1);
@@ -233,7 +233,7 @@ public class OptionsMenuBox extends AnchorPane {
 		movementContent.setMargin(speedUp, new Insets(16, 0, 26, 0));
 		movementContent.setMargin(speedUp_key, new Insets(20, 0, 26, 154));
 		movementContent.setMargin(speedDown_key, new Insets(26, 0, 26, 154));
-		content2.setPrefHeight(592);
+		content2.setPrefHeight(532);
 		content2.setMargin(movementContent, new Insets(0,0,60,0));
 		content2.add(movement, 0, 0);
 		content2.add(movementContent, 0, 1);

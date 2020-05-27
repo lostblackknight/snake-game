@@ -1,6 +1,6 @@
 package team.tit.gluttonoussnake.domain;
 
-import team.tit.gluttonoussnake.animation.Map;
+
 import team.tit.gluttonoussnake.animation.npc.Food;
 import team.tit.gluttonoussnake.animation.player.Snake;
 
@@ -23,7 +23,7 @@ public class Game {
 	
 	private Snake sanke;
 	private Food food;
-	private Map map;
+
 	
 	public Game() {
 		
@@ -44,7 +44,7 @@ public class Game {
 		this.mid = mid;
 	}
 	
-	public Game(int uid, int type, int sid, int fid, int mid, Snake sanke, Food food, Map map) {
+	public Game(int uid, int type, int sid, int fid, int mid, Snake sanke, Food food) {
 		this.uid = uid;
 		this.type = type;
 		this.sid = sid;
@@ -52,7 +52,7 @@ public class Game {
 		this.mid = mid;
 		this.sanke = sanke;
 		this.food = food;
-		this.map = map;
+
 	}
 
 	public int getUid() {
@@ -96,11 +96,5 @@ public class Game {
 	}
 	public void setFood(Food food) {
 		this.food = food;
-	}
-	public Map getMap() {
-		return map;
-	}
-	public void setMap(Map map) {
-		this.map = map;
 	}
 }
