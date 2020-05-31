@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import team.tit.gluttonoussnake.ui.mainmenupanel.Title;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 暂停弹出的子菜单面板
@@ -57,7 +56,7 @@ public class SubMenu extends AnchorPane{
 		this.setPrefSize(400, 720);
 		this.setStyle("-fx-background-color: #000000");
 		this.setTopAnchor(subMenuBox, 307.0);
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 	}
 	
 	private void addSubMenu() {

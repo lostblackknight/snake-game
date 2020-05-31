@@ -3,7 +3,6 @@ package team.tit.gluttonoussnake.ui.gamepanel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 游戏面板的背景
@@ -26,7 +25,7 @@ public class Background {
 	}
 	
 	private void initBackground() {
-		im = new Image(URLUtils.getURLString("images/GamePanel.png"), 1280, 720, true, true);
+		im = new Image(this.getClass().getClassLoader().getResource("images/GamePanel.png").toExternalForm(), 1280, 720, true, true);
 		iv = new ImageView(im);
 	}
 	

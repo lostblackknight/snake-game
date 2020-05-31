@@ -1,8 +1,6 @@
 package team.tit.gluttonoussnake.audio;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import team.tit.gluttonoussnake.util.URLUtils;
+import javafx.scene.media.AudioClip;
 
 /**
  * 鼠标单击的音乐
@@ -16,21 +14,30 @@ import team.tit.gluttonoussnake.util.URLUtils;
 public class ClickAudio extends BaseAudio{
 	
 	public ClickAudio() {
-		media = new Media(URLUtils.getURLString("music/click.wav"));
 	}
 	
 	@Override
 	public void init() {
-		mp = new MediaPlayer(media);
+		audio = new AudioClip(this.getClass().getClassLoader().getResource("music/click.wav").toExternalForm());
 	}
 
 	@Override
 	public void play() {
-		mp.play();
+		audio.play();
 	}
 
 	@Override
 	public void close() {
-		mp.dispose();
+		audio.stop();
+	}
+
+	@Override
+	public AudioClip getAudio() {
+		return super.getAudio();
+	}
+
+	@Override
+	public void setAudio(AudioClip audio) {
+		super.setAudio(audio);
 	}
 }

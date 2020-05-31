@@ -6,6 +6,8 @@ package team.tit.gluttonoussnake.dao;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import team.tit.gluttonoussnake.animation.npc.Wall;
+
 
 
 /**
@@ -16,12 +18,17 @@ import java.util.ArrayList;
  * @version 1.4
  * @since JDK1.8 2020年5月24日
  */
-public interface MapDao {
+public interface WallDao {
 
 	/**
 	 * @param mid
 	 * @return
 	 */
 	ArrayList<Point> findByWid(int wid);
+
+	/**
+	 * @return
+	 */
+	ArrayList<Wall> findAll();
 
 }

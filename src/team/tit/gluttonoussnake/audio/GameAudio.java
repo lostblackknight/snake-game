@@ -1,8 +1,6 @@
 package team.tit.gluttonoussnake.audio;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import team.tit.gluttonoussnake.util.URLUtils;
+import javafx.scene.media.AudioClip;
 
 /**
  * 游戏面板的音乐
@@ -16,23 +14,21 @@ import team.tit.gluttonoussnake.util.URLUtils;
 public class GameAudio extends BaseAudio{
 	
 	public GameAudio() {
-		media = new Media(URLUtils.getURLString("music/snakebgm.wav"));
 	}
 	
 	@Override
 	public void init() {
-		mp = new MediaPlayer(media);
+		audio = new AudioClip(this.getClass().getClassLoader().getResource("music/snakebgm.wav").toExternalForm());
 	}
 
 	@Override
 	public void play() {
-		//设置循环次数
-		mp.setCycleCount(MediaPlayer.INDEFINITE);
-		mp.play();
+		audio.setCycleCount(AudioClip.INDEFINITE);
+		audio.play();
 	}
 
 	@Override
 	public void close() {
-		mp.dispose();
+		audio.stop();
 	}
 }

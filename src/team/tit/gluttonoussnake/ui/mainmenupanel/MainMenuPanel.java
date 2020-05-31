@@ -221,6 +221,7 @@ public class MainMenuPanel extends BasePanel {
 					int uid = u.getUid();
 					int type = 0;
 					
+					System.out.println("不为空");
 					//2.封装数据
 					Game game = new Game(uid,type);
 					
@@ -313,13 +314,13 @@ public class MainMenuPanel extends BasePanel {
 	
 	private void loadClickAudio() {
 		AudioManager.getAudioManager().getAudio("ClickAudio").init();
-		AudioManager.getAudioManager().getAudio("ClickAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider1.valueProperty());
+		AudioManager.getAudioManager().getAudio("ClickAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider1.valueProperty());
 		AudioManager.getAudioManager().getAudio("ClickAudio").play();
 	}
 	
 	private void loadMainMenuAudio() {
 		AudioManager.getAudioManager().getAudio("MainMenuAudio").init();
-		AudioManager.getAudioManager().getAudio("MainMenuAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("MainMenuAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("MainMenuAudio").play();
 	}
 }

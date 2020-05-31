@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.manager.impl.UIManager;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 游戏应用类，控制游戏应用的生命周期
@@ -40,6 +39,7 @@ public class GameAPP extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		showGameStage(primaryStage);
+
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class GameAPP extends Application {
 	private void showGameStage(Stage gameStage) {
 		gameStage.setTitle(GAME_STAGE_TITLE);								//设置窗口的标题
 		gameStage.getIcons().add(
-				new Image(URLUtils.getURLString("images/GameStage.png"))
+				new Image(this.getClass().getClassLoader().getResource("images/GameStage.png").toExternalForm())
 				);															//设置窗口的图标
 		gameStage.setX(GAME_STAGE_X);										//设置窗口的坐标X
 		gameStage.setY(GAME_STAGE_Y);										//设置窗口的坐标Y

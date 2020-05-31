@@ -11,6 +11,7 @@ import team.tit.gluttonoussnake.gameapp.GameAPP;
 import team.tit.gluttonoussnake.manager.Manager;
 import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
+import team.tit.gluttonoussnake.ui.loginpanel.LoginPanel;
 import team.tit.gluttonoussnake.ui.mainmenupanel.MainMenuPanel;
 
 /**
@@ -42,7 +43,7 @@ public class UIManager implements Manager {
 		currentPanel = new SimpleObjectProperty<BasePanel>();
 		
 		//2.设置游戏应用首次要进入的面板
-		gotoFirstPanel("MainMenuPanel", new MainMenuPanel());
+		gotoFirstPanel("LoginPanel", new LoginPanel());
 		
 		//3.添加属性监听，实现面板的切换
 		currentPanel.addListener(new ChangeListener<BasePanel>() {

@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 选项盒子
@@ -134,8 +133,8 @@ public class OptionsMenuBox extends AnchorPane {
 		speedDown = new Label("减速");
 		speedUp_key =new Label("U");
 		speedDown_key =new Label("I");
-		slider1 = new Slider(0, 1, 0.5);
-		slider2 = new Slider(0, 1, 0.5);
+		slider1 = new Slider(0, 1.0, 0.5);
+		slider2 = new Slider(0, 1.0, 0.5);
 		
 		//2.设置OptionsMenuBox的属性
 		optionsMenuBox.setMargin(choice, new Insets(76, 0, 0, 63));
@@ -243,7 +242,7 @@ public class OptionsMenuBox extends AnchorPane {
 		back_options.setId("back_options");
 		
 		//3.设置OptionsMenuBox的CSS样式
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 		this.setStyle("-fx-background-color:#000000");
 		subRoot.setLeftAnchor(this, 0.0);
 		subRoot.setRightAnchor(this, 0.0);
@@ -299,7 +298,7 @@ public class OptionsMenuBox extends AnchorPane {
 	
 	private void loadClickAudio() {
 		AudioManager.getAudioManager().getAudio("ClickAudio").init();
-		AudioManager.getAudioManager().getAudio("ClickAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider1.valueProperty());
+		AudioManager.getAudioManager().getAudio("ClickAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider1.valueProperty());
 		AudioManager.getAudioManager().getAudio("ClickAudio").play();
 	}
 	

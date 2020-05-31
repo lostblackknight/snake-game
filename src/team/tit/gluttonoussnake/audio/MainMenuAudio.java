@@ -1,8 +1,6 @@
 package team.tit.gluttonoussnake.audio;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import team.tit.gluttonoussnake.util.URLUtils;
+import javafx.scene.media.AudioClip;
 
 /**
  * 主菜单的音乐
@@ -16,39 +14,22 @@ import team.tit.gluttonoussnake.util.URLUtils;
 public class MainMenuAudio extends BaseAudio{
 	
 	public MainMenuAudio() {
-		media = new Media(URLUtils.getURLString("music/mainmenubgm.wav"));
 	}
 	
 	@Override
 	public void init() {
-		mp = new MediaPlayer(media);
+		audio = new AudioClip(this.getClass().getClassLoader().getResource("music/mainmenubgm.wav").toExternalForm());
 	}
 
 	@Override
 	public void play() {
 		//设置循环次数
-		mp.setCycleCount(MediaPlayer.INDEFINITE);
-		mp.play();
+		audio.setCycleCount(AudioClip.INDEFINITE);
+		audio.play();
 	}
 
 	@Override
 	public void close() {
-		mp.dispose();
-	}
-
-	public Media getMedia() {
-		return media;
-	}
-
-	public void setMedia(Media media) {
-		this.media = media;
-	}
-
-	public MediaPlayer getMp() {
-		return mp;
-	}
-
-	public void setMp(MediaPlayer mp) {
-		this.mp = mp;
+		audio.stop();
 	}
 }

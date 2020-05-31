@@ -90,6 +90,7 @@ public class GameScreen extends GScreen {
 				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
 			}
 			
+			
 			System.out.println("food = " + food.getX());
 			System.out.println("food = " + food.getY());
 			
@@ -197,25 +198,25 @@ public class GameScreen extends GScreen {
 	
 	private void loadSnakeDeathAudio() {
 		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").init();
-		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").play();
 	}
 	
 	private void loadEatFoodAudio() {
 		AudioManager.getAudioManager().getAudio("EatFoodAudio").init();
-		AudioManager.getAudioManager().getAudio("EatFoodAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("EatFoodAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("EatFoodAudio").play();
 	}
 	
 	private void loadGameOverAudio() {
 		AudioManager.getAudioManager().getAudio("GameOverAudio").init();
-		AudioManager.getAudioManager().getAudio("GameOverAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("GameOverAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("GameOverAudio").play();
 	}
 	
 	private void loadGameWinAudio() {
 		AudioManager.getAudioManager().getAudio("GameWinAudio").init();
-		AudioManager.getAudioManager().getAudio("GameWinAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("GameWinAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("GameWinAudio").play();
 	}
 }

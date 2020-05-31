@@ -3,7 +3,6 @@ package team.tit.gluttonoussnake.ui.mainmenupanel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 菜单面板的标题
@@ -26,7 +25,7 @@ public class Title {
 	}
 	
 	private void initTitle() {
-		im = new Image(URLUtils.getURLString("images/GluttonousSnake.png"), 400, 400, true, true);
+		im = new Image(this.getClass().getClassLoader().getResource("images/GluttonousSnake.png").toExternalForm(), 400, 400, true, true);
 		iv = new ImageView(im);
 		iv.setX(60);
 		iv.setY(68);

@@ -1,8 +1,6 @@
 package team.tit.gluttonoussnake.audio;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import team.tit.gluttonoussnake.util.URLUtils;
+import javafx.scene.media.AudioClip;
 
 /**
  * 蛇吃食物的音乐
@@ -16,21 +14,20 @@ import team.tit.gluttonoussnake.util.URLUtils;
 public class EatFoodAudio extends BaseAudio{
 	
 	public EatFoodAudio() {
-		media = new Media(URLUtils.getURLString("music/eatfood.wav"));
 	}
 	
 	@Override
 	public void init() {
-		mp = new MediaPlayer(media);
+		audio = new AudioClip(this.getClass().getClassLoader().getResource("music/eatfood.wav").toExternalForm());
 	}
 
 	@Override
 	public void play() {
-		mp.play();
+		audio.play();
 	}
 
 	@Override
 	public void close() {
-		mp.dispose();
+		audio.stop();
 	}
 }

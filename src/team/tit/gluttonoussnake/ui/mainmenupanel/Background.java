@@ -3,7 +3,6 @@ package team.tit.gluttonoussnake.ui.mainmenupanel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 主菜单背景
@@ -27,7 +26,7 @@ public class Background {
 	}
 	
 	private void initBackground() {
-		im = new Image(URLUtils.getURLString("images/MainMenuPanel.png"), 1280, 720, true, true);
+		im = new Image(this.getClass().getClassLoader().getResource("images/MainMenuPanel.png").toExternalForm(), 1280, 720, true, true);
 		iv = new ImageView(im);
 	}
 	public void addBackground() {

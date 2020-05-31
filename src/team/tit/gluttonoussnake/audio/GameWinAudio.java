@@ -1,8 +1,6 @@
 package team.tit.gluttonoussnake.audio;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import team.tit.gluttonoussnake.util.URLUtils;
+import javafx.scene.media.AudioClip;
 
 /**
  * 游戏胜利的音乐
@@ -16,21 +14,20 @@ import team.tit.gluttonoussnake.util.URLUtils;
 public class GameWinAudio extends BaseAudio{
 	
 	public GameWinAudio() {
-		media = new Media(URLUtils.getURLString("music/gamewin.wav"));
 	}
 	
 	@Override
 	public void init() {
-		mp = new MediaPlayer(media);
+		audio = new AudioClip(this.getClass().getClassLoader().getResource("music/gamewin.wav").toExternalForm());
 	}
 
 	@Override
 	public void play() {
-		mp.play();
+		audio.play();
 	}
 
 	@Override
 	public void close() {
-		mp.dispose();
+		audio.stop();
 	}
 }

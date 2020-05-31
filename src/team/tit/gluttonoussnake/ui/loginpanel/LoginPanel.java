@@ -24,7 +24,6 @@ import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.forgotpanel.ForgotPanel;
 import team.tit.gluttonoussnake.ui.mainmenupanel.MainMenuPanel;
 import team.tit.gluttonoussnake.ui.registerpanel.RegisterPanel;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 登陆面板类，用户登录
@@ -68,9 +67,9 @@ public class LoginPanel extends BasePanel {
 		//1.实例化对象
 		subRoot = new AnchorPane();
 		loginBox = new GridPane();
-		im_background = new Image(URLUtils.getURLString("images/LoginPanel.png"), 1280, 720, true, true);
-		im_username = new Image(URLUtils.getURLString("images/UserName.png"), 20, 20, true, true);
-		im_password = new Image(URLUtils.getURLString("images/PassWord.png"), 20, 20, true, true);
+		im_background = new Image(this.getClass().getClassLoader().getResource("images/LoginPanel.png").toExternalForm(), 1280, 720, true, true);
+		im_username = new Image(this.getClass().getClassLoader().getResource("images/UserName.png").toExternalForm(), 20, 20, true, true);
+		im_password = new Image(this.getClass().getClassLoader().getResource("images/PassWord.png").toExternalForm(), 20, 20, true, true);
 		iv_background = new ImageView(im_background);
 		iv_username = new ImageView(im_username);
 		iv_password = new ImageView(im_password);
@@ -91,7 +90,7 @@ public class LoginPanel extends BasePanel {
 		l_login_fail.setId("l_login_fail");
 		register.setId("register");
 		forgot_password.setId("forgot_password");
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 		
 		//3.设置布局
 		loginBox.setLayoutX(415);

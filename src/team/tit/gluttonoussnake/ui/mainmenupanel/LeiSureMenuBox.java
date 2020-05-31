@@ -2,7 +2,6 @@ package team.tit.gluttonoussnake.ui.mainmenupanel;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 休闲模式的菜单盒子
@@ -34,7 +33,7 @@ public class LeiSureMenuBox extends GridPane {
 		this.setMargin(leiSureMenuItems.getMenuItems().get("BACK"), new Insets(0, 0, 43, 68));
 		
 		//2.设置menuItems的CSS样式
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 	}
 	
 	private void addLeiSureMenuBox() {

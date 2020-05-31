@@ -14,8 +14,17 @@ public class ResultInfo {
     private boolean flag;					//返回结果正常为true，异常返回false
     private Object data;					//返回结果数据对象
     private String msg;						//返回消息
+    private int mark;
     
-    public ResultInfo() {
+    public int getMark() {
+		return mark;
+	}
+
+	public void setMark(int mark) {
+		this.mark = mark;
+	}
+
+	public ResultInfo() {
     }
     
 	public ResultInfo(Object data) {
@@ -38,6 +47,13 @@ public class ResultInfo {
 		this.flag = flag;
 		this.data = data;
 		this.msg = msg;
+	}
+
+	public ResultInfo(boolean flag, Object data, String msg, int mark) {
+		this.flag = flag;
+		this.data = data;
+		this.msg = msg;
+		this.mark = mark;
 	}
 
 	public boolean isFlag() {

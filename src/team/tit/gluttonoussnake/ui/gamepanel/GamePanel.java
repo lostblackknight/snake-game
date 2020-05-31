@@ -119,6 +119,7 @@ public class GamePanel extends BasePanel{
 			@Override
 			public void handle(MouseEvent event) {
 				gameScreen.setGameState(GameState.GAME_EXIT);
+				
 				loadClickAudio();
 				subRoot.getChildren().remove(subMenu);
 				//1.注册主菜单面板
@@ -151,13 +152,13 @@ public class GamePanel extends BasePanel{
 	 */
 	private void loadGameAudio() {
 		AudioManager.getAudioManager().getAudio("GameAudio").init();
-		AudioManager.getAudioManager().getAudio("GameAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("GameAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("GameAudio").play();
 	}
 	
 	private void loadClickAudio() {
 		AudioManager.getAudioManager().getAudio("ClickAudio").init();
-		AudioManager.getAudioManager().getAudio("ClickAudio").getMp().volumeProperty().bind(OptionsMenuBox.slider2.valueProperty());
+		AudioManager.getAudioManager().getAudio("ClickAudio").getAudio().volumeProperty().bind(OptionsMenuBox.slider1.valueProperty());
 		AudioManager.getAudioManager().getAudio("ClickAudio").play();
 	}
 }

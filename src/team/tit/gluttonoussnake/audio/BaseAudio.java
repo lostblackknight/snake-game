@@ -1,7 +1,6 @@
 package team.tit.gluttonoussnake.audio;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.AudioClip;
 
 /**
  * 音频抽象类
@@ -14,8 +13,7 @@ import javafx.scene.media.MediaPlayer;
  */
 public abstract class BaseAudio {
 
-	public Media media;
-	public MediaPlayer mp;
+	public AudioClip audio;
 	
 	/**
 	 * 初始化音频
@@ -32,19 +30,11 @@ public abstract class BaseAudio {
 	 */
 	public abstract void close();
 
-	public Media getMedia() {
-		return media;
+	public AudioClip getAudio() {
+		return audio;
 	}
 
-	public void setMedia(Media media) {
-		this.media = media;
-	}
-
-	public MediaPlayer getMp() {
-		return mp;
-	}
-
-	public void setMp(MediaPlayer mp) {
-		this.mp = mp;
+	public void setAudio(AudioClip audio) {
+		this.audio = audio;
 	}
 }

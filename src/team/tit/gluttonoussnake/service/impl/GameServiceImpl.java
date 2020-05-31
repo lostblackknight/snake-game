@@ -13,12 +13,12 @@ import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
 import team.tit.gluttonoussnake.dao.FoodDao;
 import team.tit.gluttonoussnake.dao.GameDao;
-import team.tit.gluttonoussnake.dao.MapDao;
+import team.tit.gluttonoussnake.dao.WallDao;
 import team.tit.gluttonoussnake.dao.SnakeBodyDao;
 import team.tit.gluttonoussnake.dao.SnakeDao;
 import team.tit.gluttonoussnake.dao.impl.FoodDaoImpl;
 import team.tit.gluttonoussnake.dao.impl.GameDaoImpl;
-import team.tit.gluttonoussnake.dao.impl.MapDaoImpl;
+import team.tit.gluttonoussnake.dao.impl.WallDaoImpl;
 import team.tit.gluttonoussnake.dao.impl.SnakeBodyDaoImpl;
 import team.tit.gluttonoussnake.dao.impl.SnakeDaoImpl;
 import team.tit.gluttonoussnake.domain.Game;
@@ -39,7 +39,7 @@ public class GameServiceImpl implements GameService {
 	private SnakeDao snakeDao = new SnakeDaoImpl();
 	private SnakeBodyDao snakeBodyDao = new SnakeBodyDaoImpl();
 	private FoodDao foodDao = new FoodDaoImpl();
-	private MapDao mapDao = new MapDaoImpl();
+	private WallDao mapDao = new WallDaoImpl();
 
 	/**
 	 * 查询用户的 游戏数据

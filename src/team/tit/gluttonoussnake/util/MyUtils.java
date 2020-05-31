@@ -3,6 +3,9 @@ package team.tit.gluttonoussnake.util;
 import javafx.scene.paint.Color;
 public class MyUtils
 {
+	private MyUtils() {
+	}
+	
 	//获取一定范围内的随机值
 	public static int getRandomNumber(int min,int max) {
 		return (int)(Math.random()*(max - min) + min);

@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 游戏结束面板
@@ -33,7 +32,7 @@ public class GameOverPanel extends GridPane {
 		l_tip.setId("l_tip");
 		
 		this.setMargin(l_tip, new Insets(0, 0, 0, 8));
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 		this.setStyle("-fx-background-color: #000000;-fx-background-radius: 20 20 20 20;");
 		this.setPrefSize(400, 200);
 		this.setAlignment(Pos.CENTER);

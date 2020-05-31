@@ -19,7 +19,6 @@ import team.tit.gluttonoussnake.service.UserService;
 import team.tit.gluttonoussnake.service.impl.UserServiceImpl;
 import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.loginpanel.LoginPanel;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 忘记密码面板类，找回密码
@@ -54,9 +53,9 @@ public class ForgotPanel extends BasePanel{
 		//1.实例化对象
 		subRoot = new AnchorPane();
 		forgotBox = new GridPane();
-		im_background = new Image(URLUtils.getURLString("images/RegisterPanel.png"), 1280, 720, true, true);
-		im_password = new Image(URLUtils.getURLString("images/PassWord.png"), 20, 20, true, true);
-		im_mobilePhone = new Image(URLUtils.getURLString("images/MobilePhone.png"), 20, 20, true, true);
+		im_background = new Image(this.getClass().getClassLoader().getResource("images/RegisterPanel.png").toExternalForm(), 1280, 720, true, true);
+		im_password = new Image(this.getClass().getClassLoader().getResource("images/PassWord.png").toExternalForm(), 20, 20, true, true);
+		im_mobilePhone = new Image(this.getClass().getClassLoader().getResource("images/MobilePhone.png").toExternalForm(), 20, 20, true, true);
 		iv_background = new ImageView(im_background);
 		iv_password = new ImageView(im_password);
 		iv_mobilePhone = new ImageView(im_mobilePhone);
@@ -75,7 +74,7 @@ public class ForgotPanel extends BasePanel{
 		l_msg.setId("l_msg");
 		b_lookUp.setId("b_lookUp");
 		back.setId("back");
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 		
 		//3.设置布局
 		forgotBox.setLayoutX(415);

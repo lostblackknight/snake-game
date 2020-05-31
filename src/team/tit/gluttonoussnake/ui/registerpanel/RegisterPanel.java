@@ -21,7 +21,6 @@ import team.tit.gluttonoussnake.service.UserService;
 import team.tit.gluttonoussnake.service.impl.UserServiceImpl;
 import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.loginpanel.LoginPanel;
-import team.tit.gluttonoussnake.util.URLUtils;
 
 /**
  * 注册面板类，用户注册
@@ -65,10 +64,10 @@ public class RegisterPanel extends BasePanel{
 		//1.实例化对象
 		subRoot = new AnchorPane();
 		registerBox = new GridPane();
-		im_background = new Image(URLUtils.getURLString("images/RegisterPanel.png"), 1280, 720, true, true);
-		im_username = new Image(URLUtils.getURLString("images/UserName.png"), 20, 20, true, true);
-		im_password = new Image(URLUtils.getURLString("images/PassWord.png"), 20, 20, true, true);
-		im_mobilePhone = new Image(URLUtils.getURLString("images/MobilePhone.png"), 20, 20, true, true);
+		im_background = new Image(this.getClass().getClassLoader().getResource("images/RegisterPanel.png").toExternalForm(), 1280, 720, true, true);
+		im_username = new Image(this.getClass().getClassLoader().getResource("images/UserName.png").toExternalForm(), 20, 20, true, true);
+		im_password = new Image(this.getClass().getClassLoader().getResource("images/PassWord.png").toExternalForm(), 20, 20, true, true);
+		im_mobilePhone = new Image(this.getClass().getClassLoader().getResource("images/MobilePhone.png").toExternalForm(), 20, 20, true, true);
 		iv_background = new ImageView(im_background);
 		iv_username = new ImageView(im_username);
 		iv_password = new ImageView(im_password);
@@ -102,7 +101,7 @@ public class RegisterPanel extends BasePanel{
 		l_tip3.setId("l_tip1");
 		b_signUp.setId("b_signUp");
 		back.setId("back");
-		this.getStylesheets().add(URLUtils.getURLString("css/GluttonousSnake.css"));
+		this.getStylesheets().add(this.getClass().getClassLoader().getResource("css/GluttonousSnake.css").toExternalForm());
 		
 		//3.设置布局
 		registerBox.setLayoutX(415);
