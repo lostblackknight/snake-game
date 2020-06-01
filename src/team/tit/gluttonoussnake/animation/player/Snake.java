@@ -9,6 +9,8 @@ import static team.tit.gluttonoussnake.constant.Constant.ROOT_PANEL_W;
 import static team.tit.gluttonoussnake.constant.Constant.SNAKE_H;
 import static team.tit.gluttonoussnake.constant.Constant.SNAKE_W;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -38,6 +40,10 @@ public class Snake extends BaseObject {
 	public Snake() {
 		init();
 	}
+	public Snake(int id) {
+		this.id = id;
+	}
+	
 	
 	public Snake(int id, int x, int y) {
 		this.id = id;
@@ -185,19 +191,23 @@ public class Snake extends BaseObject {
 		return false;
 	}
 	
-	public boolean isEatWall(Wall wall) {
+public boolean isEatWall(ArrayList<Point> points) {
+		
+		for(int i=0;i<points.size();i++) {
 		int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
 		int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
-		int x1 = wall.getX() * wall.getWidth() + (wall.getWidth() >> 1);
-		int y1 = wall.getY() * wall.getHeight() + (wall.getHeight() >> 1);
-		int w = (getWidth() + wall.getWidth()) >> 1;
-		int h = (getHeight() + wall.getHeight()) >> 1;
+		int x1 = (int) (points.get(i).getX() * getWidth() + 10);
+		int y1 =(int) (points.get(i).getY() * getHeight() + 10);
+		int w = (getWidth() + 20) >> 1;
+		int h = (getHeight() + 20) >> 1;
 		int disCurrent = MyUtils.distance(x0, y0, x1, y1);
-		int disCrashed = MyUtils.distance(w, h);
+		int disCrashed = MyUtils.distance(w, h);		
 		if (disCurrent < disCrashed) {
 			return true;
 		}
+		}
 		return false;
+		
 	}
 	
 	public SnakeNode getHead() {

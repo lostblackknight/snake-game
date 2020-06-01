@@ -235,6 +235,19 @@ public class MainMenuPanel extends BasePanel {
 					infoMain = new ResultInfo(flag,g);
 				}
 				
+				
+				
+				
+//用于测试从表里获取数据（之后删掉）			
+Game game = new Game(1,0);	
+GameService service = new GameServiceImpl();
+Game g = service.findOne(game);
+boolean flag = service.haveOldData(game);
+infoMain = new ResultInfo(flag,g);
+//
+	
+	
+	
 				//1.注册游戏面板
 				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
 				

@@ -1,5 +1,6 @@
 package team.tit.gluttonoussnake.ui.gamepanel;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -52,17 +53,25 @@ public class GamePanel extends BasePanel{
 		subMenu = new SubMenu();
 		gameScreen = new GameScreen(subMenu,subRoot);
 		
-//		 2.获取从主菜单传来的数据对象
-//		if (infoMain != null && infoMain.isFlag()) {
-//			Game game = (Game) infoMain.getData();
-//			int headX = game.getSanke().getX();
-//			int headY = game.getSanke().getY();
-//			LinkedList<SnakeNode> body = game.getSanke().getList();
-//			int foodY = game.getFood().getFoodX();
-//			int foodX = game.getFood().getFoodY();
-//			ArrayList<Point> wall = game.getWall();
-//			// TODO 将获取出来的值设到snake对象中去
-//		}
+		// 2.获取从主菜单传来的数据对象
+				if (infoMain != null && infoMain.isFlag()) {
+					//加判断
+					Game game = (Game) infoMain.getData();
+					//int headX = game.getSanke().getSnakeHeadX();
+					//int headY = game.getSanke().getSnakeHeadY();
+					LinkedList<SnakeNode> body = game.getSanke().getList();
+					int foodX = game.getFood().getFoodX();
+					int foodY = game.getFood().getFoodY();
+					ArrayList<Point> wall = game.getWall().getPoints();
+					// TODO 将获取出来的值设到snake对象中去
+					//gameScreen.snake.setX(headX);
+					//gameScreen.snake.setY(headY);
+					gameScreen.snake.setList(body);
+					gameScreen.food.setX(foodX);
+					gameScreen.food.setY(foodY);			
+					gameScreen.wall.setPoints(wall);
+					
+				}
 		// 3.音频
 		loadGameAudio();
 		// 4.设置游戏状态

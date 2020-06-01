@@ -65,8 +65,8 @@ public class GameScreen extends GScreen {
 			 * 拿到蛇的位置，食物的位置，身体的位置
 			 */
 			int sid = snake.getId();
-			int snakeHeadX = snake.getX();
-			int snakeHeadY = snake.getY();
+			int snakeHeadX = snake.getHead().getX();
+			int snakeHeadY = snake.getHead().getY();
 			DIR dir = snake.getDir();
 			int length = info.getLength();
 			int score = info.getScore();
@@ -85,7 +85,7 @@ public class GameScreen extends GScreen {
 			System.out.println("score = " + score);
 			LinkedList<SnakeNode> list = snake.getList();
 			
-			for (int i = 1; i < list.size(); i++) {
+			for (int i = 0; i < list.size(); i++) {
 				System.out.println("第" + i + "个蛇身的X" + list.get(i).getX());
 				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
 			}
@@ -100,8 +100,8 @@ public class GameScreen extends GScreen {
 		if (gameState == GameState.GAME_EXIT) {
 			AudioManager.getAudioManager().getAudio("GameAudio").close();
 			int sid = snake.getId();
-			int snakeHeadX = snake.getX();
-			int snakeHeadY = snake.getY();
+			int snakeHeadX = snake.getHead().getX();
+			int snakeHeadY = snake.getHead().getY();
 			DIR dir = snake.getDir();
 			int length = info.getLength();
 			int score = info.getScore();
@@ -147,7 +147,10 @@ public class GameScreen extends GScreen {
 		if (snake.isEatFood(food)) {
 			loadEatFoodAudio();
 			snake.grow();
-			food.createRandomFood();
+			
+			//食物不在墙上的生成食物（好像不对）
+			food.foodisnotonwallcreateRandomFood(wall.getPoints());
+			
 			info.setLength(snake.getLength() - 1);
 			info.setScore((snake.getLength() - 3) * 10);
 		}
@@ -161,7 +164,7 @@ public class GameScreen extends GScreen {
 	}
 	
 	public void eatWall(Snake snake) {
-		if (snake.isEatWall(wall)) {
+		if (snake.isEatWall(wall.getPoints())) {
 			gameState = GameState.GAME_END;
 			loadSnakeDeathAudio();
 		}

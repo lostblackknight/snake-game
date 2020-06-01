@@ -1,7 +1,6 @@
 package team.tit.gluttonoussnake.animation.npc;
 
 import static team.tit.gluttonoussnake.constant.Constant.*;
-import static team.tit.gluttonoussnake.constant.Constant.GRID_W;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -19,6 +18,10 @@ public class Wall extends BaseObject {
 	
 	public Wall() {
 		init();
+	}
+	public Wall(int id ) {
+		this.id = id;
+
 	}
 	
 
@@ -39,8 +42,11 @@ public class Wall extends BaseObject {
 
 	@Override
 	public void draw(GraphicsContext gc) {
+		for(int i=0;i<points.size();i++) {
 		gc.setFill(color);
-		gc.fillRect(getX(), getY(), getWidth(), getHeight());
+		gc.fillRect(points.get(i).getX(),points.get(i).getY(), GRID_SIZE, GRID_SIZE);
+		
+	 }
 	}
 
 	@Override

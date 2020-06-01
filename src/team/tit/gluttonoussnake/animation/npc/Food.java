@@ -1,9 +1,14 @@
 package team.tit.gluttonoussnake.animation.npc;
 
+
 import team.tit.gluttonoussnake.animation.BaseObject;
 import team.tit.gluttonoussnake.util.MyUtils;
 
+
 import static team.tit.gluttonoussnake.constant.Constant.*;
+
+import java.awt.Point;
+import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -25,6 +30,10 @@ public class Food extends BaseObject {
 		init();
 	}
 
+	public Food(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public void init() {
 		super.init();
@@ -50,6 +59,17 @@ public class Food extends BaseObject {
 		setHeight(FOOD_H);
 		setColor(MyUtils.getRandomColor());
 	}
+	
+	//食物不能出现在墙上的生成食物
+		public void foodisnotonwallcreateRandomFood(ArrayList<Point> points) {
+			createRandomFood();
+			for(int i=0;i<=points.size();i++)
+			{				
+				if(getX()==points.get(0).x&&getY()==points.get(0).y) {
+					 foodisnotonwallcreateRandomFood(points);
+				}
+			}			
+		}
 
 	public Color getColor() {
 		return color;
@@ -57,5 +77,16 @@ public class Food extends BaseObject {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	public int getFoodX()
+	{
+		
+		return this.x;
+	}
+
+	public int getFoodY()
+	{
+	
+		return this.y;
 	}
 }
