@@ -1,10 +1,15 @@
 package team.tit.gluttonoussnake.ui.gamepanel;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import team.tit.gluttonoussnake.animation.player.SnakeNode;
+import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.domain.ResultInfo;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.manager.impl.UIManager;
@@ -27,14 +32,16 @@ public class GamePanel extends BasePanel{
 	private AnchorPane subRoot;
 	private Background background;
 	private SubMenu subMenu;
-//	private ResultInfo infoMain;
+	private ResultInfo infoMain;
 	private GameScreen gameScreen;
+	
+	public static int map = 0;
 	
 	public GamePanel() {
 	}
 
 	public GamePanel(ResultInfo info) {
-//		this.infoMain = info;
+		this.infoMain = info;
 	}
 	
 	@Override
@@ -45,15 +52,15 @@ public class GamePanel extends BasePanel{
 		subMenu = new SubMenu();
 		gameScreen = new GameScreen(subMenu,subRoot);
 		
-		// 2.获取从主菜单传来的数据对象
+//		 2.获取从主菜单传来的数据对象
 //		if (infoMain != null && infoMain.isFlag()) {
 //			Game game = (Game) infoMain.getData();
-//			int headX = game.getSanke().getSnakeHeadX();
-//			int headY = game.getSanke().getSnakeHeadY();
-//			LinkedList<SnakeNode> body = game.getSanke().getBody();
+//			int headX = game.getSanke().getX();
+//			int headY = game.getSanke().getY();
+//			LinkedList<SnakeNode> body = game.getSanke().getList();
 //			int foodY = game.getFood().getFoodX();
 //			int foodX = game.getFood().getFoodY();
-//			ArrayList<Point> wall = game.getMap().getPoints();
+//			ArrayList<Point> wall = game.getWall();
 //			// TODO 将获取出来的值设到snake对象中去
 //		}
 		// 3.音频

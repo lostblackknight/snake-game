@@ -59,15 +59,8 @@ public class XLS {
 			value = String.valueOf(valueBoolean);
 			break;
 		case NUMERIC:
-			if (HSSFDateUtil.isCellDateFormatted(cell)) {
-				// 是日期
-				Date date = cell.getDateCellValue();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				value = sdf.format(date);
-			} else {
-				cell.setCellType(cellType.STRING);
-				value = cell.toString();
-			}
+			cell.setCellType(cellType.STRING);
+			value = cell.toString();
 			break;
 		case BLANK:
 			break;
@@ -103,23 +96,23 @@ public class XLS {
 		rowCount = sheet.getLastRowNum() + 1;// 总行数
 
 		System.out.println(rowCount);
-		
+
 		Row head = sheet.getRow(0);
 		for (int i = 0; i < rowCount; i++) {
 			Row row = sheet.getRow(i);
 			if (row != null) {
-				//读取列
+				// 读取列
 				int cellCount = head.getPhysicalNumberOfCells();
 				for (int j = 0; j < cellCount; j++) {
 					System.out.print("[" + (i) + "-" + (j) + "]");
-					
+
 					Cell cell = row.getCell(j);
-					
-					//匹配列的类型
+
+					// 匹配列的类型
 					if (cell != null) {
 						CellType cellType = cell.getCellType();
 						String value = "";
-						
+
 						switch (cellType) {
 						case STRING:
 							String valueString = cell.getStringCellValue();
@@ -134,14 +127,14 @@ public class XLS {
 						case BLANK:
 							break;
 						case NUMERIC:
-							
+
 							if (HSSFDateUtil.isCellDateFormatted(cell)) {
-								//是日期
+								// 是日期
 								Date date = cell.getDateCellValue();
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-								
+
 								value = sdf.format(date);
-								
+
 								System.out.print(value);
 							} else {
 								cell.setCellType(cellType.STRING);
@@ -302,7 +295,7 @@ public class XLS {
 			workbook.write(fos);
 			System.out.println(sheet.getLastRowNum());
 			fos.close();
-//			fis.close();
+			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -326,7 +319,7 @@ public class XLS {
 		}
 
 		rowCount = sheet.getLastRowNum() + 1;// 总行数
-
+		
 		for (int rowNum = 1; rowNum <= rowCount; rowNum++) {
 			Row row = sheet.getRow(rowNum);// 获取行
 			if (row != null) {
@@ -335,10 +328,12 @@ public class XLS {
 					String value = cellToString(mobilephone);
 					if (value.equals(phone)) {
 						mobilephoneFlag = true;
+					} else {
+						mobilephoneFlag = false;
 					}
-				}
-				if (mobilephoneFlag) {
-					rightRow = row;
+					if (mobilephoneFlag) {
+						rightRow = row;
+					}
 				}
 			}
 		}
