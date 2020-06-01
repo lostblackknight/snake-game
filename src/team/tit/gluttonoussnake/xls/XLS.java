@@ -97,6 +97,7 @@ public class XLS {
 
 		System.out.println(rowCount);
 
+		// ---------------------------------以下是获取所有用户数据------------------------------------//
 		Row head = sheet.getRow(0);
 		for (int i = 0; i < rowCount; i++) {
 			Row row = sheet.getRow(i);
@@ -153,6 +154,7 @@ public class XLS {
 				System.out.println();
 			}
 		}
+		// ---------------------------------以上是获取所有用户数据------------------------------------//
 
 		for (int rowNum = 1; rowNum <= rowCount; rowNum++) {
 			Row row = sheet.getRow(rowNum);// 获取行
@@ -293,7 +295,6 @@ public class XLS {
 
 			fos.flush();
 			workbook.write(fos);
-			System.out.println(sheet.getLastRowNum());
 			fos.close();
 			fis.close();
 		} catch (Exception e) {
@@ -319,7 +320,7 @@ public class XLS {
 		}
 
 		rowCount = sheet.getLastRowNum() + 1;// 总行数
-		
+
 		for (int rowNum = 1; rowNum <= rowCount; rowNum++) {
 			Row row = sheet.getRow(rowNum);// 获取行
 			if (row != null) {
