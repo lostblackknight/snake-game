@@ -168,6 +168,10 @@ public class LoginPanel extends BasePanel {
 				//2.调用service完成查询
 				UserService service = new UserServiceImpl();
 				User u = service.login(user);
+				
+				System.out.println(u.getUid());
+				System.out.println(u.getUsername());
+				System.out.println(u.getPassword());
 				infoLogin = new ResultInfo();
 				
 				//3.判断

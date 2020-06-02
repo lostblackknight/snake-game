@@ -35,6 +35,13 @@ public class Game {
 		this.type = type;
 	}
 	
+	public Game(int uid, int type, int sid, int fid) {
+		this.uid = uid;
+		this.type = type;
+		this.sid = sid;
+		this.fid = fid;
+	}
+
 	public Game(int uid, int type, int sid, int fid, int mid) {
 		this.uid = uid;
 		this.type = type;

@@ -29,4 +29,9 @@ public interface GameService {
 	 */
 	boolean haveOldData(Game game);
 
+	/**
+	 * @param g
+	 */
+	void delOldData(Game g);
+
 }

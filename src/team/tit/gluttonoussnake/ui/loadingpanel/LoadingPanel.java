@@ -29,7 +29,7 @@ public class LoadingPanel extends BasePanel {
 	private Media media;
 	private MediaPlayer mp;
 	private MediaView mv;
-	public static ArrayList<Wall> list = new ArrayList<Wall>();
+	public static ArrayList<Wall> list;
 
 	public LoadingPanel() {
 	}
@@ -50,13 +50,20 @@ public class LoadingPanel extends BasePanel {
 		//3.获取地图数据
 		/*
 		 * 1.查询数据库返回一个Wall对象的集合
-		 * 2.
 		 */	
 		WallService service = new WallServiceImpl();
-		ArrayList<Wall> list = service.findAll();
+		list = service.findAll();
 		
 	}
 	
+	public static ArrayList<Wall> getList() {
+		return list;
+	}
+
+	public static void setList(ArrayList<Wall> list) {
+		LoadingPanel.list = list;
+	}
+
 	@Override
 	public void start() {
 		subRoot.getChildren().add(mv);

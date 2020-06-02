@@ -24,4 +24,9 @@ public interface GameDao {
 	 */
 	Game findByUidAndType(int uid, int type);
 
+	/**
+	 * @param g
+	 */
+	void delOldData(Game g);
+
 }

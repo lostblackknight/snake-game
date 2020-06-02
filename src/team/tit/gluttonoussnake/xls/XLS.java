@@ -45,39 +45,14 @@ public class XLS {
 
 	private Row rightRow = null;// 拿到要找的那一行
 
-	@SuppressWarnings({ "incomplete-switch", "static-access" })
-	private String cellToString(Cell cell) {
-		CellType cellType = cell.getCellTypeEnum();
-		String value = "";
-
-		switch (cellType) {
-		case STRING:
-			value = cell.getStringCellValue();
-			break;
-		case BOOLEAN:
-			boolean valueBoolean = cell.getBooleanCellValue();
-			value = String.valueOf(valueBoolean);
-			break;
-		case NUMERIC:
-			cell.setCellType(cellType.STRING);
-			value = cell.toString();
-			break;
-		case BLANK:
-			break;
-		case ERROR:
-			break;
-		}
-		return value;
-	}
-
-	private int cellToInt(Cell cell) {
-		if (cell.getCellTypeEnum() == CellType.NUMERIC) {
-			return (int) cell.getNumericCellValue();
-		}
-		return -1;
-	}
-
-	@SuppressWarnings({ "resource", "static-access" })
+	/**
+	 * 通过用户名和密码查找User对象
+	 * 
+	 * @param name
+	 * @param word
+	 * @return
+	 */
+	@SuppressWarnings({ "resource" })
 	public User findByUsernameAndPassword(String name, String word) {
 		FileInputStream fis = null;
 		try {
@@ -85,6 +60,7 @@ public class XLS {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
 		Sheet sheet = null;
 		try {
 			Workbook workbook = new HSSFWorkbook(fis);
@@ -93,68 +69,7 @@ public class XLS {
 			e.printStackTrace();
 		}
 
-		rowCount = sheet.getLastRowNum() + 1;// 总行数
-
-		System.out.println(rowCount);
-
-		// ---------------------------------以下是获取所有用户数据------------------------------------//
-		Row head = sheet.getRow(0);
-		for (int i = 0; i < rowCount; i++) {
-			Row row = sheet.getRow(i);
-			if (row != null) {
-				// 读取列
-				int cellCount = head.getPhysicalNumberOfCells();
-				for (int j = 0; j < cellCount; j++) {
-					System.out.print("[" + (i) + "-" + (j) + "]");
-
-					Cell cell = row.getCell(j);
-
-					// 匹配列的类型
-					if (cell != null) {
-						CellType cellType = cell.getCellType();
-						String value = "";
-
-						switch (cellType) {
-						case STRING:
-							String valueString = cell.getStringCellValue();
-							value = valueString;
-							System.out.print(value);
-							break;
-						case BOOLEAN:
-							boolean valueBoolean = cell.getBooleanCellValue();
-							value = String.valueOf(valueBoolean);
-							System.out.print(value);
-							break;
-						case BLANK:
-							break;
-						case NUMERIC:
-
-							if (HSSFDateUtil.isCellDateFormatted(cell)) {
-								// 是日期
-								Date date = cell.getDateCellValue();
-								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-								value = sdf.format(date);
-
-								System.out.print(value);
-							} else {
-								cell.setCellType(cellType.STRING);
-								value = cell.toString();
-								System.out.print(value);
-							}
-							break;
-						case ERROR:
-							System.out.print("类型错误");
-							break;
-						default:
-							break;
-						}
-					}
-				}
-				System.out.println();
-			}
-		}
-		// ---------------------------------以上是获取所有用户数据------------------------------------//
+		printAllData(sheet);// 打印User表
 
 		for (int rowNum = 1; rowNum <= rowCount; rowNum++) {
 			Row row = sheet.getRow(rowNum);// 获取行
@@ -164,6 +79,8 @@ public class XLS {
 					String value = cellToString(username);
 					if (value.equals(name)) {
 						usernameFlag = true;
+					} else {
+						usernameFlag = false;
 					}
 				}
 				Cell password = row.getCell(2);// 获取密码
@@ -171,6 +88,8 @@ public class XLS {
 					String value = cellToString(password);
 					if (value.equals(word)) {
 						passwordFlag = true;
+					} else {
+						passwordFlag = false;
 					}
 				}
 				if (usernameFlag && passwordFlag) {
@@ -181,7 +100,9 @@ public class XLS {
 
 		if (rightRow != null) {
 			Cell uid = rightRow.getCell(0);
-			int uidValue = cellToInt(uid);
+			String uidString = cellToString(uid);
+			int uidValue = Integer.parseInt(uidString);
+			
 
 			Cell username = rightRow.getCell(1);
 			String usernameValue = cellToString(username);
@@ -200,7 +121,9 @@ public class XLS {
 		}
 
 		try {
-			fis.close();
+			if (fis != null) {
+				fis.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -224,9 +147,7 @@ public class XLS {
 			e.printStackTrace();
 		}
 
-		rowCount = sheet.getLastRowNum() + 1;// 总行数
-
-		for (int rowNum = 1; rowNum <= rowCount; rowNum++) {
+		for (int rowNum = 1; rowNum <= sheet.getLastRowNum() + 1; rowNum++) {
 			Row row = sheet.getRow(rowNum);// 获取行
 			if (row != null) {
 				Cell username = row.getCell(1);// 获取用户名
@@ -263,7 +184,9 @@ public class XLS {
 		}
 
 		try {
-			fis.close();
+			if (fis != null) {
+				fis.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -319,9 +242,7 @@ public class XLS {
 			e.printStackTrace();
 		}
 
-		rowCount = sheet.getLastRowNum() + 1;// 总行数
-
-		for (int rowNum = 1; rowNum <= rowCount; rowNum++) {
+		for (int rowNum = 1; rowNum <= sheet.getLastRowNum() + 1; rowNum++) {
 			Row row = sheet.getRow(rowNum);// 获取行
 			if (row != null) {
 				Cell mobilephone = row.getCell(3);
@@ -366,4 +287,104 @@ public class XLS {
 		}
 		return userXLS;
 	}
+
+	/**
+	 * 打印表的信息
+	 * 
+	 * @param sheet 表
+	 */
+	@SuppressWarnings({ "static-access", "incomplete-switch" })
+	public void printAllData(Sheet sheet) {
+		rowCount = sheet.getLastRowNum() + 1;// 获取总行数
+		Row head = sheet.getRow(0);// 获取第一行
+		for (int i = 0; i < rowCount; i++) {
+			Row row = sheet.getRow(i);
+			if (row != null) {
+				// 读取列
+				int cellCount = head.getPhysicalNumberOfCells();// 获取列数
+				for (int j = 0; j < cellCount; j++) {
+					System.out.print("[" + (i) + "-" + (j) + "]");
+					Cell cell = row.getCell(j);
+					// 匹配列的类型
+					if (cell != null) {
+						CellType cellType = cell.getCellType();
+						String value = "";
+						switch (cellType) {
+						case STRING:
+							value = cell.getStringCellValue();
+							System.out.print(value);
+							break;
+						case BOOLEAN:
+							boolean valueBoolean = cell.getBooleanCellValue();
+							value = String.valueOf(valueBoolean);
+							System.out.print(value);
+							break;
+						case BLANK:
+							break;
+						case NUMERIC:
+							if (HSSFDateUtil.isCellDateFormatted(cell)) {
+								Date date = cell.getDateCellValue();
+								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+								value = sdf.format(date);
+								System.out.print(value);
+							} else {
+								cell.setCellType(cellType.STRING);
+								value = cell.toString();
+								System.out.print(value);
+							}
+							break;
+						case ERROR:
+							System.out.print("类型错误");
+							break;
+						}
+					}
+				}
+				System.out.println();
+			}
+		}
+	}
+
+	/**
+	 * 将不同类型的单元格元素转换为字符串
+	 * 
+	 * @param cell 单元格
+	 * @return 返回一个字符串
+	 */
+	@SuppressWarnings({ "incomplete-switch", "static-access" })
+	public String cellToString(Cell cell) {
+		CellType cellType = cell.getCellTypeEnum();
+		String value = "";
+		switch (cellType) {
+		case STRING:
+			value = cell.getStringCellValue();
+			break;
+		case BOOLEAN:
+			boolean valueBoolean = cell.getBooleanCellValue();
+			value = String.valueOf(valueBoolean);
+			break;
+		case NUMERIC:
+			cell.setCellType(cellType.STRING);
+			value = cell.toString();
+			break;
+		case BLANK:
+			break;
+		case ERROR:
+			break;
+		}
+		return value;
+	}
+
+	/**
+	 * 将单元格元素转换为整型
+	 * 
+	 * @param cell 单元格
+	 * @return 是number类型返回大于等于0的数字，不是返回-1
+	 */
+	public int cellToInt(Cell cell) {
+		if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+			return (int) cell.getNumericCellValue();
+		}
+		return -1;
+	}
+
 }

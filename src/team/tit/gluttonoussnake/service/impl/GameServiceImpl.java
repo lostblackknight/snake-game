@@ -77,11 +77,15 @@ public class GameServiceImpl implements GameService {
 	public boolean haveOldData(Game game) {
 		// TODO 查找game表
 		Game g = gameDao.findByUidAndType(game.getUid(),game.getType());
-		
 		if (g.getSid() > 0) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void delOldData(Game g) {
+		gameDao.delOldData(g);
 	}
 
 }
