@@ -7,9 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,7 +15,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.dao.SnakeDao;
-import team.tit.gluttonoussnake.xls.XLS;
 
 /**
  * @author 陈思祥
@@ -30,7 +26,7 @@ import team.tit.gluttonoussnake.xls.XLS;
  */
 public class SnakeDaoImpl implements SnakeDao {
 
-	private String file = XLS.class.getClassLoader().getResource("data/savedata.xls").getFile();
+	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
 	@Override
 	public Snake findBySid(int sid) {
 		// TODO 通过sid查询Snake表返回一个snake对象

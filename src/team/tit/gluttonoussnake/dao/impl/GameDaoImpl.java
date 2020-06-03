@@ -7,20 +7,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.dao.GameDao;
 import team.tit.gluttonoussnake.domain.Game;
-import team.tit.gluttonoussnake.xls.XLS;
+import team.tit.gluttonoussnake.util.XLSUtils;
 
 /**
  * 操纵数据源中的Game
@@ -33,8 +29,7 @@ import team.tit.gluttonoussnake.xls.XLS;
  * @since JDK1.8 2020年5月24日
  */
 public class GameDaoImpl implements GameDao {
-	private String file = XLS.class.getClassLoader().getResource("data/savedata.xls").getFile();
-	private XLS xls = new XLS();
+	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
 
 	@Override
 	public Game findByUidAndType(int uid, int type) {
@@ -47,7 +42,7 @@ public class GameDaoImpl implements GameDao {
 			Workbook workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Game");
 
-			xls.printAllData(sheet);
+			XLSUtils.printSheetData(sheet);
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
@@ -57,8 +52,8 @@ public class GameDaoImpl implements GameDao {
 					Cell celluid = row.getCell(0);
 					Cell celltype = row.getCell(1);
 
-					String celluidString = xls.cellToString(celluid);
-					String celltypeString = xls.cellToString(celltype);
+					String celluidString = XLSUtils.celltoString(celluid);
+					String celltypeString =  XLSUtils.celltoString(celltype);
 					
 
 					int uuid = Integer.parseInt(celluidString);

@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.npc.Food;
 import team.tit.gluttonoussnake.dao.FoodDao;
-import team.tit.gluttonoussnake.xls.XLS;
 
 /**
  * @author 陈思祥
@@ -26,7 +25,7 @@ import team.tit.gluttonoussnake.xls.XLS;
  * @since JDK1.8 2020年5月24日
  */
 public class FoodDaoImpl implements FoodDao {
-	private String file = XLS.class.getClassLoader().getResource("data/savedata.xls").getFile();
+	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
 	@Override
 	public Food findByFid(int fid) {
 

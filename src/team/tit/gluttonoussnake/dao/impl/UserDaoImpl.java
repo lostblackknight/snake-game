@@ -1,8 +1,19 @@
 package team.tit.gluttonoussnake.dao.impl;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
 import team.tit.gluttonoussnake.dao.UserDao;
 import team.tit.gluttonoussnake.domain.User;
-import team.tit.gluttonoussnake.xls.XLS;
+import team.tit.gluttonoussnake.util.XLSUtils;
 
 /**
  * 操纵数据源中的User
@@ -16,7 +27,15 @@ import team.tit.gluttonoussnake.xls.XLS;
  */
 public class UserDaoImpl implements UserDao {
 
-	private XLS xls = new XLS();
+	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
+
+	private boolean usernameFlag = false;
+
+	private boolean passwordFlag = false;
+
+	private boolean mobilephoneFlag = false;
+
+	private Row rightRow = null;// 拿到要找的那一行
 
 	/**
 	 * 根据用户名查询用户信息
@@ -27,7 +46,55 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findByUsername(String username) {
 		// TO DO 根据用户名查询数据源中的user，返回user对象
-		User user = xls.findByUsername(username);
+		User user = null;
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		try {
+			fis = XLSUtils.getFileInputStreamInput(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet sheet = workbook.getSheet("User");
+			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+				Row row = sheet.getRow(rowNum);// 获取行
+				if (row != null) {
+					Cell usernameCell = row.getCell(1);// 获取用户名
+					if (usernameCell != null) {
+						String value = XLSUtils.celltoString(usernameCell);
+						if (value.equals(username)) {
+							usernameFlag = true;
+						}
+					}
+					if (usernameFlag) {
+						rightRow = row;
+					}
+				}
+			}
+
+			if (rightRow != null) {
+				Cell uid = rightRow.getCell(0);
+				int uidValue = XLSUtils.celltoInt(uid);
+
+				Cell usernameCell = rightRow.getCell(1);
+				String usernameValue = XLSUtils.celltoString(usernameCell);
+
+				Cell password = rightRow.getCell(2);
+				String passwordValue = XLSUtils.celltoString(password);
+
+				Cell mobilephone = rightRow.getCell(3);
+				String mobilephoneValue = XLSUtils.celltoString(mobilephone);
+
+				user = new User();
+				user.setUid(uidValue);
+				user.setUsername(usernameValue);
+				user.setPassword(passwordValue);
+				user.setMobliePhone(mobilephoneValue);
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		XLSUtils.close(fis, null, workbook);
 		return user;
 	}
 
@@ -39,7 +106,38 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void save(User user) {
 		// TODO 将user对象保存到数据源中
-		xls.saveUser(user);
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		FileOutputStream fos = null;
+		try {
+			fis = XLSUtils.getFileInputStreamInput(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet sheet = workbook.getSheet("User");
+			
+			fos = XLSUtils.getFileOutputStream(file);
+			Row newRow = sheet.createRow(sheet.getLastRowNum() + 1);
+			
+			Cell uid = newRow.createCell(0);
+			uid.setCellValue(sheet.getLastRowNum());
+
+			Cell username = newRow.createCell(1);
+			username.setCellValue(user.getUsername());
+
+			Cell password = newRow.createCell(2);
+			password.setCellValue(user.getPassword());
+
+			Cell mobliephone = newRow.createCell(3);
+			mobliephone.setCellValue(user.getMobliePhone());
+			
+			fos.flush();
+			workbook.write(fos);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		XLSUtils.close(fis, fos, workbook);
 	}
 
 	/**
@@ -52,8 +150,71 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findByUsernameAndPassword(String username, String password) {
 		// TODO 根据用户名和密码查询数据源中的user，返回user对象
-		User userXLS = xls.findByUsernameAndPassword(username, password);
-		return userXLS;
+		User user = null;
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		try {
+			fis = XLSUtils.getFileInputStreamInput(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet sheet = workbook.getSheet("User");
+
+			XLSUtils.printSheetData(sheet);// 打印User表
+
+			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+				Row row = sheet.getRow(rowNum);// 获取行
+				if (row != null) {
+					Cell usernameCell = row.getCell(1);// 获取用户名
+					if (username != null) {
+						String value = XLSUtils.celltoString(usernameCell);
+						if (value.equals(username)) {
+							usernameFlag = true;
+						} else {
+							usernameFlag = false;
+						}
+					}
+					Cell passwordCell = row.getCell(2);// 获取密码
+					if (password != null) {
+						String value = XLSUtils.celltoString(passwordCell);
+						if (value.equals(password)) {
+							passwordFlag = true;
+						} else {
+							passwordFlag = false;
+						}
+					}
+					if (usernameFlag && passwordFlag) {
+						rightRow = row;
+					}
+				}
+			}
+
+			if (rightRow != null) {
+				Cell uid = rightRow.getCell(0);
+				String uidString = XLSUtils.celltoString(uid);
+				int uidValue = Integer.parseInt(uidString);
+
+				Cell usernameCell = rightRow.getCell(1);
+				String usernameValue = XLSUtils.celltoString(usernameCell);
+
+				Cell passwordCell = rightRow.getCell(2);
+				String passwordValue = XLSUtils.celltoString(passwordCell);
+
+				Cell mobilephoneCell = rightRow.getCell(3);
+				String mobilephoneValue = XLSUtils.celltoString(mobilephoneCell);
+
+				user = new User();
+				user.setUid(uidValue);
+				user.setUsername(usernameValue);
+				user.setPassword(passwordValue);
+				user.setMobliePhone(mobilephoneValue);
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		XLSUtils.close(fis, null, workbook);
+		return user;
 	}
 
 	/**
@@ -65,7 +226,57 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findByMobilePhone(String mobliePhone) {
 		// TODO 根据手机号查询数据源中的user，返回user对象
-		User user = xls.findByMobilePhone(mobliePhone);
+		User user = null;
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		try {
+			fis = XLSUtils.getFileInputStreamInput(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet sheet = workbook.getSheet("User");
+			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+				Row row = sheet.getRow(rowNum);// 获取行
+				if (row != null) {
+					Cell mobilephoneCell = row.getCell(3);
+					if (mobilephoneCell != null) {
+						String value = XLSUtils.celltoString(mobilephoneCell);
+						if (value.equals(mobliePhone)) {
+							mobilephoneFlag = true;
+						} else {
+							mobilephoneFlag = false;
+						}
+						if (mobilephoneFlag) {
+							rightRow = row;
+						}
+					}
+				}
+			}
+
+			if (rightRow != null) {
+				Cell uidCell = rightRow.getCell(0);
+				int uidValue = XLSUtils.celltoInt(uidCell);
+
+				Cell usernameCell = rightRow.getCell(1);
+				String usernameValue = XLSUtils.celltoString(usernameCell);
+
+				Cell passwordCell = rightRow.getCell(2);
+				String passwordValue = XLSUtils.celltoString(passwordCell);
+
+				Cell mobilePhoneCell = rightRow.getCell(3);
+				String mobilephoneValue = XLSUtils.celltoString(mobilePhoneCell);
+
+				user = new User();
+				user.setUid(uidValue);
+				user.setUsername(usernameValue);
+				user.setPassword(passwordValue);
+				user.setMobliePhone(mobilephoneValue);
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		XLSUtils.close(fis, null, workbook);
 		return user;
 	}
 }

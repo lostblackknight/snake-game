@@ -8,9 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,7 +16,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
 import team.tit.gluttonoussnake.dao.SnakeBodyDao;
-import team.tit.gluttonoussnake.xls.XLS;
 
 /**
  * @author 陈思祥
@@ -30,7 +26,7 @@ import team.tit.gluttonoussnake.xls.XLS;
  * @since JDK1.8 2020年5月24日
  */
 public class SnakeBodyDaoImpl implements SnakeBodyDao {
-	private String file = XLS.class.getClassLoader().getResource("data/savedata.xls").getFile();
+	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
 
 	@Override
 	public LinkedList<SnakeNode> findBodyBySid(int sid) {

@@ -169,9 +169,6 @@ public class LoginPanel extends BasePanel {
 				UserService service = new UserServiceImpl();
 				User u = service.login(user);
 				
-				System.out.println(u.getUid());
-				System.out.println(u.getUsername());
-				System.out.println(u.getPassword());
 				infoLogin = new ResultInfo();
 				
 				//3.判断
@@ -186,6 +183,9 @@ public class LoginPanel extends BasePanel {
 					infoLogin.setFlag(true);
 					infoLogin.setData(u);
 					l_login_fail.setText("");
+					System.out.println(u.getUid());
+					System.out.println(u.getUsername());
+					System.out.println(u.getPassword());
 					
 					//1.注册主菜单面板
 					UIManager.getUiManager().regPanel("MainMenuPanel", new MainMenuPanel(infoLogin));

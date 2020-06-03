@@ -17,7 +17,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.dao.WallDao;
-import team.tit.gluttonoussnake.xls.XLS;
 
 /**
  * @author 陈思祥
@@ -28,7 +27,7 @@ import team.tit.gluttonoussnake.xls.XLS;
  * @since JDK1.8 2020年5月24日
  */
 public class WallDaoImpl implements WallDao {
-	private String file = XLS.class.getClassLoader().getResource("data/savedata.xls").getFile();
+	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
 
 	@Override
 	public ArrayList<Wall> findAll() {
