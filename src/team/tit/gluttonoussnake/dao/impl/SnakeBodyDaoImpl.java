@@ -32,50 +32,35 @@ public class SnakeBodyDaoImpl implements SnakeBodyDao {
 	@Override
 	public LinkedList<SnakeNode> findBodyBySid(int sid) {
 		// TODO 根据sid查询snakebody表返回一个linklist
-		
-		LinkedList<SnakeNode> body=new LinkedList<SnakeNode>();
-		
-		try
-		{
-			FileInputStream fis = null;		
-			fis = XLSUtils.getFileInputStreamInput(file);
-			Workbook workbook = new HSSFWorkbook(fis);
+		LinkedList<SnakeNode> body = new LinkedList<SnakeNode>();
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		try {
+			fis = XLSUtils.getFileInputStream(file);
+			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("SnakeBody");
-						
-            for (int i =1; i <=sheet.getLastRowNum(); i++) {
-            	    Row row = sheet.getRow(i);                    
-                    Cell cellsid = row.getCell(0);
 
-                    int ssid =XLSUtils.celltoInt(cellsid);
-                    
-                    if(ssid==sid) {       
-                    	Cell cellx = row.getCell(1);                  
-                    	 Cell celly = row.getCell(2);
-                    	 
-                    	 int x = XLSUtils.celltoInt(cellx);
-                    	 int y = XLSUtils.celltoInt(celly);
-                    	
-                    body.add(i-1,new SnakeNode(x,y));                   	                
-            	 }	
-	            }
-					
-        	XLSUtils.close(fis, null, workbook);
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell cellsid = row.getCell(0);
+				int ssid = XLSUtils.celltoInt(cellsid);
+				if (ssid == sid) {
+					Cell cellx = row.getCell(1);
+					Cell celly = row.getCell(2);
+					int x = XLSUtils.celltoInt(cellx);
+					int y = XLSUtils.celltoInt(celly);
+					body.add(new SnakeNode(x, y));
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}								
-		
 
-		
+		XLSUtils.close(fis, null, workbook);
 		return body;
 	}
-
 
 }

@@ -28,52 +28,39 @@ import team.tit.gluttonoussnake.util.XLSUtils;
 public class SnakeDaoImpl implements SnakeDao {
 
 	private String file = this.getClass().getClassLoader().getResource("data/savedata.xls").getFile();
+
 	@Override
 	public Snake findBySid(int sid) {
 		// TODO 通过sid查询Snake表返回一个snake对象
-		
 		Snake snake = new Snake(sid);
-		try
-		{
-			FileInputStream fis = null;		
-			fis = XLSUtils.getFileInputStreamInput(file);
-			Workbook workbook = new HSSFWorkbook(fis);
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		try {
+			fis = XLSUtils.getFileInputStream(file);
+			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Snake");
-						
-            for (int i =1; i <=sheet.getLastRowNum(); i++) {
-            	Row row = sheet.getRow(i);                    
-                    Cell cellsid = row.getCell(0);
 
-                    int ssid =XLSUtils.celltoInt(cellsid);
-                    
-                    if(ssid==sid) {                    	
-                    	Cell cellx = row.getCell(1);
-                    	
-                    	 Cell celly = row.getCell(2);
-                    	 
-                    	 int x = XLSUtils.celltoInt(cellx);
-                    	 int y = XLSUtils.celltoInt(celly);
-            
-                     	 
-                         snake.setX(x);
-			             snake.setY(y);    
-			   
-            	 }	
-	            }
-					
-        	XLSUtils.close(fis, null, workbook);
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell cellsid = row.getCell(0);
+				int ssid = XLSUtils.celltoInt(cellsid);
+				if (ssid == sid) {
+					Cell cellx = row.getCell(1);
+					Cell celly = row.getCell(2);
+					int x = XLSUtils.celltoInt(cellx);
+					int y = XLSUtils.celltoInt(celly);
+					snake.setX(x);
+					snake.setY(y);
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-								
+
+		XLSUtils.close(fis, null, workbook);
 		return snake;
 	}
 

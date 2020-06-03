@@ -81,15 +81,19 @@ public class GamePanel extends BasePanel {
 				int foodY = game.getFood().getFoodY();
 //				ArrayList<Point> wall = game.getWall().getPoints();
 				int wid = game.getWid();
+				int sid = game.getSid();
+				int fid = game.getFid();
 				ArrayList<Point> points = LoadingPanel.getList().get(wid).getPoints();
 				// TODO 将获取出来的值设到snake对象中去
 				// gameScreen.snake.setX(headX);
 				// gameScreen.snake.setY(headY);
+				gameScreen.snake.setId(sid);
 				gameScreen.snake.setList(body);
+				gameScreen.food.setId(fid);
 				gameScreen.food.setX(foodX);
 				gameScreen.food.setY(foodY);
+				gameScreen.wall.setId(wid);
 				gameScreen.wall.setPoints(points);
-				System.out.println(wid);
 			}
 
 		}

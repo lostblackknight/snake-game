@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
 		FileInputStream fis = null;
 		Workbook workbook = null;
 		try {
-			fis = XLSUtils.getFileInputStreamInput(file);
+			fis = XLSUtils.getFileInputStream(file);
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("User");
 			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao {
 		Workbook workbook = null;
 		FileOutputStream fos = null;
 		try {
-			fis = XLSUtils.getFileInputStreamInput(file);
+			fis = XLSUtils.getFileInputStream(file);
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("User");
 			
@@ -129,8 +129,8 @@ public class UserDaoImpl implements UserDao {
 			Cell mobliephone = newRow.createCell(3);
 			mobliephone.setCellValue(user.getMobliePhone());
 			
-			fos.flush();
 			workbook.write(fos);
+			
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
@@ -154,11 +154,14 @@ public class UserDaoImpl implements UserDao {
 		FileInputStream fis = null;
 		Workbook workbook = null;
 		try {
-			fis = XLSUtils.getFileInputStreamInput(file);
+			fis = XLSUtils.getFileInputStream(file);
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("User");
 
+			System.out.println("-------用户加载start-------");
 			XLSUtils.printSheetData(sheet);// 打印User表
+			System.out.println("-------用户加载end-------");
+			System.out.println();
 
 			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
 				Row row = sheet.getRow(rowNum);// 获取行
@@ -230,7 +233,7 @@ public class UserDaoImpl implements UserDao {
 		FileInputStream fis = null;
 		Workbook workbook = null;
 		try {
-			fis = XLSUtils.getFileInputStreamInput(file);
+			fis = XLSUtils.getFileInputStream(file);
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("User");
 			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {

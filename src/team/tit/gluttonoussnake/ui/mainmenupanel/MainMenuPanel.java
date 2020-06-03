@@ -325,7 +325,6 @@ public class MainMenuPanel extends BasePanel {
 					System.out.println("冒险模式continue game");
 					// 2.封装数据
 					Game game = new Game(uid, type);
-					
 
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
@@ -334,9 +333,6 @@ public class MainMenuPanel extends BasePanel {
 					Game g = null;
 					if (flag) {
 						g = service.findOne(game);
-						System.out.println(g.getWid());
-						System.out.println(g.getSid());
-						System.out.println(g.getFid());
 					}
 					infoMain = new ResultInfo(flag, g);
 				}

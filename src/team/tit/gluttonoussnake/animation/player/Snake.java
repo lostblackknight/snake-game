@@ -22,35 +22,34 @@ import team.tit.gluttonoussnake.animation.npc.Food;
 import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.util.MyUtils;
 
-
 public class Snake extends BaseObject {
-	
+
 	public enum DIR {
 		UP, DOWN, LEFT, RIGHT
 	};
-	
-	private LinkedList<SnakeNode> list = new LinkedList<SnakeNode>();		//蛇的节点
-	private DIR dir;														//蛇的方向
-	private int length;														//蛇的长度
-	private Color color;													//蛇的颜色
-	private int sleepTime;													//控制蛇的速度
+
+	private LinkedList<SnakeNode> list = new LinkedList<SnakeNode>(); // 蛇的节点
+	private DIR dir; // 蛇的方向
+	private int length; // 蛇的长度
+	private Color color; // 蛇的颜色
+	private int sleepTime; // 控制蛇的速度
 	private SnakeNode tail;
 	private boolean isEnough;
-	
+
 	public Snake() {
 		init();
 	}
+
 	public Snake(int id) {
 		this.id = id;
 	}
-	
-	
+
 	public Snake(int id, int x, int y) {
 		this.id = id;
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public Snake(int id, LinkedList<SnakeNode> list) {
 		this.id = id;
 		this.list = list;
@@ -73,7 +72,7 @@ public class Snake extends BaseObject {
 			setSleepTime(300);
 		}
 	}
-	
+
 	@Override
 	public void draw(GraphicsContext gc) {
 		for (int i = 1; i < list.size(); i++) {
@@ -122,24 +121,23 @@ public class Snake extends BaseObject {
 		tail = list.removeLast();
 		SnakeNode newHead = new SnakeNode(x, y);
 		list.addFirst(newHead);
-	}	
-	
+	}
+
 	/**
 	 * 键盘监听，改变蛇的方向
+	 * 
 	 * @param event
 	 */
 	public void onKeyPressed(KeyEvent event) {
 		KeyCode tmpCode = event.getCode();
 		// 如果反方向那么不处理，蛇不会掉头
-		if ((tmpCode == KeyCode.W && dir == DIR.DOWN)
-				|| (tmpCode == KeyCode.S && dir == DIR.UP)
-				|| (tmpCode == KeyCode.D && dir == DIR.LEFT)
-				|| (tmpCode == KeyCode.A && dir == DIR.RIGHT)) {
+		if ((tmpCode == KeyCode.W && dir == DIR.DOWN) || (tmpCode == KeyCode.S && dir == DIR.UP)
+				|| (tmpCode == KeyCode.D && dir == DIR.LEFT) || (tmpCode == KeyCode.A && dir == DIR.RIGHT)) {
 			return;
 		}
 		updateDir(tmpCode);
 	}
-	
+
 	public void updateDir(KeyCode code) {
 		if (isEnough()) {
 			if (code == KeyCode.W) {
@@ -162,27 +160,25 @@ public class Snake extends BaseObject {
 			setEnough(false);
 		}
 	}
-	
+
 	public void grow() {
 		list.add(tail);
 		length = length + 1;
 	}
-	
+
 	public boolean isEatFood(Food food) {
 		int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
 		int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
 		int x1 = food.getX() * food.getWidth() + (food.getWidth() >> 1);
 		int y1 = food.getY() * food.getHeight() + (food.getHeight() >> 1);
-		int w = (getWidth() + food.getWidth()) >> 1;
-		int h = (getHeight() + food.getHeight()) >> 1;
 		int disCurrent = MyUtils.distance(x0, y0, x1, y1);
-		int disCrashed = MyUtils.distance(w, h);
+		int disCrashed = 20;
 		if (disCurrent < disCrashed) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isEatBody() {
 		for (int i = 1; i < list.size(); i++) {
 			if (list.get(i).getX() == getHead().getX() && list.get(i).getY() == getHead().getY())
@@ -190,30 +186,30 @@ public class Snake extends BaseObject {
 		}
 		return false;
 	}
-	
-public boolean isEatWall(ArrayList<Point> points) {
-		
-		for(int i=0;i<points.size();i++) {
-		int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
-		int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
-		int x1 = (int) (points.get(i).getX() * getWidth() + 10);
-		int y1 =(int) (points.get(i).getY() * getHeight() + 10);
-		int w = (getWidth() + 20) >> 1;
-		int h = (getHeight() + 20) >> 1;
-		int disCurrent = MyUtils.distance(x0, y0, x1, y1);
-		int disCrashed = MyUtils.distance(w, h);		
-		if (disCurrent < disCrashed) {
-			return true;
-		}
+
+	public boolean isEatWall(ArrayList<Point> points) {
+
+		for (int i = 0; i < points.size(); i++) {
+			int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
+			int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
+			int x1 = (int) (points.get(i).getX() * getWidth() + 10);
+			int y1 = (int) (points.get(i).getY() * getHeight() + 10);
+			int w = (getWidth() + 20) >> 1;
+			int h = (getHeight() + 20) >> 1;
+			int disCurrent = MyUtils.distance(x0, y0, x1, y1);
+			int disCrashed = 20;
+			if (disCurrent < disCrashed) {
+				return true;
+			}
 		}
 		return false;
-		
+
 	}
-	
+
 	public SnakeNode getHead() {
 		return list.getFirst();
 	}
-	
+
 	public LinkedList<SnakeNode> getList() {
 		return list;
 	}
@@ -261,7 +257,7 @@ public boolean isEatWall(ArrayList<Point> points) {
 	public void setTail(SnakeNode tail) {
 		this.tail = tail;
 	}
-	
+
 	public boolean isEnough() {
 		return isEnough;
 	}

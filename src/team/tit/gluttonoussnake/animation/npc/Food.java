@@ -59,12 +59,12 @@ public class Food extends BaseObject {
 	}
 
 	// 食物不能出现在墙上的生成食物
-	public void createRandomFoodNotInWall(ArrayList<Point> points) {
+	public void createRandomFoodNotInWall(ArrayList<Point> wallpoints) {
 		createRandomFood();
-		if (points != null) {
-			for (int i = 0; i <= points.size(); i++) {
-				if (getX() == points.get(i).x && getY() == points.get(i).y) {
-					createRandomFoodNotInWall(points);
+		if (wallpoints != null) {
+			for (int i = 0; i <= wallpoints.size(); i++) {
+				if (getX() == wallpoints.get(i).x && getY() == wallpoints.get(i).y) {
+					createRandomFoodNotInWall(wallpoints);
 				}
 			}
 		}

@@ -43,7 +43,7 @@ public class UIManager implements Manager {
 		currentPanel = new SimpleObjectProperty<BasePanel>();
 		
 		//2.设置游戏应用首次要进入的面板
-		gotoFirstPanel("LoginPanel", new LoginPanel());
+		gotoFirstPanel("LoadingPanel", new LoadingPanel());
 		
 		//3.添加属性监听，实现面板的切换
 		currentPanel.addListener(new ChangeListener<BasePanel>() {

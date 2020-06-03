@@ -38,7 +38,7 @@ public class XLSUtils {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public static FileInputStream getFileInputStreamInput(String file) throws FileNotFoundException {
+	public static FileInputStream getFileInputStream(String file) throws FileNotFoundException {
 		FileInputStream fis = new FileInputStream(file);
 		return fis;
 	}
@@ -63,16 +63,17 @@ public class XLSUtils {
 	 * @param workbook
 	 */
 	public static void close(FileInputStream fis, FileOutputStream fos, Workbook workbook) {
-		if (fos != null) {
+		if (workbook != null) {
 			try {
-				fos.close();
+				workbook.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		if (workbook != null) {
+		if (fos != null) {
 			try {
-				workbook.close();
+				fos.flush();
+				fos.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

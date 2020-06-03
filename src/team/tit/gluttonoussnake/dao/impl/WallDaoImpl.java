@@ -32,15 +32,12 @@ public class WallDaoImpl implements WallDao {
 
 	@Override
 	public ArrayList<Wall> findAll() {
-
 		ArrayList<Point> points1 = findByWid(1);
 		ArrayList<Point> points2 = findByWid(2);
 		ArrayList<Point> points3 = findByWid(3);
-
 		Wall wall1 = new Wall(1, points1);
 		Wall wall2 = new Wall(2, points2);
 		Wall wall3 = new Wall(3, points3);
-
 		ArrayList<Wall> list = new ArrayList<Wall>();
 		list.add(null);
 		list.add(wall1);
@@ -53,44 +50,36 @@ public class WallDaoImpl implements WallDao {
 	public ArrayList<Point> findByWid(int wid) {
 		// TODO 通过mid查询地图表
 		ArrayList<Point> points = new ArrayList<Point>();
+		
+		FileInputStream fis = null;
+		Workbook workbook = null;
 		try {
-			FileInputStream fis = null;
-			fis = XLSUtils.getFileInputStreamInput(file);
-			Workbook workbook = new HSSFWorkbook(fis);
+			fis = XLSUtils.getFileInputStream(file);
+			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Wall");
 
-			for (int i = 1; i <= sheet.getLastRowNum() + 1; i++) {
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				if (row != null) {
 					Cell cellwid = row.getCell(0);
-					
-					 int wwid =XLSUtils.celltoInt(cellwid);
-					
+					int wwid = XLSUtils.celltoInt(cellwid);
 					if (wwid == wid) {
 						Cell cellx = row.getCell(1);
 						Cell celly = row.getCell(2);
-						 int x = XLSUtils.celltoInt(cellx);
-                    	 int y = XLSUtils.celltoInt(celly);
-                    	 
-                    	 System.out.println("x:"+x);
-                    	 System.out.println("y:"+y);
-                    	 
-						points.add(i-1,new Point(x, y));		
-						
-						System.out.println("pointsx:"+points.get(0).getX());
-						System.out.println("pointsy:"+points.get(0).getY());
+						int x = XLSUtils.celltoInt(cellx);
+						int y = XLSUtils.celltoInt(celly);
+//						System.out.println("(" + x + "," + y + ")");//输出地图
+						points.add(new Point(x, y));
 					}
 				}
 			}
-	
-			
-
-			XLSUtils.close(fis, null, workbook);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		XLSUtils.close(fis, null, workbook);
 		return points;
 	}
 
