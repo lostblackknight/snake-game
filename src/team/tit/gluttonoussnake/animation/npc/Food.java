@@ -62,13 +62,23 @@ public class Food extends BaseObject {
 	public void createRandomFoodNotInWall(ArrayList<Point> wallpoints) {
 		createRandomFood();
 		if (wallpoints != null) {
-			for (int i = 0; i <= wallpoints.size(); i++) {
-				if (getX() == wallpoints.get(i).x && getY() == wallpoints.get(i).y) {
+			
+			for(Point point : wallpoints) {
+				if(getX() == point.x && getY() == point.y) {
 					createRandomFoodNotInWall(wallpoints);
 				}
+				
+			}
+				
+//			for (int i = 0; i <= wallpoints.size(); i++) {
+//				if (getX() == wallpoints.get(i).x && getY() == wallpoints.get(i).y) {
+//					createRandomFoodNotInWall(wallpoints);
+//				}
+				
+				
 			}
 		}
-	}
+	
 
 	public Color getColor() {
 		return color;
