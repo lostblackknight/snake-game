@@ -21,4 +21,6 @@ public interface SnakeDao {
 	 */
 	Snake findBySid(int sid);
 
+	void saveSnake(Snake snake);
+
 }

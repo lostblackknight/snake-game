@@ -42,7 +42,11 @@ public class ResultInfo {
 		this.flag = flag;
 		this.msg = msg;
 	}
-
+	public ResultInfo(boolean flag, Object data, int mark) {
+		this.flag = flag;
+		this.data = data;
+		this.mark = mark;
+	}
 	public ResultInfo(boolean flag, Object data, String msg) {
 		this.flag = flag;
 		this.data = data;

@@ -21,4 +21,6 @@ public interface FoodDao {
 	 */
 	Food findByFid(int fid);
 
+	void saveFoodData(Food food);
+
 }

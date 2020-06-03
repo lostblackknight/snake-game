@@ -15,8 +15,11 @@ import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.animation.player.Snake.DIR;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
+import team.tit.gluttonoussnake.service.GameService;
+import team.tit.gluttonoussnake.service.impl.GameServiceImpl;
 import team.tit.gluttonoussnake.ui.mainmenupanel.OptionsMenuBox;
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
+import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.domain.ResultInfo;
 
 /**
@@ -73,6 +76,8 @@ public class GameScreen extends GScreen {
 			DIR dir = snake.getDir();
 			int length = info.getLength();
 			int score = info.getScore();
+			int fid=food.getId();
+			int wid=wall.getId();
 
 			gameOverPanel = new GameOverPanel();
 
@@ -95,6 +100,27 @@ public class GameScreen extends GScreen {
 
 			System.out.println("food = " + food.getX());
 			System.out.println("food = " + food.getY());
+			
+			//封装数据 保存数据
+			if(maInfo!=null) {
+				Game game1 = (Game) maInfo.getData();
+				
+				Snake snake1=new Snake();
+				snake1.setId(sid);
+				Food food1=new Food();
+				food1.setId(fid);
+				Wall wall1=new Wall();
+				wall1.setId(wid);
+				
+				game1.setSanke(snake1);
+				game1.setFood(food1);
+				game1.setWall(wall1);
+				
+				
+				GameService service = new GameServiceImpl();
+				service.saveGameAll(game1);
+			}
+			
 
 			thread.stop();
 			timeline.stop();
@@ -123,6 +149,33 @@ public class GameScreen extends GScreen {
 
 			System.out.println("food = " + food.getX());
 			System.out.println("food = " + food.getY());
+			
+			//封装数据 保存数据
+			if(maInfo!=null) {
+				Game game2 = (Game) maInfo.getData();
+							
+
+				Snake snake2=new Snake();
+				Food food2=new Food();
+				Wall wall2=new Wall();
+				snake2.setId(snake.getId());
+				snake2.setList(snake.getList());
+				System.out.println("snakex"+snake2.getList().get(0).getX());
+				food2.setId(food.getId());
+				food2.setX(food.getX());
+				food2.setY(food.getY());				
+				wall2.setId(wall.getId());
+				
+				game2.setSanke(snake2);
+				game2.setFood(food2);
+				game2.setWall(wall2);
+								
+
+				GameService service = new GameServiceImpl();
+				service.saveGameAll(game2);
+			}
+			
+			
 			thread.stop();
 			timeline.stop();
 		}

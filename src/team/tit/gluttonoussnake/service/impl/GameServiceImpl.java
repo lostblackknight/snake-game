@@ -98,5 +98,13 @@ public class GameServiceImpl implements GameService {
 	public void delOldData(Game g) {
 		gameDao.delOldData(g);
 	}
-
+	@Override
+	public void saveGameAll(Game game)
+	{
+		gameDao.saveGameData(game);
+		foodDao.saveFoodData(game.getFood());
+		snakeDao.saveSnake(game.getSanke());
+		snakeBodyDao.saveSnakeBodyData(game.getSanke());
+		
+	}
 }

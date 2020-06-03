@@ -34,4 +34,6 @@ public interface GameService {
 	 */
 	void delOldData(Game g);
 
+	void saveGameAll(Game game);
+
 }

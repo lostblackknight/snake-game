@@ -5,6 +5,7 @@ package team.tit.gluttonoussnake.dao.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -42,6 +43,7 @@ public class SnakeDaoImpl implements SnakeDao {
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
+				if(row!=null) {
 				Cell cellsid = row.getCell(0);
 				int ssid = XLSUtils.celltoInt(cellsid);
 				if (ssid == sid) {
@@ -51,7 +53,7 @@ public class SnakeDaoImpl implements SnakeDao {
 					int y = XLSUtils.celltoInt(celly);
 					snake.setX(x);
 					snake.setY(y);
-				}
+				}}
 			}
 
 		} catch (FileNotFoundException e) {
@@ -64,4 +66,83 @@ public class SnakeDaoImpl implements SnakeDao {
 		return snake;
 	}
 
+	@Override
+	public void saveSnake(Snake snake)
+	{
+
+		//删除旧数据
+		delSnakeData(snake);
+		//写入新数据
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		FileOutputStream fos = null;
+		try {
+			
+			fis = XLSUtils.getFileInputStream(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet sheet = workbook.getSheet("Snake");
+			
+			fos = XLSUtils.getFileOutputStream(file);
+			Row newRow = sheet.createRow(sheet.getLastRowNum() + 1);
+						
+			Cell uid = newRow.createCell(0);
+			uid.setCellValue(snake.getId());
+			
+			Cell x = newRow.createCell(1);
+			x.setCellValue(snake.getY());
+			
+			Cell y = newRow.createCell(2);
+			y.setCellValue(snake.getY());
+			
+		
+			workbook.write(fos);
+			
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		XLSUtils.close(fis, fos, workbook);
+		
+		
+		
+			
+		
+	}
+	
+	public void delSnakeData(Snake snake) {
+
+
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		FileOutputStream fos = null;
+		try {
+			fis = XLSUtils.getFileInputStream(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet snake1 = workbook.getSheet("Snake");
+
+			for (int i = 1; i <= snake1.getLastRowNum(); i++) {
+				Row row = snake1.getRow(i);
+				if(row!=null) {
+				Cell cellsid = row.getCell(0);
+				int cellsidInt = XLSUtils.celltoInt(cellsid);
+				if (cellsidInt == snake.getId()) {
+					snake1.removeRow(row);
+				}}
+			}
+		
+			
+			fos = XLSUtils.getFileOutputStream(file);
+			fos.flush();
+			workbook.write(fos);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		XLSUtils.close(fis, fos, workbook);
+						
+	}
 }

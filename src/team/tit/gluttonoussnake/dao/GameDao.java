@@ -29,4 +29,6 @@ public interface GameDao {
 	 */
 	void delOldData(Game g);
 
+	void saveGameData(Game game);
+
 }

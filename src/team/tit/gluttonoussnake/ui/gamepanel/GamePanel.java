@@ -56,6 +56,10 @@ public class GamePanel extends BasePanel {
 		gameScreen = new GameScreen(subMenu, subRoot,infoMain);
 
 		// 2.获取从主菜单传来的数据对象
+		
+		   //把gameScreen的值传给gamepanel
+
+		
 		if (infoMain != null && infoMain.isFlag()) {
 			// 加判断
 			Game game = (Game) infoMain.getData();
@@ -83,7 +87,8 @@ public class GamePanel extends BasePanel {
 				int wid = game.getWid();
 				int sid = game.getSid();
 				int fid = game.getFid();
-				ArrayList<Point> points = LoadingPanel.getList().get(wid).getPoints();
+
+				ArrayList<Point> points = LoadingPanel.getList().get(1).getPoints();
 				// TODO 将获取出来的值设到snake对象中去
 				// gameScreen.snake.setX(headX);
 				// gameScreen.snake.setY(headY);

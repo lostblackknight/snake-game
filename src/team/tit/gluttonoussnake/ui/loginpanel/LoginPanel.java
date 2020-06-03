@@ -182,6 +182,7 @@ public class LoginPanel extends BasePanel {
 					//登录成功，跳转到主菜单
 					infoLogin.setFlag(true);
 					infoLogin.setData(u);
+					infoLogin.setMark(0);
 					l_login_fail.setText("");
 					System.out.println(u.getUid());
 					System.out.println(u.getUsername());

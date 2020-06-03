@@ -62,6 +62,16 @@ public class GameDaoImpl implements GameDao {
 						game.setSid(ssid);
 						game.setFid(ffid);
 						game.setWid(wwid);
+					}else {
+						game.setSid(sheet.getLastRowNum()+1);
+						game.setFid(sheet.getLastRowNum()+1);
+						if(type==0) {
+							game.setWid(0);
+						}
+						if(type==1) {
+							game.setWid(0);
+						}
+						
 					}
 				}
 			}
@@ -135,4 +145,87 @@ public class GameDaoImpl implements GameDao {
 			XLSUtils.close(fis, fos, workbook);
 		}
 	}
+	@Override
+	public void saveGameData(Game game)
+	{
+		//删除Game旧数据
+		delGameOldData(game);
+		//写入新数据
+		FileInputStream fis = null;
+		Workbook workbook = null;
+		FileOutputStream fos = null;
+		try {
+			
+			fis = XLSUtils.getFileInputStream(file);
+			workbook = new HSSFWorkbook(fis);
+			Sheet sheet = workbook.getSheet("Game");
+			
+			fos = XLSUtils.getFileOutputStream(file);
+			Row newRow = sheet.createRow(sheet.getLastRowNum() + 1);
+						
+			Cell uid = newRow.createCell(0);
+			uid.setCellValue(game.getUid());
+			
+			Cell type = newRow.createCell(1);
+			type.setCellValue(game.getType());
+			
+			Cell sid = newRow.createCell(2);
+			sid.setCellValue(game.getSid());
+			
+			Cell fid = newRow.createCell(3);
+			fid.setCellValue(game.getFid());
+			
+			Cell wid = newRow.createCell(4);
+			wid.setCellValue(game.getWid());
+	
+			
+			workbook.write(fos);
+			
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		XLSUtils.close(fis, fos, workbook);
+		
+	}
+	
+public void delGameOldData(Game game) {
+	FileInputStream fis = null;
+	Workbook workbook = null;
+	FileOutputStream fos = null;
+	try {
+		fis = XLSUtils.getFileInputStream(file);
+		workbook = new HSSFWorkbook(fis);
+		Sheet game1 = workbook.getSheet("Game");
+
+		for (int i = 1; i <= game1.getLastRowNum(); i++) {
+			Row row = game1.getRow(i);
+			if(row!=null) {
+			Cell celluid = row.getCell(0);
+			int celluidInt = XLSUtils.celltoInt(celluid);
+			
+			Cell celltype = row.getCell(1);
+			int celltypeInt = XLSUtils.celltoInt(celltype);
+			
+			if (celluidInt == game.getUid()&&celltypeInt==game.getType()) {
+				game1.removeRow(row);
+			}
+		}
+		}
+		
+
+		fos = XLSUtils.getFileOutputStream(file);
+		fos.flush();
+		workbook.write(fos);
+	} catch (FileNotFoundException e) {
+		e.printStackTrace();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	
+	  XLSUtils.close(fis, fos, workbook);
+		
+}
 }

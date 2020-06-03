@@ -5,6 +5,7 @@ package team.tit.gluttonoussnake.dao;
 
 import java.util.LinkedList;
 
+import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
 
 /**
@@ -22,5 +23,7 @@ public interface SnakeBodyDao {
 	 * @return
 	 */
 	LinkedList<SnakeNode> findBodyBySid(int sid);
+
+	void saveSnakeBodyData(Snake snake);
 
 }

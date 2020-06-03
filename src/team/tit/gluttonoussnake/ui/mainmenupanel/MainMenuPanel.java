@@ -52,7 +52,12 @@ public class MainMenuPanel extends BasePanel {
 	}
 
 	public MainMenuPanel(ResultInfo info) {
-		this.infoLogin = info;
+		if(info.getMark()==0) {
+			this.infoLogin = info;
+			}
+			if(info.getMark()==1) {
+				this.infoMain=info;
+			}
 	}
 
 	@Override
@@ -208,7 +213,8 @@ public class MainMenuPanel extends BasePanel {
 						service.delOldData(g);
 						flag = false;
 					}
-					infoMain = new ResultInfo(flag, g);
+			
+						infoMain = new ResultInfo(flag, game,1);
 				}
 
 				// 1.注册游戏面板
@@ -251,7 +257,9 @@ public class MainMenuPanel extends BasePanel {
 					if (flag) {
 						g = service.findOne(game);
 					}
-					infoMain = new ResultInfo(flag, g);
+					
+						infoMain = new ResultInfo(flag, g,1);
+						
 				}
 
 //				// 用于测试从表里获取数据（之后删掉）
@@ -297,7 +305,9 @@ public class MainMenuPanel extends BasePanel {
 						service.delOldData(g);
 						flag = false;
 					}
-					infoMain = new ResultInfo(flag, game);
+					
+						infoMain = new ResultInfo(flag, game,1);
+						
 				}
 
 				// 1.注册游戏面板
@@ -335,7 +345,8 @@ public class MainMenuPanel extends BasePanel {
 					if (flag) {
 						g = service.findOne(game);
 					}
-					infoMain = new ResultInfo(flag, g);
+					
+						infoMain = new ResultInfo(flag, g,1);
 				}
 				// 1.注册游戏面板
 				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
