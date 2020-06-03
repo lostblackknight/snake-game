@@ -144,6 +144,7 @@ public class XLSUtils {
 
 	/**
 	 * 将cell中的内容转换为字符串
+	 * 
 	 * @param cell
 	 * @return
 	 */
@@ -170,13 +171,25 @@ public class XLSUtils {
 		}
 		return value;
 	}
-	
+
 	/**
 	 * 将cell中的内容转换为整型,cell中存的必须是数字
+	 * 
 	 * @param cell
 	 * @return
 	 */
 	public static int celltoInt(Cell cell) {
 		return Integer.parseInt(celltoString(cell));
+	}
+
+	public static void removeRow(Sheet sheet, int rowIndex) {
+		int lastRowNum = sheet.getLastRowNum();
+		if (rowIndex >= 0 && rowIndex < lastRowNum)
+			sheet.shiftRows(rowIndex + 1, lastRowNum, -1);// 将行号为rowIndex+1一直到行号为lastRowNum的单元格全部上移一行，以便删除rowIndex行
+		if (rowIndex == lastRowNum) {
+			Row removingRow = sheet.getRow(rowIndex);
+			if (removingRow != null)
+				sheet.removeRow(removingRow);
+		}
 	}
 }

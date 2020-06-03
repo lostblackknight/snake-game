@@ -26,6 +26,7 @@ import team.tit.gluttonoussnake.service.GameService;
 
 /**
  * 处理游戏数据的实现类
+ * 
  * @author 陈思祥
  * @author 何宇昌
  * @author 郭佳强
@@ -43,28 +44,29 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * 查询用户的 游戏数据
+	 * 
 	 * @param game 游戏数据对象
 	 * @return 返回一个游戏数据的对象
 	 */
 	@Override
 	public Game findOne(Game game) {
-		
-		//1.查询Game表
-		Game g = gameDao.findByUidAndType(game.getUid(),game.getType());
-		
-		//2.获取snake对象
-		//2.1获取蛇头
+
+		// 1.查询Game表
+		Game g = gameDao.findByUidAndType(game.getUid(), game.getType());
+
+		// 2.获取snake对象
+		// 2.1获取蛇头
 		Snake snake = snakeDao.findBySid(g.getSid());
-		//2.2获取蛇身体
+		// 2.2获取蛇身体
 		LinkedList<SnakeNode> list = snakeBodyDao.findBodyBySid(g.getSid());
 		snake.setList(list);
 		g.setSanke(snake);
-		
-		//3.获取食物对象
+
+		// 3.获取食物对象
 		Food food = foodDao.findByFid(g.getFid());
 		g.setFood(food);
-		
-		//4.获取地图对象
+
+		// 4.获取地图对象
 		ArrayList<Point> wall = mapDao.findByWid(g.getMid());
 		Wall w = new Wall();
 		w.setId(g.getWid());
@@ -76,11 +78,20 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public boolean haveOldData(Game game) {
 		// TODO 查找game表
-		Game g = gameDao.findByUidAndType(game.getUid(),game.getType());
-		if (g.getSid() > 0) {
-			return true;
+		Game g = gameDao.findByUidAndType(game.getUid(), game.getType());
+		if (game.getType() == 0) {
+			if (g.getSid() > 0 && game.getType() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			if (g.getSid() > 0 && game.getType() == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-		return false;
 	}
 
 	@Override

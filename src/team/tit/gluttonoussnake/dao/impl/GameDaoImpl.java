@@ -42,6 +42,7 @@ public class GameDaoImpl implements GameDao {
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Game");
 
+			System.out.println("以下是打印game表的数据");
 			XLSUtils.printSheetData(sheet);
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -87,40 +88,51 @@ public class GameDaoImpl implements GameDao {
 			Sheet food = workbook.getSheet("Food");
 			Sheet snake = workbook.getSheet("Snake");
 			Sheet body = workbook.getSheet("SnakeBody");
+			
+			System.out.println("以下是旧的数据");
+			XLSUtils.printSheetData(food);
+			XLSUtils.printSheetData(snake);
+			XLSUtils.printSheetData(body);
 			for (int i = 1; i <= food.getLastRowNum(); i++) {
 				Row row = food.getRow(i);
 				Cell cellfid = row.getCell(0);
-				int cellfidInt = (int) cellfid.getNumericCellValue();
+				int cellfidInt = XLSUtils.celltoInt(cellfid);
 				if (cellfidInt == fid) {
-					food.shiftRows(i, food.getLastRowNum(), -1);
+					food.removeRow(row);
 				}
 			}
 			for (int i = 1; i <= snake.getLastRowNum(); i++) {
 				Row row = snake.getRow(i);
 				Cell cellsid = row.getCell(0);
-				int cellsidInt = (int) cellsid.getNumericCellValue();
+				int cellsidInt = XLSUtils.celltoInt(cellsid);
 				if (cellsidInt == sid) {
-					snake.shiftRows(i, snake.getLastRowNum(), -1);
+					snake.removeRow(row);
 				}
 			}
 			for (int i = 1; i <= body.getLastRowNum(); i++) {
 				Row row = body.getRow(i);
 				Cell cellsid = row.getCell(0);
-				int cellsidInt = (int) cellsid.getNumericCellValue();
+				int cellsidInt = XLSUtils.celltoInt(cellsid);
 				if (cellsidInt == sid) {
-					body.shiftRows(i, body.getLastRowNum(), -1);
+					body.removeRow(row);
 				}
 			}
 			
 			fos = XLSUtils.getFileOutputStream(file);
-			fos.flush();
 			workbook.write(fos);
+			
+			System.out.println("以下是删除后的数据");
+			XLSUtils.printSheetData(food);
+			System.out.println("------------");
+			XLSUtils.printSheetData(snake);
+			System.out.println("------------");
+			XLSUtils.printSheetData(body);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			XLSUtils.close(fis, fos, workbook);
 		}
-		
-		XLSUtils.close(fis, fos, workbook);
 	}
 }

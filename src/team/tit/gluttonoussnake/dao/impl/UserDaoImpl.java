@@ -92,9 +92,9 @@ public class UserDaoImpl implements UserDao {
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			XLSUtils.close(fis, null, workbook);
 		}
-
-		XLSUtils.close(fis, null, workbook);
 		return user;
 	}
 
@@ -114,7 +114,6 @@ public class UserDaoImpl implements UserDao {
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("User");
 			
-			fos = XLSUtils.getFileOutputStream(file);
 			Row newRow = sheet.createRow(sheet.getLastRowNum() + 1);
 			
 			Cell uid = newRow.createCell(0);
@@ -129,15 +128,16 @@ public class UserDaoImpl implements UserDao {
 			Cell mobliephone = newRow.createCell(3);
 			mobliephone.setCellValue(user.getMobliePhone());
 			
+			fos = XLSUtils.getFileOutputStream(file);
 			workbook.write(fos);
 			
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			XLSUtils.close(fis, fos, workbook);
 		}
-		
-		XLSUtils.close(fis, fos, workbook);
 	}
 
 	/**
@@ -214,9 +214,10 @@ public class UserDaoImpl implements UserDao {
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			XLSUtils.close(fis, null, workbook);
 		}
 
-		XLSUtils.close(fis, null, workbook);
 		return user;
 	}
 
@@ -277,9 +278,10 @@ public class UserDaoImpl implements UserDao {
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			XLSUtils.close(fis, null, workbook);
 		}
 
-		XLSUtils.close(fis, null, workbook);
 		return user;
 	}
 }

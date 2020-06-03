@@ -201,14 +201,14 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-
-					Game g = service.findOne(game);
-
+					System.out.println(flag);
+					Game g = null;
 					if (flag) {
+						g = service.findOne(game);
 						service.delOldData(g);
 						flag = false;
 					}
-					infoMain = new ResultInfo(flag, game);
+					infoMain = new ResultInfo(flag, g);
 				}
 
 				// 1.注册游戏面板
@@ -246,7 +246,8 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-					Game g = null;
+					System.out.println(flag);
+					Game g = new Game(uid, type);
 					if (flag) {
 						g = service.findOne(game);
 					}
