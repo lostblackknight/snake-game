@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
 import team.tit.gluttonoussnake.dao.SnakeBodyDao;
+import team.tit.gluttonoussnake.util.XLSUtils;
 
 /**
  * @author 陈思祥
@@ -37,30 +38,28 @@ public class SnakeBodyDaoImpl implements SnakeBodyDao {
 		try
 		{
 			FileInputStream fis = null;		
-			fis = new FileInputStream(file);
+			fis = XLSUtils.getFileInputStreamInput(file);
 			Workbook workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("SnakeBody");
 						
             for (int i =1; i <=sheet.getLastRowNum(); i++) {
             	    Row row = sheet.getRow(i);                    
-                    Cell cell = row.getCell(0);
+                    Cell cellsid = row.getCell(0);
 
-                    double values = cell.getNumericCellValue();
-                    int ssid = new Double(values).intValue();
+                    int ssid =XLSUtils.celltoInt(cellsid);
                     
                     if(ssid==sid) {       
-                    	Cell cell1 = row.getCell(1);
-                    	double valuesx = cell1.getNumericCellValue();
-                    	 int x=new Double(valuesx).intValue();
-                    	 Cell cell2 = row.getCell(2);
-                    	 double valuesy = cell2.getNumericCellValue();
-                    	 int y=new Double(valuesy ).intValue();
+                    	Cell cellx = row.getCell(1);                  
+                    	 Cell celly = row.getCell(2);
+                    	 
+                    	 int x = XLSUtils.celltoInt(cellx);
+                    	 int y = XLSUtils.celltoInt(celly);
                     	
                     body.add(i-1,new SnakeNode(x,y));                   	                
             	 }	
 	            }
 					
-			workbook.close();
+        	XLSUtils.close(fis, null, workbook);
 		}
 		catch (FileNotFoundException e)
 		{

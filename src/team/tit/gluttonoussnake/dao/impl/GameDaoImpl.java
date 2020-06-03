@@ -38,7 +38,7 @@ public class GameDaoImpl implements GameDao {
 		try {
 
 			FileInputStream fis = null;
-			fis = new FileInputStream(file);
+			fis = XLSUtils.getFileInputStreamInput(file);
 			Workbook workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Game");
 
@@ -52,12 +52,11 @@ public class GameDaoImpl implements GameDao {
 					Cell celluid = row.getCell(0);
 					Cell celltype = row.getCell(1);
 
-					String celluidString = XLSUtils.celltoString(celluid);
-					String celltypeString =  XLSUtils.celltoString(celltype);
+			
 					
 
-					int uuid = Integer.parseInt(celluidString);
-					int ttype = Integer.parseInt(celltypeString);
+					int uuid =XLSUtils.celltoInt(celluid);
+					int ttype =XLSUtils.celltoInt(celltype);
 
 					
 					System.out.println(uid);
@@ -69,12 +68,10 @@ public class GameDaoImpl implements GameDao {
 						Cell cellsid = row.getCell(2);
 						Cell cellfid = row.getCell(3);
 						Cell cellwid = row.getCell(4);
-						double valuessid = cellsid.getNumericCellValue();
-						int ssid = new Double(valuessid).intValue();
-						double valuesfid = cellfid.getNumericCellValue();
-						int ffid = new Double(valuesfid).intValue();
-						double valueswid = cellwid.getNumericCellValue();
-						int wwid = new Double(valueswid).intValue();
+					
+						int ssid =XLSUtils.celltoInt(cellsid);
+						int ffid =XLSUtils.celltoInt(cellfid);
+						int wwid =XLSUtils.celltoInt(cellwid);
 
 						game.setSid(ssid);
 						game.setFid(ffid);
@@ -88,7 +85,7 @@ public class GameDaoImpl implements GameDao {
 				}
 			}
 
-			workbook.close();
+			XLSUtils.close(fis, null, workbook);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

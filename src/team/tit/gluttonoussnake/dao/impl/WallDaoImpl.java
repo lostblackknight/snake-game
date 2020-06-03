@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.dao.WallDao;
+import team.tit.gluttonoussnake.util.XLSUtils;
 
 /**
  * @author 陈思祥
@@ -54,31 +55,37 @@ public class WallDaoImpl implements WallDao {
 		ArrayList<Point> points = new ArrayList<Point>();
 		try {
 			FileInputStream fis = null;
-			fis = new FileInputStream(file);
+			fis = XLSUtils.getFileInputStreamInput(file);
 			Workbook workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Wall");
 
 			for (int i = 1; i <= sheet.getLastRowNum() + 1; i++) {
 				Row row = sheet.getRow(i);
 				if (row != null) {
-					Cell cell = row.getCell(0);
+					Cell cellwid = row.getCell(0);
 					
-					double values = cell.getNumericCellValue();
-					int wwid = new Double(values).intValue();
+					 int wwid =XLSUtils.celltoInt(cellwid);
 					
 					if (wwid == wid) {
-						Cell cell1 = row.getCell(1);
-						double valuesx = cell1.getNumericCellValue();
-						int x = new Double(valuesx).intValue();
-						Cell cell2 = row.getCell(2);
-						double valuesy = cell2.getNumericCellValue();
-						int y = new Double(valuesy).intValue();
-						points.add(new Point(x, y));
+						Cell cellx = row.getCell(1);
+						Cell celly = row.getCell(2);
+						 int x = XLSUtils.celltoInt(cellx);
+                    	 int y = XLSUtils.celltoInt(celly);
+                    	 
+                    	 System.out.println("x:"+x);
+                    	 System.out.println("y:"+y);
+                    	 
+						points.add(i-1,new Point(x, y));		
+						
+						System.out.println("pointsx:"+points.get(0).getX());
+						System.out.println("pointsy:"+points.get(0).getY());
 					}
 				}
 			}
+	
+			
 
-			workbook.close();
+			XLSUtils.close(fis, null, workbook);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

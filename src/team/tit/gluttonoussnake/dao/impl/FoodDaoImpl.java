@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import team.tit.gluttonoussnake.animation.npc.Food;
 import team.tit.gluttonoussnake.dao.FoodDao;
+import team.tit.gluttonoussnake.util.XLSUtils;
 
 /**
  * @author 陈思祥
@@ -34,31 +35,34 @@ public class FoodDaoImpl implements FoodDao {
 		try
 		{
 			FileInputStream fis = null;		
-			fis = new FileInputStream(file);
+			fis = XLSUtils.getFileInputStreamInput(file);
 			Workbook workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Food");
 						
             for (int i =1; i <=sheet.getLastRowNum(); i++) {
 
-            	Row row = sheet.getRow(i);               	
-                    Cell cell = row.getCell(0);
-                
-                    double values = cell.getNumericCellValue();
-                    int ffid = new Double(values).intValue();
+            	Row row = sheet.getRow(i);    
+            	
+
+				if (row != null) {
+                    Cell cellfid = row.getCell(0);
+      
+                	int ffid =XLSUtils.celltoInt(cellfid);
+                    if(ffid==fid) {                    
+                    	
+                    	Cell cellx = row.getCell(1);
+                    	 int x = XLSUtils.celltoInt(cellx);
                     
-                    if(ffid==fid) {                    	
-                    	Cell cell1 = row.getCell(1);
-                    	double valuesx = cell1.getNumericCellValue();
-                    	 int x=new Double(valuesx).intValue();
-                    	 Cell cell2 = row.getCell(2);
-                    	 double valuesy = cell2.getNumericCellValue();
-                    	 int y=new Double(valuesy ).intValue();
+                    	 Cell celly = row.getCell(2);                
+                    	 int y = XLSUtils.celltoInt(celly);
+                    	 
                          food.setX(x);
 			             food.setY(y);        		 
             	 }	
 	            }
+            }
 					
-			workbook.close();
+        	XLSUtils.close(fis, null, workbook);
 		}
 		catch (FileNotFoundException e)
 		{
