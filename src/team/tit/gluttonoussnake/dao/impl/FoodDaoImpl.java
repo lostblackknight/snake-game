@@ -40,7 +40,7 @@ public class FoodDaoImpl implements FoodDao {
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Food");
 
-			System.out.println("以下是打印food表的数据");
+			System.out.println("以下是获取数据时打印food表的数据");
 			XLSUtils.printSheetData(sheet);
 			
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -97,6 +97,10 @@ public class FoodDaoImpl implements FoodDao {
 			
 		
 			workbook.write(fos);
+			
+			System.out.println("以下是保存数据时打印food表的数据");
+			XLSUtils.printSheetData(sheet);
+			
 			
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();

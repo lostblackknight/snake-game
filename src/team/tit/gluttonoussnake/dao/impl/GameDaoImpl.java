@@ -45,7 +45,7 @@ public class GameDaoImpl implements GameDao {
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Game");
 
-			System.out.println("以下是打印game表的数据");
+			System.out.println("以下是获取数据打印game表的数据");
 			XLSUtils.printSheetData(sheet);
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -93,10 +93,7 @@ public class GameDaoImpl implements GameDao {
 			Sheet snake = workbook.getSheet("Snake");
 			Sheet body = workbook.getSheet("SnakeBody");
 			
-			System.out.println("以下是旧的数据");
-			XLSUtils.printSheetData(food);
-			XLSUtils.printSheetData(snake);
-			XLSUtils.printSheetData(body);
+
 			for (int i = 1; i <= food.getLastRowNum(); i++) {
 				Row row = food.getRow(i);
 				if(row!=null) {
@@ -128,12 +125,7 @@ public class GameDaoImpl implements GameDao {
 			fos = XLSUtils.getFileOutputStream(file);
 			workbook.write(fos);
 			
-			System.out.println("以下是删除后的数据");
-			XLSUtils.printSheetData(food);
-			System.out.println("------------");
-			XLSUtils.printSheetData(snake);
-			System.out.println("------------");
-			XLSUtils.printSheetData(body);
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -175,6 +167,10 @@ public class GameDaoImpl implements GameDao {
 			Cell wid = newRow.createCell(4);
 			wid.setCellValue(game.getWid());
 	
+			
+			System.out.println("以下是保存数据打印game表的数据");
+			XLSUtils.printSheetData(sheet);
+			
 			
 			workbook.write(fos);
 			

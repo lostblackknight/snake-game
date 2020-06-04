@@ -42,7 +42,7 @@ public class SnakeBodyDaoImpl implements SnakeBodyDao {
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("SnakeBody");
 
-			System.out.println("以下是打印snakebody表的数据");
+			System.out.println("以下是获取数据打印snakebody表的数据");
 			XLSUtils.printSheetData(sheet);
 			
 			
@@ -103,6 +103,10 @@ public class SnakeBodyDaoImpl implements SnakeBodyDao {
 			
 			 }
 		
+			 System.out.println("以下是保存数据打印snakebody表的数据");
+				XLSUtils.printSheetData(sheet);
+			 
+			 
 			workbook.write(fos);
 			
 		} catch (FileNotFoundException e1) {
