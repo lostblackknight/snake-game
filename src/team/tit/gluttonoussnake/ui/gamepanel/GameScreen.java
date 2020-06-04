@@ -3,6 +3,8 @@
  */
 package team.tit.gluttonoussnake.ui.gamepanel;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -17,6 +19,7 @@ import team.tit.gluttonoussnake.animation.player.Snake.DIR;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.service.GameService;
 import team.tit.gluttonoussnake.service.impl.GameServiceImpl;
+import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
 import team.tit.gluttonoussnake.ui.mainmenupanel.OptionsMenuBox;
 import team.tit.gluttonoussnake.animation.player.SnakeNode;
 import team.tit.gluttonoussnake.domain.Game;
@@ -50,11 +53,20 @@ public class GameScreen extends GScreen {
 		this.maInfo = maInfo;
 		addObject(grid);
 		addObject(info);
+		
 		if(maInfo!=null) {
 		Game game = (Game) maInfo.getData();
-		wall.setId(game.getWid());
+		snake.setId(game.getSid());		
 		food.setId(game.getFid());
-		snake.setId(game.getSid());
+		wall.setId(game.getWid());
+		ArrayList<Point> points=null;
+		if(wall.getId()==0) {
+			points=null;
+		}else {
+	      points = LoadingPanel.getList().get(wall.getId()).getPoints();
+		}
+		wall.setPoints(points);
+		
 		}
 		
 		addObject(food);

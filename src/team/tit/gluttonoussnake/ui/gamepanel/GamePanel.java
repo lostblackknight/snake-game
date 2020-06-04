@@ -87,8 +87,7 @@ public class GamePanel extends BasePanel {
 				int wid = game.getWid();
 				int sid = game.getSid();
 				int fid = game.getFid();
-
-				ArrayList<Point> points = LoadingPanel.getList().get(1).getPoints();
+				ArrayList<Point> points = LoadingPanel.getList().get(wid).getPoints();
 				// TODO 将获取出来的值设到snake对象中去
 				// gameScreen.snake.setX(headX);
 				// gameScreen.snake.setY(headY);

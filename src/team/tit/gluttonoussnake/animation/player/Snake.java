@@ -188,7 +188,7 @@ public class Snake extends BaseObject {
 	}
 
 	public boolean isEatWall(ArrayList<Point> points) {
-
+       if(points!=null) {
 		for (int i = 0; i < points.size(); i++) {
 			int x0 = getHead().getX() * getWidth() + (getWidth() >> 1);
 			int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
@@ -201,7 +201,8 @@ public class Snake extends BaseObject {
 			if (disCurrent < disCrashed) {
 				return true;
 			}
-		}
+		}}
+       
 		return false;
 
 	}
