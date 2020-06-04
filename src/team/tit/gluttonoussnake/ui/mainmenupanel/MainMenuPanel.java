@@ -55,6 +55,8 @@ public class MainMenuPanel extends BasePanel {
 			this.infoLogin = info;		
 	}
 
+	
+
 	@Override
 	public void init() {
 		// 1.实例化对象
@@ -215,7 +217,7 @@ public class MainMenuPanel extends BasePanel {
 				}
 
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -269,7 +271,7 @@ public class MainMenuPanel extends BasePanel {
 //				infoMain = new ResultInfo(flag, g);
 
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -312,7 +314,7 @@ public class MainMenuPanel extends BasePanel {
 				}
 
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -352,7 +354,7 @@ public class MainMenuPanel extends BasePanel {
 						infoMain = new ResultInfo(flag, g,1);
 				}
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");

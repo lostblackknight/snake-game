@@ -36,6 +36,7 @@ public class GamePanel extends BasePanel {
 	private Background background;
 	private SubMenu subMenu;
 	private ResultInfo infoMain;
+	private ResultInfo infoLogin;
 	private GameScreen gameScreen;
 
 	public static int map = 0;
@@ -45,6 +46,10 @@ public class GamePanel extends BasePanel {
 
 	public GamePanel(ResultInfo info) {
 		this.infoMain = info;
+	}
+	public GamePanel(ResultInfo infologin,ResultInfo infomain) {
+		this.infoLogin = infologin;
+		this.infoMain = infomain;
 	}
 
 	@Override
@@ -170,7 +175,7 @@ public class GamePanel extends BasePanel {
 				loadClickAudio();
 				subRoot.getChildren().remove(subMenu);
 				// 1.注册主菜单面板
-				UIManager.getUiManager().regPanel("MainMenuPanel", new MainMenuPanel());
+				UIManager.getUiManager().regPanel("MainMenuPanel", new MainMenuPanel(infoLogin));
 
 				// 2.切换到主菜单面板
 				UIManager.getUiManager().gotoPanel("MainMenuPanel");
