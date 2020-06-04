@@ -54,9 +54,6 @@ public class MainMenuPanel extends BasePanel {
 	public MainMenuPanel(ResultInfo info) {
 			this.infoLogin = info;		
 	}
-
-	
-
 	@Override
 	public void init() {
 		// 1.实例化对象

@@ -49,15 +49,13 @@ public class WallDaoImpl implements WallDao {
 	@Override
 	public ArrayList<Point> findByWid(int wid) {
 		// TODO 通过mid查询地图表
-		ArrayList<Point> points = new ArrayList<Point>();
-		
+		ArrayList<Point> points = new ArrayList<Point>();	
 		FileInputStream fis = null;
 		Workbook workbook = null;
 		try {
 			fis = XLSUtils.getFileInputStream(file);
 			workbook = new HSSFWorkbook(fis);
 			Sheet sheet = workbook.getSheet("Wall");
-
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				if (row != null) {
@@ -77,9 +75,9 @@ public class WallDaoImpl implements WallDao {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			XLSUtils.close(fis, null, workbook);
 		}
-
-		XLSUtils.close(fis, null, workbook);
 		return points;
 	}
 

@@ -58,8 +58,8 @@ public class Snake extends BaseObject {
 	@Override
 	public void init() {
 		super.init();
-		setX((GRID_W >> 1) * GRID_SIZE);
-		setY((GRID_H >> 1) * GRID_SIZE);
+		setX(0);
+		setY(0);
 		setWidth(SNAKE_W);
 		setHeight(SNAKE_H);
 		setDir(DIR.RIGHT);

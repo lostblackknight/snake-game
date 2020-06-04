@@ -30,7 +30,7 @@ public class Constant {
 	public static final int GRID_H = ROOT_PANEL_H/20;
 	public static final int GRID_SIZE = 20;
 	
-	public static final int DEFAULT_LENGTH = 10;
+	public static final int DEFAULT_LENGTH = 3;
 	
 	public static final int SNAKE_W = 20;						
 	public static final int SNAKE_H = 20;							

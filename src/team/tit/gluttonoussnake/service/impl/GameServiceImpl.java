@@ -60,6 +60,7 @@ public class GameServiceImpl implements GameService {
 		// 2.2获取蛇身体
 		LinkedList<SnakeNode> list = snakeBodyDao.findBodyBySid(g.getSid());
 		snake.setList(list);
+				
 		g.setSanke(snake);
 
 		// 3.获取食物对象
@@ -107,8 +108,7 @@ public class GameServiceImpl implements GameService {
 		gameDao.saveGameData(game);
 		foodDao.saveFoodData(game.getFood());
 		snakeDao.saveSnake(game.getSanke());
-		snakeBodyDao.saveSnakeBodyData(game.getSanke());
-		
+		snakeBodyDao.saveSnakeBodyData(game.getSanke());		
 	}
 
 	@Override
