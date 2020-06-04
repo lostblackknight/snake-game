@@ -142,7 +142,7 @@ public class GameScreen extends GScreen {
 			System.out.println("score = " + score);
 			LinkedList<SnakeNode> list = snake.getList();
 
-			for (int i = 1; i < list.size(); i++) {
+			for (int i = 0; i <list.size(); i++) {
 				System.out.println("第" + i + "个蛇身的X" + list.get(i).getX());
 				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
 			}
@@ -154,13 +154,15 @@ public class GameScreen extends GScreen {
 			if(maInfo!=null) {
 				Game game2 = (Game) maInfo.getData();
 							
-
 				Snake snake2=new Snake();
 				Food food2=new Food();
 				Wall wall2=new Wall();
 				snake2.setId(snake.getId());
-				snake2.setList(snake.getList());
-				System.out.println("snakex"+snake2.getList().get(0).getX());
+				LinkedList<SnakeNode> list1 = new LinkedList<SnakeNode>();
+				for(int i=0;i<snake.getList().size();i++) {
+					list1.addLast(new SnakeNode(list.get(i).getX(),list.get(i).getY()));								
+				}				
+				snake2.setList(list1);
 				food2.setId(food.getId());
 				food2.setX(food.getX());
 				food2.setY(food.getY());				
@@ -170,7 +172,6 @@ public class GameScreen extends GScreen {
 				game2.setFood(food2);
 				game2.setWall(wall2);
 								
-
 				GameService service = new GameServiceImpl();
 				service.saveGameAll(game2);
 			}

@@ -52,12 +52,7 @@ public class MainMenuPanel extends BasePanel {
 	}
 
 	public MainMenuPanel(ResultInfo info) {
-		if(info.getMark()==0) {
-			this.infoLogin = info;
-			}
-			if(info.getMark()==1) {
-				this.infoMain=info;
-			}
+			this.infoLogin = info;		
 	}
 
 	@Override
@@ -212,6 +207,8 @@ public class MainMenuPanel extends BasePanel {
 						g = service.findOne(game);
 						service.delOldData(g);
 						flag = false;
+					}else {
+					    game=service.setInitialValue(game);
 					}
 			
 						infoMain = new ResultInfo(flag, game,1);
@@ -256,7 +253,9 @@ public class MainMenuPanel extends BasePanel {
 					Game g = new Game(uid, type);
 					if (flag) {
 						g = service.findOne(game);
-					}
+					}else {
+					    g=service.setInitialValue(game);
+					}					
 					
 						infoMain = new ResultInfo(flag, g,1);
 						
@@ -304,6 +303,10 @@ public class MainMenuPanel extends BasePanel {
 					if (flag) {
 						service.delOldData(g);
 						flag = false;
+					}else {
+						
+					    game=service.setInitialValue(game);
+					    
 					}
 					
 						infoMain = new ResultInfo(flag, game,1);
@@ -344,6 +347,8 @@ public class MainMenuPanel extends BasePanel {
 					Game g = null;
 					if (flag) {
 						g = service.findOne(game);
+					}else {
+					    g=service.setInitialValue(game);
 					}
 					
 						infoMain = new ResultInfo(flag, g,1);

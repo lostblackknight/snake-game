@@ -83,6 +83,7 @@ public class GameServiceImpl implements GameService {
 			if (g.getSid() > 0 && game.getType() == 0) {
 				return true;
 			} else {
+
 				return false;
 			}
 		} else {
@@ -93,6 +94,8 @@ public class GameServiceImpl implements GameService {
 			}
 		}
 	}
+
+
 
 	@Override
 	public void delOldData(Game g) {
@@ -106,5 +109,12 @@ public class GameServiceImpl implements GameService {
 		snakeDao.saveSnake(game.getSanke());
 		snakeBodyDao.saveSnakeBodyData(game.getSanke());
 		
+	}
+
+	@Override
+	public Game setInitialValue(Game game)
+	{
+		Game g=gameDao.setInitialValue(game);
+		return g;
 	}
 }

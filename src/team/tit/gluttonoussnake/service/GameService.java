@@ -36,4 +36,6 @@ public interface GameService {
 
 	void saveGameAll(Game game);
 
+	Game setInitialValue(Game game);
+
 }

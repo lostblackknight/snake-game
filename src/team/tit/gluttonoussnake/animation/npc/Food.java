@@ -1,6 +1,7 @@
 package team.tit.gluttonoussnake.animation.npc;
 
 import team.tit.gluttonoussnake.animation.BaseObject;
+import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
 import team.tit.gluttonoussnake.util.MyUtils;
 
 import static team.tit.gluttonoussnake.constant.Constant.*;
@@ -35,7 +36,7 @@ public class Food extends BaseObject {
 	@Override
 	public void init() {
 		super.init();
-		createRandomFood();
+		createRandomFoodNotInWall(LoadingPanel.getList().get(1).getPoints());
 	}
 
 	@Override

@@ -14,6 +14,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import team.tit.gluttonoussnake.animation.npc.Food;
+import team.tit.gluttonoussnake.animation.npc.Wall;
+import team.tit.gluttonoussnake.animation.player.Snake;
 import team.tit.gluttonoussnake.dao.GameDao;
 import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.util.XLSUtils;
@@ -62,17 +65,8 @@ public class GameDaoImpl implements GameDao {
 						game.setSid(ssid);
 						game.setFid(ffid);
 						game.setWid(wwid);
-					}else {
-						game.setSid(sheet.getLastRowNum()+1);
-						game.setFid(sheet.getLastRowNum()+1);
-						if(type==0) {
-							game.setWid(0);
-						}
-						if(type==1) {
-							game.setWid(0);
-						}
-						
 					}
+
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -105,27 +99,30 @@ public class GameDaoImpl implements GameDao {
 			XLSUtils.printSheetData(body);
 			for (int i = 1; i <= food.getLastRowNum(); i++) {
 				Row row = food.getRow(i);
+				if(row!=null) {
 				Cell cellfid = row.getCell(0);
 				int cellfidInt = XLSUtils.celltoInt(cellfid);
 				if (cellfidInt == fid) {
 					food.removeRow(row);
-				}
+				}}
 			}
 			for (int i = 1; i <= snake.getLastRowNum(); i++) {
 				Row row = snake.getRow(i);
+				if(row!=null) {
 				Cell cellsid = row.getCell(0);
 				int cellsidInt = XLSUtils.celltoInt(cellsid);
 				if (cellsidInt == sid) {
 					snake.removeRow(row);
-				}
+				}}
 			}
 			for (int i = 1; i <= body.getLastRowNum(); i++) {
 				Row row = body.getRow(i);
+				if(row!=null) {
 				Cell cellsid = row.getCell(0);
 				int cellsidInt = XLSUtils.celltoInt(cellsid);
 				if (cellsidInt == sid) {
 					body.removeRow(row);
-				}
+				}}
 			}
 			
 			fos = XLSUtils.getFileOutputStream(file);
@@ -228,4 +225,122 @@ public void delGameOldData(Game game) {
 	  XLSUtils.close(fis, fos, workbook);
 		
 }
+
+@Override
+public Game setInitialValue(Game game)
+{
+	// TODO 查找game表
+	Game g = findByUidAndType(game.getUid(), game.getType());
+	if (game.getType() == 0) {
+		if (g.getSid() > 0 && game.getType() == 0) {
+		
+		} else {
+		
+			FileInputStream fis = null;
+			Workbook workbook = null;
+			FileOutputStream fos = null;
+			try {
+				fis = XLSUtils.getFileInputStream(file);
+				workbook = new HSSFWorkbook(fis);
+				Sheet sheet = workbook.getSheet("Game");
+				
+				
+				
+				g.setSid(sheet.getLastRowNum()+1);			
+				g.setFid(sheet.getLastRowNum()+1);			
+				if(g.getType()==0) {
+				g.setWid(0);
+				}else {
+					g.setWid(1);					
+				}
+				Snake snake=new Snake();
+				g.setSanke(snake);
+				Food food =new Food();
+				g.setFood(food);
+				Wall wall=new Wall();
+				g.setWall(wall);
+				g.getSanke().setId(sheet.getLastRowNum()+1);
+				g.getFood().setId(sheet.getLastRowNum()+1);
+				if(g.getType()==0) {
+					g.getWall().setId(0);
+					}else {
+						g.getWall().setId(1);				
+					}
+				
+				
+				
+				
+				fos = XLSUtils.getFileOutputStream(file);
+				workbook.write(fos);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				XLSUtils.close(fis, fos, workbook);
+			}
+			
+		}
+	} else {
+		if (g.getSid() > 0 && game.getType() == 1) {
+			
+		} else {
+
+			
+			FileInputStream fis = null;
+			Workbook workbook = null;
+			FileOutputStream fos = null;
+			try {
+				fis = XLSUtils.getFileInputStream(file);
+				workbook = new HSSFWorkbook(fis);
+				Sheet sheet = workbook.getSheet("Game");
+				
+				
+				
+				g.setSid(sheet.getLastRowNum()+1);			
+				g.setFid(sheet.getLastRowNum()+1);			
+				if(g.getType()==0) {
+				g.setWid(0);
+				}else {
+					g.setWid(1);					
+				}
+				Snake snake=new Snake();
+				g.setSanke(snake);
+				Food food =new Food();
+				g.setFood(food);
+				Wall wall=new Wall();
+				g.setWall(wall);
+				g.getSanke().setId(sheet.getLastRowNum()+1);
+				g.getFood().setId(sheet.getLastRowNum()+1);
+				if(g.getType()==0) {
+					g.getWall().setId(0);
+					}else {
+						g.getWall().setId(1);				
+					}
+				
+				
+				
+				
+				fos = XLSUtils.getFileOutputStream(file);
+				workbook.write(fos);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				XLSUtils.close(fis, fos, workbook);
+			}
+			
+		
+			
+			
+		}
+	}
+	
+	return g;	
+}
+
+
 }

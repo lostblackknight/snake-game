@@ -31,4 +31,8 @@ public interface GameDao {
 
 	void saveGameData(Game game);
 
+	Game setInitialValue(Game game);
+
+
+
 }
