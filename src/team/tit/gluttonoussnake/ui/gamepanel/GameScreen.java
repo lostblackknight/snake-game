@@ -67,8 +67,7 @@ public class GameScreen extends GScreen {
 				// gameScreen.snake.setY(headY);
 				snake.setId(game.getSid());
 				snake.setDir(game.getSanke().getDir());		
-				System.out.println("-12121---*****----"+game.getSanke().getDir());
-				System.out.println("-12121---*****-asdwadawdawdawdaw---");
+
 				snake.setList(body);
 				food.setId(game.getFid());
 				food.setX(foodX);
@@ -108,7 +107,7 @@ public class GameScreen extends GScreen {
 				if (wall.getId() == 0) {
 					points = null;
 				} else {
-					points = LoadingPanel.getList().get(wall.getId()).getPoints();
+					points = LoadingPanel.getList().get(game.getWid()).getPoints();
 				}
 				wall.setPoints(points);
 				info.setLength(snake.getList().size() - 1);
