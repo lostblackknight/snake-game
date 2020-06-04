@@ -60,7 +60,7 @@ public class GameServiceImpl implements GameService {
 		// 2.2获取蛇身体
 		LinkedList<SnakeNode> list = snakeBodyDao.findBodyBySid(g.getSid());
 		snake.setList(list);
-				
+		snake.setDir(snake.getDir());
 		g.setSanke(snake);
 
 		// 3.获取食物对象

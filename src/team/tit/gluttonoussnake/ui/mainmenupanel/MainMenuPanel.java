@@ -203,14 +203,16 @@ public class MainMenuPanel extends BasePanel {
 					boolean flag = service.haveOldData(game);
 					System.out.println(flag);
 					Game g = null;
+					
 					if (flag) {
-						g = service.findOne(game);
-						service.delOldData(g);
+						g = service.findOne(game);						
+						service.delOldData(g);	
 						flag = false;
 					} else {
 						g = service.setInitialValue(game);
+						flag = false;
 					}
-
+                    
 					infoMain = new ResultInfo(flag, g, 1);
 				}
 
@@ -235,7 +237,6 @@ public class MainMenuPanel extends BasePanel {
 				 * 1.获取用户的uid和设置游戏类型为0 2.封装成一个Game的实例化对象 3.调用service完成查询游戏数据，返回一个game对象 4.如果sid
 				 * && fid == null 5.设置初始数据 6.找到设置数据库中的数据
 				 */
-
 				if (infoLogin != null && infoLogin.isFlag()) {
 					// 1.获取用户的uid和设置游戏类型为0
 					User u = (User) infoLogin.getData();
@@ -249,12 +250,15 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-					System.out.println(flag);
-					Game g = new Game(uid, type);
+
+					Game g = null;	
+
 					if (flag) {
 						g = service.findOne(game);
+	
 					} else {
 						g = service.setInitialValue(game);
+						flag=false;
 					}
 					infoMain = new ResultInfo(flag, g, 1);
 				}
@@ -344,6 +348,7 @@ public class MainMenuPanel extends BasePanel {
 						g = service.findOne(game);
 					} else {
 						g = service.setInitialValue(game);
+						flag=false;
 					}
 
 					infoMain = new ResultInfo(flag, g, 1);

@@ -54,7 +54,7 @@ public class GameScreen extends GScreen {
 		addObject(grid);
 		addObject(info);
 
-		if (maInfo != null && maInfo.isFlag() == true) {
+		if (maInfo != null && maInfo.isFlag()==true) {
 			Game game = (Game) maInfo.getData();
 			if (game.getType() == 0) {
 				// int headX = game.getSanke().getSnakeHeadX();
@@ -66,7 +66,9 @@ public class GameScreen extends GScreen {
 				// gameScreen.snake.setX(headX);
 				// gameScreen.snake.setY(headY);
 				snake.setId(game.getSid());
-				snake.setDir(game.getSanke().getDir());
+				snake.setDir(game.getSanke().getDir());		
+				System.out.println("-12121---*****----"+game.getSanke().getDir());
+				System.out.println("-12121---*****-asdwadawdawdawdaw---");
 				snake.setList(body);
 				food.setId(game.getFid());
 				food.setX(foodX);
@@ -113,6 +115,8 @@ public class GameScreen extends GScreen {
 				info.setScore((snake.getList().size() - 3) * 10);
 			}
 		}
+	
+		
 		addObject(food);
 		addObject(wall);
 		addObject(snake);
@@ -168,18 +172,19 @@ public class GameScreen extends GScreen {
 			if (maInfo != null) {
 				Game game1 = (Game) maInfo.getData();
 				Snake snake1 = new Snake();
-				snake1.setId(sid);
+				snake1.setId(game1.getSid());
 				snake1.setDir(snake.getDir());
 				Food food1 = new Food();
-				food1.setId(fid);
+				food1.setId(game1.getFid());
 				Wall wall1 = new Wall();
-				wall1.setId(wid);
+				wall1.setId(game1.getWid());
 				System.out.println("game1dir:" + snake.getDir());
 				game1.setSanke(snake1);
 				game1.setFood(food1);
 				game1.setWall(wall1);
 				GameService service = new GameServiceImpl();
 				service.saveGameAll(game1);
+				
 			}
 
 			thread.stop();
@@ -217,7 +222,7 @@ public class GameScreen extends GScreen {
 				Snake snake2 = new Snake();
 				Food food2 = new Food();
 				Wall wall2 = new Wall();
-				snake2.setId(snake.getId());
+				snake2.setId(game2.getSid());
 				LinkedList<SnakeNode> list1 = new LinkedList<SnakeNode>();
 				for (int i = 0; i < snake.getList().size(); i++) {
 					list1.addLast(new SnakeNode(list.get(i).getX(), list.get(i).getY()));
@@ -225,7 +230,7 @@ public class GameScreen extends GScreen {
 				snake2.setList(list1);
 				snake2.setDir(snake.getDir());
 				System.out.println("game2dir:" + snake.getDir());
-				food2.setId(food.getId());
+				food2.setId(game2.getFid());
 				food2.setX(food.getX());
 				food2.setY(food.getY());
 				wall2.setId(wall.getId());
