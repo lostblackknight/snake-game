@@ -61,9 +61,7 @@ public class GameScreen extends GScreen
 			Game game = (Game) maInfo.getData();
 			snake.setId(game.getSid());
 			food.setId(game.getFid());
-			
-			//这里有问题
-			wall.setId(2);
+			wall.setId(game.getWid());
 			
 			ArrayList<Point> points = null;
 			if (wall.getId() == 0)
