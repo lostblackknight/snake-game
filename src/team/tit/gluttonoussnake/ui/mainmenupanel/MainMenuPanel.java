@@ -303,12 +303,10 @@ public class MainMenuPanel extends BasePanel {
 					if (flag) {
 						service.delOldData(g);
 						flag = false;
-					}else {
-						
+					}else {						
 					    game=service.setInitialValue(game);
 					    
-					}
-					
+					}					
 						infoMain = new ResultInfo(flag, game,1);
 						
 				}

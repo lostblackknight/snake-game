@@ -263,8 +263,9 @@ public Game setInitialValue(Game game)
 				g.getFood().setId(sheet.getLastRowNum()+1);
 				if(g.getType()==0) {
 					g.getWall().setId(0);
-					}else {
-						g.getWall().setId(1);				
+					}
+				if(g.getType()==1) {
+						g.getWall().setId(1);
 					}
 				
 				
@@ -286,7 +287,6 @@ public Game setInitialValue(Game game)
 		if (g.getSid() > 0 && game.getType() == 1) {
 			
 		} else {
-
 			
 			FileInputStream fis = null;
 			Workbook workbook = null;
@@ -296,9 +296,7 @@ public Game setInitialValue(Game game)
 				workbook = new HSSFWorkbook(fis);
 				Sheet sheet = workbook.getSheet("Game");
 				
-				
-				
-				g.setSid(sheet.getLastRowNum()+1);			
+			g.setSid(sheet.getLastRowNum()+1);			
 				g.setFid(sheet.getLastRowNum()+1);			
 				if(g.getType()==0) {
 				g.setWid(0);
@@ -315,10 +313,10 @@ public Game setInitialValue(Game game)
 				g.getFood().setId(sheet.getLastRowNum()+1);
 				if(g.getType()==0) {
 					g.getWall().setId(0);
-					}else {
-						g.getWall().setId(1);				
 					}
-				
+				if(g.getType()==1) {
+					g.getWall().setId(1);
+				}
 				
 				
 				

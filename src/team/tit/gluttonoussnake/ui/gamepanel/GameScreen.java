@@ -50,6 +50,13 @@ public class GameScreen extends GScreen {
 		this.maInfo = maInfo;
 		addObject(grid);
 		addObject(info);
+		if(maInfo!=null) {
+		Game game = (Game) maInfo.getData();
+		wall.setId(game.getWid());
+		food.setId(game.getFid());
+		snake.setId(game.getSid());
+		}
+		
 		addObject(food);
 		addObject(wall);
 		addObject(snake);

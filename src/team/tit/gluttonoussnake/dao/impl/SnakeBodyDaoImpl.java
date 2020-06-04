@@ -99,7 +99,7 @@ public class SnakeBodyDaoImpl implements SnakeBodyDao {
 			x.setCellValue(snake.getList().get(i-1).getX());
 			
 			Cell y = newRow.createCell(2);
-			y.setCellValue(snake.getList().get(i-1).getX());
+			y.setCellValue(snake.getList().get(i-1).getY());
 			
 			 }
 		

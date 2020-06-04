@@ -90,7 +90,7 @@ public class FoodDaoImpl implements FoodDao {
 			uid.setCellValue(food.getId());
 			
 			Cell x = newRow.createCell(1);
-			x.setCellValue(food.getY());
+			x.setCellValue(food.getX());
 			
 			Cell y = newRow.createCell(2);
 			y.setCellValue(food.getY());
