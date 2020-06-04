@@ -304,11 +304,11 @@ public class MainMenuPanel extends BasePanel {
 
 					if (flag) {
 						service.delOldData(g);
-						
+						flag=false;
 					} else {
 						g = service.setInitialValue(game);
 					}
-					g.setWid(2);
+					g.setWid(1);
 
 					infoMain = new ResultInfo(flag, g, 1);
 				}

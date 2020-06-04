@@ -73,13 +73,6 @@ public class GameScreen extends GScreen {
 				food.setX(foodX);
 				food.setY(foodY);
 				wall.setId(game.getWid());
-				ArrayList<Point> points = null;
-				if (wall.getId() == 0) {
-					points = null;
-				} else {
-					points = LoadingPanel.getList().get(wall.getId()).getPoints();
-				}
-				wall.setPoints(points);
 				info.setLength(snake.getList().size() - 1);
 				info.setScore((snake.getList().size() - 3) * 10);
 			}
@@ -103,18 +96,20 @@ public class GameScreen extends GScreen {
 				food.setX(foodX);
 				food.setY(foodY);
 				wall.setId(wid);
-				ArrayList<Point> points = null;
-				if (wall.getId() == 0) {
-					points = null;
-				} else {
-					points = LoadingPanel.getList().get(game.getWid()).getPoints();
-				}
-				wall.setPoints(points);
 				info.setLength(snake.getList().size() - 1);
 				info.setScore((snake.getList().size() - 3) * 10);
 			}
 		}
-	
+		
+		Game game1 = (Game) maInfo.getData();
+		ArrayList<Point> points = null;
+		if (game1.getWid() == 0) {
+			points = null;
+		} else {
+			points = LoadingPanel.getList().get(game1.getWid()).getPoints();
+		}
+		wall.setPoints(points);
+		
 		
 		addObject(food);
 		addObject(wall);
