@@ -61,7 +61,6 @@ public class GamePanel extends BasePanel {
 		gameScreen = new GameScreen(subMenu, subRoot,infoMain);
 
 		// 2.获取从主菜单传来的数据对象
-
 		if (infoMain != null && infoMain.isFlag()) {
 			// 加判断
 			Game game = (Game) infoMain.getData();
@@ -103,7 +102,6 @@ public class GamePanel extends BasePanel {
 				gameScreen.wall.setId(wid);
 				gameScreen.wall.setPoints(points);
 			}
-
 		}
 
 		// 3.音频

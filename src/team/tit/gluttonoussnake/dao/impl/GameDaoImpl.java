@@ -274,14 +274,7 @@ public class GameDaoImpl implements GameDao
 					g.setWall(wall);
 					g.getSanke().setId(sheet.getLastRowNum() + 1);
 					g.getFood().setId(sheet.getLastRowNum() + 1);
-					if (g.getType() == 0)
-					{
-						g.getWall().setId(0);
-					}
-					if (g.getType() == 1)
-					{
-						g.getWall().setId(1);
-					}
+				    g.getWall().setId(0);		
 					fos = XLSUtils.getFileOutputStream(file);
 					workbook.write(fos);
 				}
@@ -306,7 +299,6 @@ public class GameDaoImpl implements GameDao
 			}
 			else
 			{
-
 				FileInputStream fis = null;
 				Workbook workbook = null;
 				FileOutputStream fos = null;
@@ -317,14 +309,7 @@ public class GameDaoImpl implements GameDao
 					Sheet sheet = workbook.getSheet("Game");
 					g.setSid(sheet.getLastRowNum() + 1);
 					g.setFid(sheet.getLastRowNum() + 1);
-					if (g.getType() == 0)
-					{
-						g.setWid(0);
-					}
-					else
-					{
-						g.setWid(1);
-					}
+					g.setWid(1);
 					Snake snake = new Snake();
 					g.setSanke(snake);
 					Food food = new Food();
@@ -339,7 +324,7 @@ public class GameDaoImpl implements GameDao
 					}
 					if (g.getType() == 1)
 					{
-						g.getWall().setId(1);
+						g.getWall().setId(3);
 					}
 					fos = XLSUtils.getFileOutputStream(file);
 					workbook.write(fos);
