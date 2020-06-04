@@ -58,11 +58,11 @@ public class Snake extends BaseObject {
 	@Override
 	public void init() {
 		super.init();
-		setX(0);
+		setX(60);
 		setY(0);
+		setDir(DIR.RIGHT);
 		setWidth(SNAKE_W);
 		setHeight(SNAKE_H);
-		setDir(DIR.RIGHT);
 		setLength(DEFAULT_LENGTH);
 		for (int i = 0; i < getLength(); i++) {
 			list.addLast(new SnakeNode(getX(), getY()));

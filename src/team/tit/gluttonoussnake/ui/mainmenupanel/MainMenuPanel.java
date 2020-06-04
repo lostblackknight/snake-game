@@ -52,8 +52,9 @@ public class MainMenuPanel extends BasePanel {
 	}
 
 	public MainMenuPanel(ResultInfo info) {
-			this.infoLogin = info;		
+		this.infoLogin = info;
 	}
+
 	@Override
 	public void init() {
 		// 1.实例化对象
@@ -206,15 +207,15 @@ public class MainMenuPanel extends BasePanel {
 						g = service.findOne(game);
 						service.delOldData(g);
 						flag = false;
-					}else {
-					    g=service.setInitialValue(game);
+					} else {
+						g = service.setInitialValue(game);
 					}
 
-						infoMain = new ResultInfo(flag, g,1);
+					infoMain = new ResultInfo(flag, g, 1);
 				}
 
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -252,12 +253,10 @@ public class MainMenuPanel extends BasePanel {
 					Game g = new Game(uid, type);
 					if (flag) {
 						g = service.findOne(game);
-					}else {
-					    g=service.setInitialValue(game);
-					}					
-					
-						infoMain = new ResultInfo(flag, g,1);
-						
+					} else {
+						g = service.setInitialValue(game);
+					}
+					infoMain = new ResultInfo(flag, g, 1);
 				}
 
 //				// 用于测试从表里获取数据（之后删掉）
@@ -268,7 +267,7 @@ public class MainMenuPanel extends BasePanel {
 //				infoMain = new ResultInfo(flag, g);
 
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -302,15 +301,15 @@ public class MainMenuPanel extends BasePanel {
 					if (flag) {
 						service.delOldData(g);
 						flag = false;
-					}else {						
-					    g=service.setInitialValue(game);						    
-					}					
+					} else {
+						g = service.setInitialValue(game);
+					}
 					g.setWid(1);
-					
-						infoMain = new ResultInfo(flag, g,1);		
+
+					infoMain = new ResultInfo(flag, g, 1);
 				}
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");
@@ -343,14 +342,14 @@ public class MainMenuPanel extends BasePanel {
 					Game g = null;
 					if (flag) {
 						g = service.findOne(game);
-					}else {
-					    g=service.setInitialValue(game);
+					} else {
+						g = service.setInitialValue(game);
 					}
-					
-						infoMain = new ResultInfo(flag, g,1);
+
+					infoMain = new ResultInfo(flag, g, 1);
 				}
 				// 1.注册游戏面板
-				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin,infoMain));
+				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
 
 				// 2.切换到游戏面板
 				UIManager.getUiManager().gotoPanel("GamePanel");

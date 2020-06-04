@@ -1,22 +1,15 @@
 package team.tit.gluttonoussnake.ui.gamepanel;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import team.tit.gluttonoussnake.animation.player.SnakeNode;
-import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.domain.ResultInfo;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.manager.impl.UIManager;
 import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.gamepanel.GScreen.GameState;
-import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
 import team.tit.gluttonoussnake.ui.mainmenupanel.MainMenuPanel;
 import team.tit.gluttonoussnake.ui.mainmenupanel.OptionsMenuBox;
 
@@ -59,50 +52,6 @@ public class GamePanel extends BasePanel {
 		background = new Background(subRoot);
 		subMenu = new SubMenu();
 		gameScreen = new GameScreen(subMenu, subRoot,infoMain);
-
-		// 2.获取从主菜单传来的数据对象
-		if (infoMain != null && infoMain.isFlag()) {
-			// 加判断
-			Game game = (Game) infoMain.getData();
-			if (game.getType() == 0) {
-				// int headX = game.getSanke().getSnakeHeadX();
-				// int headY = game.getSanke().getSnakeHeadY();
-				LinkedList<SnakeNode> body = game.getSanke().getList();
-				int foodX = game.getFood().getFoodX();
-				int foodY = game.getFood().getFoodY();
-				// TODO 将获取出来的值设到snake对象中去
-				// gameScreen.snake.setX(headX);
-				// gameScreen.snake.setY(headY);				
-				gameScreen.snake.setList(body);
-				gameScreen.food.setX(foodX);
-				gameScreen.food.setY(foodY);
-				gameScreen.info.setLength(body.size()-1);
-				gameScreen.info.setScore((body.size()-3)*10);
-			}
-
-			if (game.getType() == 1) {
-				// int headX = game.getSanke().getSnakeHeadX();
-				// int headY = game.getSanke().getSnakeHeadY();
-				LinkedList<SnakeNode> body = game.getSanke().getList();
-				int foodX = game.getFood().getFoodX();
-				int foodY = game.getFood().getFoodY();
-//				ArrayList<Point> wall = game.getWall().getPoints();
-				int wid = game.getWid();
-				int sid = game.getSid();
-				int fid = game.getFid();
-				ArrayList<Point> points = LoadingPanel.getList().get(wid).getPoints();
-				// TODO 将获取出来的值设到snake对象中去
-				// gameScreen.snake.setX(headX);
-				// gameScreen.snake.setY(headY);
-				gameScreen.snake.setId(sid);
-				gameScreen.snake.setList(body);
-				gameScreen.food.setId(fid);
-				gameScreen.food.setX(foodX);
-				gameScreen.food.setY(foodY);
-				gameScreen.wall.setId(wid);
-				gameScreen.wall.setPoints(points);
-			}
-		}
 
 		// 3.音频
 		loadGameAudio();

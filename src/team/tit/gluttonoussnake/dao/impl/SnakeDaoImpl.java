@@ -64,7 +64,6 @@ public class SnakeDaoImpl implements SnakeDao
 						int dir = XLSUtils.celltoInt(celldir);
 						snake.setX(x);
 						snake.setY(y);
-						snake.setDir(DIR.RIGHT);
 						if (celldir != null)
 						{
 							if (dir == 1)

@@ -33,8 +33,7 @@ import team.tit.gluttonoussnake.domain.ResultInfo;
  * @version 1.4
  * @since JDK1.8 2020年5月26日
  */
-public class GameScreen extends GScreen
-{
+public class GameScreen extends GScreen {
 
 	Grid grid = new Grid();
 	GameInfo info = new GameInfo();
@@ -47,8 +46,7 @@ public class GameScreen extends GScreen
 	private GameOverPanel gameOverPanel;
 	private GameWinPanel gameWinPanel = new GameWinPanel();
 
-	public GameScreen(SubMenu subMenu, AnchorPane subRoot, ResultInfo maInfo)
-	{
+	public GameScreen(SubMenu subMenu, AnchorPane subRoot, ResultInfo maInfo) {
 		super();
 		this.subMenu = subMenu;
 		this.subRoot = subRoot;
@@ -56,44 +54,78 @@ public class GameScreen extends GScreen
 		addObject(grid);
 		addObject(info);
 
-		if (maInfo != null)
-		{
+		if (maInfo != null && maInfo.isFlag() == true) {
 			Game game = (Game) maInfo.getData();
-			snake.setId(game.getSid());
-			food.setId(game.getFid());
-			wall.setId(game.getWid());
-			
-			ArrayList<Point> points = null;
-			if (wall.getId() == 0)
-			{
-				points = null;
+			if (game.getType() == 0) {
+				// int headX = game.getSanke().getSnakeHeadX();
+				// int headY = game.getSanke().getSnakeHeadY();
+				LinkedList<SnakeNode> body = game.getSanke().getList();
+				int foodX = game.getFood().getFoodX();
+				int foodY = game.getFood().getFoodY();
+				// TODO 将获取出来的值设到snake对象中去
+				// gameScreen.snake.setX(headX);
+				// gameScreen.snake.setY(headY);
+				snake.setId(game.getSid());
+				snake.setDir(game.getSanke().getDir());
+				snake.setList(body);
+				food.setId(game.getFid());
+				food.setX(foodX);
+				food.setY(foodY);
+				wall.setId(game.getWid());
+				ArrayList<Point> points = null;
+				if (wall.getId() == 0) {
+					points = null;
+				} else {
+					points = LoadingPanel.getList().get(wall.getId()).getPoints();
+				}
+				wall.setPoints(points);
+				info.setLength(snake.getList().size() - 1);
+				info.setScore((snake.getList().size() - 3) * 10);
 			}
-			else
-			{
-				points = LoadingPanel.getList().get(wall.getId()).getPoints();
-			}
-			wall.setPoints(points);
-			info.setLength(snake.getList().size() - 1);
-			info.setScore((snake.getList().size() - 3) * 10);
-		}
 
+			if (game.getType() == 1) {
+				// int headX = game.getSanke().getSnakeHeadX();
+				// int headY = game.getSanke().getSnakeHeadY();
+				LinkedList<SnakeNode> body = game.getSanke().getList();
+				int foodX = game.getFood().getFoodX();
+				int foodY = game.getFood().getFoodY();
+//				ArrayList<Point> wall = game.getWall().getPoints();
+				int wid = game.getWid();
+				int sid = game.getSid();
+				int fid = game.getFid();
+				// gameScreen.snake.setX(headX);
+				// gameScreen.snake.setY(headY);
+				snake.setId(sid);
+				snake.setDir(game.getSanke().getDir());
+				snake.setList(body);
+				food.setId(fid);
+				food.setX(foodX);
+				food.setY(foodY);
+				wall.setId(wid);
+				ArrayList<Point> points = null;
+				if (wall.getId() == 0) {
+					points = null;
+				} else {
+					points = LoadingPanel.getList().get(wall.getId()).getPoints();
+				}
+				wall.setPoints(points);
+				info.setLength(snake.getList().size() - 1);
+				info.setScore((snake.getList().size() - 3) * 10);
+			}
+		}
 		addObject(food);
 		addObject(wall);
 		addObject(snake);
 	}
 
-	@SuppressWarnings(
-	{ "deprecation", "static-access" })
+	@SuppressWarnings({ "deprecation", "static-access" })
 	@Override
-	public void draw(GraphicsContext gc)
-	{
+	public void draw(GraphicsContext gc) {
 		super.draw(gc);
-		if (gameState == GameState.GAME_PAUSE)
-		{
+		if (gameState == GameState.GAME_PAUSE) {
 			return;
 		}
-		if (gameState == GameState.GAME_END)
-		{
+		if (gameState == GameState.GAME_END) {
 			AudioManager.getAudioManager().getAudio("GameAudio").close();
 			loadGameOverAudio();
 			// loadGameWinAudio();
@@ -124,8 +156,7 @@ public class GameScreen extends GScreen
 			System.out.println("score = " + score);
 			LinkedList<SnakeNode> list = snake.getList();
 
-			for (int i = 0; i < list.size(); i++)
-			{
+			for (int i = 0; i < list.size(); i++) {
 				System.out.println("第" + i + "个蛇身的X" + list.get(i).getX());
 				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
 			}
@@ -134,8 +165,7 @@ public class GameScreen extends GScreen
 			System.out.println("food = " + food.getY());
 
 			// 封装数据 保存数据
-			if (maInfo != null)
-			{
+			if (maInfo != null) {
 				Game game1 = (Game) maInfo.getData();
 				Snake snake1 = new Snake();
 				snake1.setId(sid);
@@ -155,8 +185,7 @@ public class GameScreen extends GScreen
 			thread.stop();
 			timeline.stop();
 		}
-		if (gameState == GameState.GAME_EXIT)
-		{
+		if (gameState == GameState.GAME_EXIT) {
 			AudioManager.getAudioManager().getAudio("GameAudio").close();
 			int sid = snake.getId();
 			int snakeHeadX = snake.getHead().getX();
@@ -173,8 +202,7 @@ public class GameScreen extends GScreen
 			System.out.println("score = " + score);
 			LinkedList<SnakeNode> list = snake.getList();
 
-			for (int i = 0; i < list.size(); i++)
-			{
+			for (int i = 0; i < list.size(); i++) {
 				System.out.println("第" + i + "个蛇身的X" + list.get(i).getX());
 				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
 			}
@@ -183,8 +211,7 @@ public class GameScreen extends GScreen
 			System.out.println("food = " + food.getY());
 
 			// 封装数据 保存数据
-			if (maInfo != null)
-			{
+			if (maInfo != null) {
 				Game game2 = (Game) maInfo.getData();
 
 				Snake snake2 = new Snake();
@@ -192,8 +219,7 @@ public class GameScreen extends GScreen
 				Wall wall2 = new Wall();
 				snake2.setId(snake.getId());
 				LinkedList<SnakeNode> list1 = new LinkedList<SnakeNode>();
-				for (int i = 0; i < snake.getList().size(); i++)
-				{
+				for (int i = 0; i < snake.getList().size(); i++) {
 					list1.addLast(new SnakeNode(list.get(i).getX(), list.get(i).getY()));
 				}
 				snake2.setList(list1);
@@ -215,32 +241,24 @@ public class GameScreen extends GScreen
 	}
 
 	@Override
-	public void update()
-	{
-		while (gameState != GameState.GAME_END)
-		{
-			if (gameState != GameState.GAME_PAUSE)
-			{
+	public void update() {
+		while (gameState != GameState.GAME_END) {
+			if (gameState != GameState.GAME_PAUSE) {
 				super.update();
 				eatFood(snake);
 				eatBody(snake);
 				eatWall(snake);
 			}
-			try
-			{
+			try {
 				Thread.sleep(snake.getSleepTime());
-			}
-			catch (InterruptedException e)
-			{
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public void eatFood(Snake snake)
-	{
-		if (snake.isEatFood(food))
-		{
+	public void eatFood(Snake snake) {
+		if (snake.isEatFood(food)) {
 			loadEatFoodAudio();
 			snake.grow();
 
@@ -252,93 +270,71 @@ public class GameScreen extends GScreen
 		}
 	}
 
-	public void eatBody(Snake snake)
-	{
-		if (snake.isEatBody())
-		{
+	public void eatBody(Snake snake) {
+		if (snake.isEatBody()) {
 			gameState = GameState.GAME_END;
 			loadSnakeDeathAudio();
 		}
 	}
 
-	public void eatWall(Snake snake)
-	{
-		if (snake.isEatWall(wall.getPoints()))
-		{
+	public void eatWall(Snake snake) {
+		if (snake.isEatWall(wall.getPoints())) {
 			gameState = GameState.GAME_END;
 			loadSnakeDeathAudio();
 		}
 	}
 
 	@Override
-	public void onKeyReleased(KeyEvent event)
-	{
+	public void onKeyReleased(KeyEvent event) {
 		super.onKeyReleased(event);
-		if (event.getCode() == KeyCode.ESCAPE)
-		{
-			if (gameState == GameState.GAME_PAUSE)
-			{
+		if (event.getCode() == KeyCode.ESCAPE) {
+			if (gameState == GameState.GAME_PAUSE) {
 				subRoot.getChildren().remove(subMenu);
 				gameState = GameState.GAME_CONTINUE;
-			}
-			else if (gameState == GameState.GAME_CONTINUE || gameState == GameState.GAME_START)
-			{
+			} else if (gameState == GameState.GAME_CONTINUE || gameState == GameState.GAME_START) {
 				subRoot.getChildren().add(subMenu);
 				gameState = GameState.GAME_PAUSE;
-			}
-			else if (gameState == GameState.GAME_END)
-			{
+			} else if (gameState == GameState.GAME_END) {
 				subRoot.getChildren().add(subMenu);
 				gameState = GameState.GAME_EXIT;
-			}
-			else if (gameState == GameState.GAME_EXIT)
-			{
+			} else if (gameState == GameState.GAME_EXIT) {
 				subRoot.getChildren().remove(subMenu);
 				gameState = GameState.GAME_END;
 			}
-		}
-		else if (event.getCode() == KeyCode.U)
-		{
+		} else if (event.getCode() == KeyCode.U) {
 			snake.setSleepTime(300);
-		}
-		else if (event.getCode() == KeyCode.I)
-		{
+		} else if (event.getCode() == KeyCode.I) {
 			snake.setSleepTime(300);
 		}
 	}
 
 	@Override
-	public void onKeyPressed(KeyEvent event)
-	{
+	public void onKeyPressed(KeyEvent event) {
 		super.onKeyPressed(event);
 	}
 
-	private void loadSnakeDeathAudio()
-	{
+	private void loadSnakeDeathAudio() {
 		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").init();
 		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").getAudio().volumeProperty()
 				.bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("SnakeDeathAudio").play();
 	}
 
-	private void loadEatFoodAudio()
-	{
+	private void loadEatFoodAudio() {
 		AudioManager.getAudioManager().getAudio("EatFoodAudio").init();
 		AudioManager.getAudioManager().getAudio("EatFoodAudio").getAudio().volumeProperty()
 				.bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("EatFoodAudio").play();
 	}
 
-	private void loadGameOverAudio()
-	{
+	private void loadGameOverAudio() {
 		AudioManager.getAudioManager().getAudio("GameOverAudio").init();
 		AudioManager.getAudioManager().getAudio("GameOverAudio").getAudio().volumeProperty()
 				.bind(OptionsMenuBox.slider2.valueProperty());
 		AudioManager.getAudioManager().getAudio("GameOverAudio").play();
 	}
 
-	private void loadGameWinAudio()
-	{
+	private void loadGameWinAudio() {
 		AudioManager.getAudioManager().getAudio("GameWinAudio").init();
 		AudioManager.getAudioManager().getAudio("GameWinAudio").getAudio().volumeProperty()
 				.bind(OptionsMenuBox.slider2.valueProperty());
