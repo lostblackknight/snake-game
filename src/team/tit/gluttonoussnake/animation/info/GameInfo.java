@@ -31,6 +31,8 @@ public class GameInfo extends BaseObject {
 	@Override
 	public void init() {
 		super.init();
+		setLength(2);
+		setScore(0);
 	}
 	
 	@Override

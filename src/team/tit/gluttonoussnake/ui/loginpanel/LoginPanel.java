@@ -184,9 +184,9 @@ public class LoginPanel extends BasePanel {
 					infoLogin.setData(u);
 					infoLogin.setMark(0);
 					l_login_fail.setText("");
-					System.out.println(u.getUid());
-					System.out.println(u.getUsername());
-					System.out.println(u.getPassword());
+//					System.out.println(u.getUid());
+//					System.out.println(u.getUsername());
+//					System.out.println(u.getPassword());
 					
 					//1.注册主菜单面板
 					UIManager.getUiManager().regPanel("MainMenuPanel", new MainMenuPanel(infoLogin));

@@ -38,8 +38,11 @@ public class GameScreen extends GScreen {
 	Grid grid = new Grid();
 	GameInfo info = new GameInfo();
 	Snake snake = new Snake();
-	Food food = new Food();
 	Wall wall = new Wall();
+	Food food = new Food();
+	private int map;
+	private int type;
+	private int target = 20;
 	SubMenu subMenu;
 	AnchorPane subRoot;
 	ResultInfo maInfo;
@@ -54,7 +57,7 @@ public class GameScreen extends GScreen {
 		addObject(grid);
 		addObject(info);
 
-		if (maInfo != null && maInfo.isFlag()==true) {
+		if (maInfo != null && maInfo.isFlag() == true) {
 			Game game = (Game) maInfo.getData();
 			if (game.getType() == 0) {
 				// int headX = game.getSanke().getSnakeHeadX();
@@ -62,12 +65,10 @@ public class GameScreen extends GScreen {
 				LinkedList<SnakeNode> body = game.getSanke().getList();
 				int foodX = game.getFood().getFoodX();
 				int foodY = game.getFood().getFoodY();
-				// TODO 将获取出来的值设到snake对象中去
 				// gameScreen.snake.setX(headX);
 				// gameScreen.snake.setY(headY);
 				snake.setId(game.getSid());
-				snake.setDir(game.getSanke().getDir());		
-
+				snake.setDir(game.getSanke().getDir());
 				snake.setList(body);
 				food.setId(game.getFid());
 				food.setX(foodX);
@@ -75,6 +76,16 @@ public class GameScreen extends GScreen {
 				wall.setId(game.getWid());
 				info.setLength(snake.getList().size() - 1);
 				info.setScore((snake.getList().size() - 3) * 10);
+				Game game1 = (Game) maInfo.getData();
+				ArrayList<Point> points = null;
+				if (game1.getWid() == 0) {
+					System.out.println("***休闲***" + game1.getWid());
+					points = null;
+				} else {
+					points = LoadingPanel.getList().get(game1.getWid()).getPoints();
+				}
+				wall.setPoints(points);
+				type = 0;
 			}
 
 			if (game.getType() == 1) {
@@ -83,37 +94,74 @@ public class GameScreen extends GScreen {
 				LinkedList<SnakeNode> body = game.getSanke().getList();
 				int foodX = game.getFood().getFoodX();
 				int foodY = game.getFood().getFoodY();
-//				ArrayList<Point> wall = game.getWall().getPoints();
-				int wid = game.getWid();
-				int sid = game.getSid();
-				int fid = game.getFid();
 				// gameScreen.snake.setX(headX);
 				// gameScreen.snake.setY(headY);
-				snake.setId(sid);
+				snake.setId(game.getSid());
 				snake.setDir(game.getSanke().getDir());
 				snake.setList(body);
-				food.setId(fid);
+				food.setId(game.getFid());
 				food.setX(foodX);
 				food.setY(foodY);
-				wall.setId(wid);
+				wall.setId(game.getWid());
 				info.setLength(snake.getList().size() - 1);
 				info.setScore((snake.getList().size() - 3) * 10);
+				Game game1 = (Game) maInfo.getData();
+				ArrayList<Point> points = null;
+				if (game1.getWid() == 0) {
+					points = null;
+				} else {
+					System.out.println("***冒险***" + game1.getWid());
+					points = LoadingPanel.getList().get(game1.getWid()).getPoints();
+				}
+				wall.setPoints(points);
+				map = game.getWid();
+				type = 1;
 			}
 		}
-		
-		Game game1 = (Game) maInfo.getData();
-		ArrayList<Point> points = null;
-		if (game1.getWid() == 0) {
-			points = null;
-		} else {
-			points = LoadingPanel.getList().get(game1.getWid()).getPoints();
+
+		if (maInfo != null && maInfo.isFlag() == false) {
+			Game game1 = (Game) maInfo.getData();
+			ArrayList<Point> points = null;
+			if (game1.getWid() == 0) {
+				System.out.println("***休闲 new game***" + game1.getWid());
+				points = null;
+				type = 0;
+			} else {
+				System.out.println("***冒险 new game***" + game1.getWid());
+				points = LoadingPanel.getList().get(game1.getWid()).getPoints();
+				map = game1.getWid();
+				type = 1;
+			}
+			wall.setPoints(points);
 		}
-		wall.setPoints(points);
-		
-		
+
 		addObject(food);
 		addObject(wall);
 		addObject(snake);
+	}
+
+	public int getMap() {
+		return map;
+	}
+
+	public void setMap(int map) {
+		this.map = map;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public int getTarget() {
+		return target;
+	}
+
+	public void setTarget(int target) {
+		this.target = target;
 	}
 
 	@SuppressWarnings({ "deprecation", "static-access" })
@@ -131,14 +179,6 @@ public class GameScreen extends GScreen {
 			/*
 			 * 拿到蛇的位置，食物的位置，身体的位置
 			 */
-			int sid = snake.getId();
-			int snakeHeadX = snake.getHead().getX();
-			int snakeHeadY = snake.getHead().getY();
-			DIR dir = snake.getDir();
-			int length = info.getLength();
-			int score = info.getScore();
-			int fid = food.getId();
-			int wid = wall.getId();
 
 			gameOverPanel = new GameOverPanel();
 
@@ -146,39 +186,22 @@ public class GameScreen extends GScreen {
 			subRoot.setLeftAnchor(gameOverPanel, 440.0);
 			subRoot.getChildren().add(gameOverPanel);
 
-			System.out.println("--------------------");
-			System.out.println("snakeHeadX = " + snakeHeadX);
-			System.out.println("snakeHeadY = " + snakeHeadY);
-			System.out.println("dir = " + dir);
-			System.out.println("length = " + length);
-			System.out.println("score = " + score);
-			LinkedList<SnakeNode> list = snake.getList();
-
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println("第" + i + "个蛇身的X" + list.get(i).getX());
-				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
-			}
-
-			System.out.println("food = " + food.getX());
-			System.out.println("food = " + food.getY());
-
 			// 封装数据 保存数据
 			if (maInfo != null) {
 				Game game1 = (Game) maInfo.getData();
 				Snake snake1 = new Snake();
 				snake1.setId(game1.getSid());
-				snake1.setDir(snake.getDir());
+				snake1.setDir(DIR.RIGHT);
 				Food food1 = new Food();
 				food1.setId(game1.getFid());
 				Wall wall1 = new Wall();
 				wall1.setId(game1.getWid());
-				System.out.println("game1dir:" + snake.getDir());
 				game1.setSanke(snake1);
 				game1.setFood(food1);
 				game1.setWall(wall1);
 				GameService service = new GameServiceImpl();
 				service.saveGameAll(game1);
-				
+
 			}
 
 			thread.stop();
@@ -186,28 +209,7 @@ public class GameScreen extends GScreen {
 		}
 		if (gameState == GameState.GAME_EXIT) {
 			AudioManager.getAudioManager().getAudio("GameAudio").close();
-			int sid = snake.getId();
-			int snakeHeadX = snake.getHead().getX();
-			int snakeHeadY = snake.getHead().getY();
-			DIR dir = snake.getDir();
-			int length = info.getLength();
-			int score = info.getScore();
-
-			System.out.println("--------------------");
-			System.out.println("snakeHeadX = " + snakeHeadX);
-			System.out.println("snakeHeadY = " + snakeHeadY);
-			System.out.println("dir = " + dir);
-			System.out.println("length = " + length);
-			System.out.println("score = " + score);
 			LinkedList<SnakeNode> list = snake.getList();
-
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println("第" + i + "个蛇身的X" + list.get(i).getX());
-				System.out.println("第" + i + "个蛇身的Y" + list.get(i).getY());
-			}
-
-			System.out.println("food = " + food.getX());
-			System.out.println("food = " + food.getY());
 
 			// 封装数据 保存数据
 			if (maInfo != null) {
@@ -223,7 +225,6 @@ public class GameScreen extends GScreen {
 				}
 				snake2.setList(list1);
 				snake2.setDir(snake.getDir());
-				System.out.println("game2dir:" + snake.getDir());
 				food2.setId(game2.getFid());
 				food2.setX(food.getX());
 				food2.setY(food.getY());
@@ -237,6 +238,37 @@ public class GameScreen extends GScreen {
 			thread.stop();
 			timeline.stop();
 		}
+		if (gameState == GameState.GAME_WIN) {
+			AudioManager.getAudioManager().getAudio("GameAudio").close();
+			loadGameWinAudio();
+
+			gameWinPanel = new GameWinPanel();
+
+			subRoot.setTopAnchor(gameWinPanel, 260.0);
+			subRoot.setLeftAnchor(gameWinPanel, 440.0);
+			subRoot.getChildren().add(gameWinPanel);
+
+			// 封装数据 保存数据
+			if (maInfo != null) {
+				Game game1 = (Game) maInfo.getData();
+				game1.setWid(map++);
+				Snake snake1 = new Snake();
+				snake1.setId(game1.getSid());
+				snake1.setDir(DIR.RIGHT);
+				Food food1 = new Food();
+				food1.setId(game1.getFid());
+				Wall wall1 = new Wall();
+				wall1.setId(game1.getWid());
+				game1.setSanke(snake1);
+				game1.setFood(food1);
+				game1.setWall(wall1);
+				GameService service = new GameServiceImpl();
+				service.saveGameAll(game1);
+			}
+
+			thread.stop();
+			timeline.stop();
+		}
 	}
 
 	@Override
@@ -247,6 +279,7 @@ public class GameScreen extends GScreen {
 				eatFood(snake);
 				eatBody(snake);
 				eatWall(snake);
+				gameNext(info);
 			}
 			try {
 				Thread.sleep(snake.getSleepTime());
@@ -263,9 +296,8 @@ public class GameScreen extends GScreen {
 
 			// 食物不在墙上的生成食物（好像不对）
 			food.createRandomFoodNotInWall(wall.getPoints());
-
-			info.setLength(snake.getLength() - 1);
-			info.setScore((snake.getLength() - 3) * 10);
+			info.setLength(snake.getList().size() - 1);
+			info.setScore((snake.getList().size() - 3) * 10);
 		}
 	}
 
@@ -283,6 +315,14 @@ public class GameScreen extends GScreen {
 		}
 	}
 
+	public void gameNext(GameInfo info) {
+		if (info.getScore() >= target) {
+			if (type == 1) {
+				gameState = GameState.GAME_WIN;
+			}
+		}
+	}
+
 	@Override
 	public void onKeyReleased(KeyEvent event) {
 		super.onKeyReleased(event);
@@ -293,11 +333,14 @@ public class GameScreen extends GScreen {
 			} else if (gameState == GameState.GAME_CONTINUE || gameState == GameState.GAME_START) {
 				subRoot.getChildren().add(subMenu);
 				gameState = GameState.GAME_PAUSE;
-			} else if (gameState == GameState.GAME_END) {
+			} else if (gameState == GameState.GAME_END || gameState == GameState.GAME_WIN) {
 				subRoot.getChildren().add(subMenu);
 				gameState = GameState.GAME_EXIT;
 			} else if (gameState == GameState.GAME_EXIT) {
 				subRoot.getChildren().remove(subMenu);
+				if (info.getScore() >= target && type == 1) {
+					gameState = GameState.GAME_WIN;
+				}
 				gameState = GameState.GAME_END;
 			}
 		} else if (event.getCode() == KeyCode.U) {

@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.domain.ResultInfo;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.manager.impl.UIManager;
@@ -32,15 +33,14 @@ public class GamePanel extends BasePanel {
 	private ResultInfo infoLogin;
 	private GameScreen gameScreen;
 
-	public static int map = 0;
-
 	public GamePanel() {
 	}
 
 	public GamePanel(ResultInfo info) {
 		this.infoMain = info;
 	}
-	public GamePanel(ResultInfo infologin,ResultInfo infomain) {
+
+	public GamePanel(ResultInfo infologin, ResultInfo infomain) {
 		this.infoLogin = infologin;
 		this.infoMain = infomain;
 	}
@@ -51,7 +51,7 @@ public class GamePanel extends BasePanel {
 		subRoot = new AnchorPane();
 		background = new Background(subRoot);
 		subMenu = new SubMenu();
-		gameScreen = new GameScreen(subMenu, subRoot,infoMain);
+		gameScreen = new GameScreen(subMenu, subRoot, infoMain);
 
 		// 3.音频
 		loadGameAudio();
@@ -103,8 +103,23 @@ public class GamePanel extends BasePanel {
 					gameScreen.setGameState(GameState.GAME_PAUSE);
 				} else if (gameScreen.getGameState() == GameState.GAME_EXIT) {
 					subRoot.getChildren().remove(subMenu);
+					if (gameScreen.info.getScore() >= gameScreen.getTarget() && gameScreen.getType() == 1) {
+						//开始下一关
+						if (gameScreen.getMap() > 3) {
+							gameScreen.setMap(1);
+						}
+						UIManager.getUiManager().delPanel("GamePanel");
+						Game game = (Game)infoMain.getData();
+						game.setWid(gameScreen.getMap());
+						System.out.println( "map = " + gameScreen.getMap());
+						UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
+						UIManager.getUiManager().gotoPanel("GamePanel");
+					}
 					gameScreen.setGameState(GameState.GAME_END);
 				} else if (gameScreen.getGameState() == GameState.GAME_END) {
+					subRoot.getChildren().add(subMenu);
+					gameScreen.setGameState(GameState.GAME_EXIT);
+				} else if(gameScreen.getGameState() == GameState.GAME_WIN){
 					subRoot.getChildren().add(subMenu);
 					gameScreen.setGameState(GameState.GAME_EXIT);
 				}

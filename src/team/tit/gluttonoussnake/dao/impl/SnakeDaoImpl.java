@@ -58,7 +58,6 @@ public class SnakeDaoImpl implements SnakeDao
 						Cell cellx = row.getCell(1);
 						Cell celly = row.getCell(2);
 						Cell celldir = row.getCell(3);
-						System.out.println("daodir:" + celldir.toString());
 						int x = XLSUtils.celltoInt(cellx);
 						int y = XLSUtils.celltoInt(celly);
 						int dir = XLSUtils.celltoInt(celldir);

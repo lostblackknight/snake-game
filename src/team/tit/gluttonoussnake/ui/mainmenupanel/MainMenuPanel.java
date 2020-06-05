@@ -201,19 +201,19 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-					System.out.println(flag);
+					System.out.println("休闲模式 new game" + flag);
 					Game g = null;
-					
+
 					if (flag) {
-						g = service.findOne(game);						
-						service.delOldData(g);	
+						g = service.findOne(game);
+						service.delOldData(g);
 						flag = false;
 					} else {
 						g = service.setInitialValue(game);
 						flag = false;
 					}
-                    
-					infoMain = new ResultInfo(flag, g, 1);
+
+					infoMain = new ResultInfo(flag, g);
 				}
 
 				// 1.注册游戏面板
@@ -250,25 +250,17 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-
-					Game g = null;	
+					System.out.println("休闲模式continue game" + flag);
+					Game g = null;
 
 					if (flag) {
 						g = service.findOne(game);
-	
 					} else {
 						g = service.setInitialValue(game);
-						flag=false;
+						flag = false;
 					}
-					infoMain = new ResultInfo(flag, g, 1);
+					infoMain = new ResultInfo(flag, g);
 				}
-
-//				// 用于测试从表里获取数据（之后删掉）
-//				Game game = new Game(1, 0);
-//				GameService service = new GameServiceImpl();
-//				Game g = service.findOne(game);
-//				boolean flag = service.haveOldData(game);
-//				infoMain = new ResultInfo(flag, g);
 
 				// 1.注册游戏面板
 				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
@@ -299,18 +291,19 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-
-					Game g = service.findOne(game);
+					System.out.println("冒险模式new game" + flag);
+					Game g = null;
 
 					if (flag) {
-						service.delOldData(g);
-						flag=false;
+						g = service.findOne(game);
+						flag = false;
 					} else {
+						service.delOldData(g);
 						g = service.setInitialValue(game);
+						flag = false;
 					}
 					g.setWid(1);
-
-					infoMain = new ResultInfo(flag, g, 1);
+					infoMain = new ResultInfo(flag, g);
 				}
 				// 1.注册游戏面板
 				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
@@ -342,16 +335,15 @@ public class MainMenuPanel extends BasePanel {
 					// 3.调用service完成查询游戏数据，返回一个game对象
 					GameService service = new GameServiceImpl();
 					boolean flag = service.haveOldData(game);
-					System.out.println(flag);
+					System.out.println("冒险模式continue game" + flag);
 					Game g = null;
 					if (flag) {
 						g = service.findOne(game);
 					} else {
 						g = service.setInitialValue(game);
-						flag=false;
+						flag = false;
 					}
-
-					infoMain = new ResultInfo(flag, g, 1);
+					infoMain = new ResultInfo(flag, g);
 				}
 				// 1.注册游戏面板
 				UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));

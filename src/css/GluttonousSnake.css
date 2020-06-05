@@ -187,7 +187,7 @@
 	-fx-text-fill: #d4b600;
 }
 
-#gameover
+#gameover, #gamewin
 {
 	-fx-text-fill: #FFFF37;
 	-fx-font-size: 38px;

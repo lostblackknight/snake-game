@@ -36,7 +36,11 @@ public class Food extends BaseObject {
 	@Override
 	public void init() {
 		super.init();
-		createRandomFoodNotInWall(LoadingPanel.getList().get(1).getPoints());
+		setX(60 * GRID_SIZE);
+		setY(7 * GRID_SIZE);
+		setWidth(FOOD_W);
+		setHeight(FOOD_H);
+		setColor(MyUtils.getRandomColor());
 	}
 
 	@Override
@@ -63,23 +67,14 @@ public class Food extends BaseObject {
 	public void createRandomFoodNotInWall(ArrayList<Point> wallpoints) {
 		createRandomFood();
 		if (wallpoints != null) {
-			
-			for(Point point : wallpoints) {
-				if(getX() == point.x && getY() == point.y) {
+
+			for (Point point : wallpoints) {
+				if (getX() == point.x && getY() == point.y) {
 					createRandomFoodNotInWall(wallpoints);
 				}
-				
-			}
-				
-//			for (int i = 0; i <= wallpoints.size(); i++) {
-//				if (getX() == wallpoints.get(i).x && getY() == wallpoints.get(i).y) {
-//					createRandomFoodNotInWall(wallpoints);
-//				}
-				
-				
 			}
 		}
-	
+	}
 
 	public Color getColor() {
 		return color;
