@@ -343,6 +343,9 @@ public class MainMenuPanel extends BasePanel {
 						g = service.setInitialValue(game);
 						flag = false;
 					}
+					if (g.getWid() > 3) {
+						g.setWid(1);
+					}
 					infoMain = new ResultInfo(flag, g);
 				}
 				// 1.注册游戏面板

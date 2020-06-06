@@ -162,6 +162,7 @@ public class GamePanel extends BasePanel {
 		// 退出至桌面
 		subMenu.getEXIT_TO_WINDOWS().setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void handle(MouseEvent event) {
 				loadClickAudio();

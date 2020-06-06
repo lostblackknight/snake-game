@@ -38,15 +38,15 @@ public class GameScreen extends GScreen {
 
 	Grid grid = new Grid();
 	GameInfo info = new GameInfo();
-	Snake snake = new Snake();
-	Wall wall = new Wall();
-	Food food = new Food();
-	private int map;
+	public Snake snake = new Snake();
+	public Wall wall = new Wall();
+	public Food food = new Food();
+	public int map;
 	private int type;
 	private int target = TARGET;
 	SubMenu subMenu;
 	AnchorPane subRoot;
-	ResultInfo maInfo;
+	public ResultInfo maInfo;
 	private GameOverPanel gameOverPanel;
 	private GameWinPanel gameWinPanel = new GameWinPanel();
 
