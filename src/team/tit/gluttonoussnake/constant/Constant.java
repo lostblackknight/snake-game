@@ -41,5 +41,8 @@ public class Constant {
 	public static final int WALL_W = 20;
 	public static final int WALL_H = 20;
 	
+	public static final int DEGREE = 10;
+	public static final int TARGET = 20;
+	
 	
 }
