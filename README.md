@@ -1,6 +1,6 @@
 # GluttonousSnake
 
-***作者***：*[lostblackknight](https://github.com/lostblackknight)，[tyroguo](https://github.com/tyroguo)，[zuo-ri](https://github.com/zuo-ri)，[guojiaqiang][https://github.com/guojiaqiang201314]*    *转载请标明作者和出处*
+***作者***：*[lostblackknight](https://github.com/lostblackknight)，[tyroguo](https://github.com/tyroguo)，[zuo-ri](https://github.com/zuo-ri)，[guojiaqiang201314](https://github.com/guojiaqiang201314)*    *转载请标明作者和出处*
 
 ---
 
