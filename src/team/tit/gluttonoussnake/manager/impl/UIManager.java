@@ -11,8 +11,6 @@ import team.tit.gluttonoussnake.gameapp.GameAPP;
 import team.tit.gluttonoussnake.manager.Manager;
 import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
-import team.tit.gluttonoussnake.ui.loginpanel.LoginPanel;
-import team.tit.gluttonoussnake.ui.mainmenupanel.MainMenuPanel;
 
 /**
  * UI管理器类，用来管理所有面板

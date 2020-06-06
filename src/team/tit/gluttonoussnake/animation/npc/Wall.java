@@ -1,6 +1,10 @@
 package team.tit.gluttonoussnake.animation.npc;
 
-import static team.tit.gluttonoussnake.constant.Constant.*;
+import static team.tit.gluttonoussnake.constant.Constant.GRID_H;
+import static team.tit.gluttonoussnake.constant.Constant.GRID_SIZE;
+import static team.tit.gluttonoussnake.constant.Constant.GRID_W;
+import static team.tit.gluttonoussnake.constant.Constant.WALL_H;
+import static team.tit.gluttonoussnake.constant.Constant.WALL_W;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,8 +12,6 @@ import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import team.tit.gluttonoussnake.animation.BaseObject;
-import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
-import team.tit.gluttonoussnake.ui.loginpanel.LoginPanel;
 import team.tit.gluttonoussnake.util.MyUtils;
 
 public class Wall extends BaseObject {

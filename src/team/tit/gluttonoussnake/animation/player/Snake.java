@@ -1,9 +1,7 @@
 package team.tit.gluttonoussnake.animation.player;
 
 import static team.tit.gluttonoussnake.constant.Constant.DEFAULT_LENGTH;
-import static team.tit.gluttonoussnake.constant.Constant.GRID_H;
 import static team.tit.gluttonoussnake.constant.Constant.GRID_SIZE;
-import static team.tit.gluttonoussnake.constant.Constant.GRID_W;
 import static team.tit.gluttonoussnake.constant.Constant.ROOT_PANEL_H;
 import static team.tit.gluttonoussnake.constant.Constant.ROOT_PANEL_W;
 import static team.tit.gluttonoussnake.constant.Constant.SNAKE_H;
@@ -19,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import team.tit.gluttonoussnake.animation.BaseObject;
 import team.tit.gluttonoussnake.animation.npc.Food;
-import team.tit.gluttonoussnake.animation.npc.Wall;
 import team.tit.gluttonoussnake.util.MyUtils;
 
 public class Snake extends BaseObject {
@@ -194,8 +191,8 @@ public class Snake extends BaseObject {
 			int y0 = getHead().getY() * getHeight() + (getHeight() >> 1);
 			int x1 = (int) (points.get(i).getX() * getWidth() + 10);
 			int y1 = (int) (points.get(i).getY() * getHeight() + 10);
-			int w = (getWidth() + 20) >> 1;
-			int h = (getHeight() + 20) >> 1;
+//			int w = (getWidth() + 20) >> 1;
+//			int h = (getHeight() + 20) >> 1;
 			int disCurrent = MyUtils.distance(x0, y0, x1, y1);
 			int disCrashed = 20;
 			if (disCurrent < disCrashed) {
