@@ -1,7 +1,6 @@
 package team.tit.gluttonoussnake.animation.npc;
 
 import team.tit.gluttonoussnake.animation.BaseObject;
-import team.tit.gluttonoussnake.ui.loadingpanel.LoadingPanel;
 import team.tit.gluttonoussnake.util.MyUtils;
 
 import static team.tit.gluttonoussnake.constant.Constant.*;
@@ -36,11 +35,11 @@ public class Food extends BaseObject {
 	@Override
 	public void init() {
 		super.init();
-		setX(60 * GRID_SIZE);
-		setY(7 * GRID_SIZE);
-		setWidth(FOOD_W);
-		setHeight(FOOD_H);
-		setColor(MyUtils.getRandomColor());
+//		setX(60 * GRID_SIZE);
+//		setY(7 * GRID_SIZE);
+//		setWidth(FOOD_W);
+//		setHeight(FOOD_H);
+//		setColor(MyUtils.getRandomColor());
 	}
 
 	@Override

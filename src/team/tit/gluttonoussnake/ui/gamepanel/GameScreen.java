@@ -115,6 +115,7 @@ public class GameScreen extends GScreen {
 					points = LoadingPanel.getList().get(game1.getWid()).getPoints();
 				}
 				wall.setPoints(points);
+				food.createRandomFoodNotInWall(points);
 				map = game.getWid();
 				type = 1;
 			}
@@ -134,6 +135,7 @@ public class GameScreen extends GScreen {
 				type = 1;
 			}
 			wall.setPoints(points);
+			food.createRandomFoodNotInWall(points);
 		}
 
 		addObject(food);
