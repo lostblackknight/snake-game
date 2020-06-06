@@ -77,70 +77,57 @@ public class GameDaoImpl implements GameDao {
 
 	@Override
 	public void delOldData(Game g) {
-		int sid = g.getSid();
-		int fid = g.getFid();
-		int wid = g.getWid();
-		FileInputStream fis = null;
-		Workbook workbook = null;
-		FileOutputStream fos = null;
-		try {
-			fis = XLSUtils.getFileInputStream(file);
-			workbook = new HSSFWorkbook(fis);
-			Sheet game = workbook.getSheet("Game");
-			Sheet food = workbook.getSheet("Food");
-			Sheet snake = workbook.getSheet("Snake");
-			Sheet body = workbook.getSheet("SnakeBody");
-			for (int i = 1; i <= food.getLastRowNum(); i++) {
-				Row row = food.getRow(i);
-				if (row != null) {
-					Cell cellfid = row.getCell(0);
-					int cellfidInt = XLSUtils.celltoInt(cellfid);
-					if (cellfidInt == fid) {
-						food.removeRow(row);
+		if (g != null) {
+			int sid = g.getSid();
+			int fid = g.getFid();
+			FileInputStream fis = null;
+			Workbook workbook = null;
+			FileOutputStream fos = null;
+			try {
+				fis = XLSUtils.getFileInputStream(file);
+				workbook = new HSSFWorkbook(fis);
+				Sheet food = workbook.getSheet("Food");
+				Sheet snake = workbook.getSheet("Snake");
+				Sheet body = workbook.getSheet("SnakeBody");
+				for (int i = 1; i <= food.getLastRowNum(); i++) {
+					Row row = food.getRow(i);
+					if (row != null) {
+						Cell cellfid = row.getCell(0);
+						int cellfidInt = XLSUtils.celltoInt(cellfid);
+						if (cellfidInt == fid) {
+							food.removeRow(row);
+						}
 					}
 				}
-			}
-			for (int i = 1; i <= snake.getLastRowNum(); i++) {
-				Row row = snake.getRow(i);
-				if (row != null) {
-					Cell cellsid = row.getCell(0);
-					int cellsidInt = XLSUtils.celltoInt(cellsid);
-					if (cellsidInt == sid) {
-						snake.removeRow(row);
+				for (int i = 1; i <= snake.getLastRowNum(); i++) {
+					Row row = snake.getRow(i);
+					if (row != null) {
+						Cell cellsid = row.getCell(0);
+						int cellsidInt = XLSUtils.celltoInt(cellsid);
+						if (cellsidInt == sid) {
+							snake.removeRow(row);
+						}
 					}
 				}
-			}
-			for (int i = 1; i <= body.getLastRowNum(); i++) {
-				Row row = body.getRow(i);
-				if (row != null) {
-					Cell cellsid = row.getCell(0);
-					int cellsidInt = XLSUtils.celltoInt(cellsid);
-					if (cellsidInt == sid) {
-						body.removeRow(row);
+				for (int i = 1; i <= body.getLastRowNum(); i++) {
+					Row row = body.getRow(i);
+					if (row != null) {
+						Cell cellsid = row.getCell(0);
+						int cellsidInt = XLSUtils.celltoInt(cellsid);
+						if (cellsidInt == sid) {
+							body.removeRow(row);
+						}
 					}
 				}
+				fos = XLSUtils.getFileOutputStream(file);
+				workbook.write(fos);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				XLSUtils.close(fis, fos, workbook);
 			}
-//			for (int i = 1; i <= game.getLastRowNum(); i++) {
-//				Row row = game.getRow(i);
-//				if (row != null) {
-//					Cell cellwid = row.getCell(4);
-//					int cellwidInt = XLSUtils.celltoInt(cellwid);
-//					if (cellwidInt == wid) {
-//						row.removeCell(cellwid);
-//						Cell cell = row.createCell(4);
-//						cell.setCellValue(1);
-//					}
-//				}
-//			}
-			
-			fos = XLSUtils.getFileOutputStream(file);
-			workbook.write(fos);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			XLSUtils.close(fis, fos, workbook);
 		}
 	}
 

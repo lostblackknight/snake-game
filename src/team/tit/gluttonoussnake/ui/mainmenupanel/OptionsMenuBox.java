@@ -133,8 +133,8 @@ public class OptionsMenuBox extends AnchorPane {
 		speedDown = new Label("减速");
 		speedUp_key =new Label("U");
 		speedDown_key =new Label("I");
-		slider1 = new Slider(0, 1.0, 0.5);
-		slider2 = new Slider(0, 1.0, 0.5);
+		slider1 = new Slider(0, 1.0, 0.2);
+		slider2 = new Slider(0, 1.0, 0.2);
 		
 		//2.设置OptionsMenuBox的属性
 		optionsMenuBox.setMargin(choice, new Insets(76, 0, 0, 63));

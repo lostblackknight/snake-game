@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import static team.tit.gluttonoussnake.constant.Constant.*;
 import javafx.scene.layout.AnchorPane;
 import team.tit.gluttonoussnake.animation.info.GameInfo;
 import team.tit.gluttonoussnake.animation.npc.Food;
@@ -42,7 +43,7 @@ public class GameScreen extends GScreen {
 	Food food = new Food();
 	private int map;
 	private int type;
-	private int target = 20;
+	private int target = TARGET;
 	SubMenu subMenu;
 	AnchorPane subRoot;
 	ResultInfo maInfo;
@@ -294,10 +295,9 @@ public class GameScreen extends GScreen {
 			loadEatFoodAudio();
 			snake.grow();
 
-			// 食物不在墙上的生成食物（好像不对）
 			food.createRandomFoodNotInWall(wall.getPoints());
 			info.setLength(snake.getList().size() - 1);
-			info.setScore((snake.getList().size() - 3) * 10);
+			info.setScore((snake.getList().size() - 3) * DEGREE);
 		}
 	}
 

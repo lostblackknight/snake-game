@@ -27,7 +27,7 @@ import team.tit.gluttonoussnake.animation.BaseObject;
 public class GScreen extends Canvas {
 
 	// 游戏状态
-	protected enum GameState {
+	public enum GameState {
 		GAME_START, GAME_PAUSE, GAME_CONTINUE, GAME_END ,GAME_EXIT,GAME_WIN,GAME_NEXT
 	};
 

@@ -1,14 +1,22 @@
 package team.tit.gluttonoussnake.ui.gamepanel;
 
+import java.util.LinkedList;
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import team.tit.gluttonoussnake.animation.npc.Food;
+import team.tit.gluttonoussnake.animation.npc.Wall;
+import team.tit.gluttonoussnake.animation.player.Snake;
+import team.tit.gluttonoussnake.animation.player.SnakeNode;
 import team.tit.gluttonoussnake.domain.Game;
 import team.tit.gluttonoussnake.domain.ResultInfo;
 import team.tit.gluttonoussnake.manager.impl.AudioManager;
 import team.tit.gluttonoussnake.manager.impl.UIManager;
+import team.tit.gluttonoussnake.service.GameService;
+import team.tit.gluttonoussnake.service.impl.GameServiceImpl;
 import team.tit.gluttonoussnake.ui.BasePanel;
 import team.tit.gluttonoussnake.ui.gamepanel.GScreen.GameState;
 import team.tit.gluttonoussnake.ui.mainmenupanel.MainMenuPanel;
@@ -32,6 +40,14 @@ public class GamePanel extends BasePanel {
 	private ResultInfo infoMain;
 	private ResultInfo infoLogin;
 	private GameScreen gameScreen;
+
+	public GameScreen getGameScreen() {
+		return gameScreen;
+	}
+
+	public void setGameScreen(GameScreen gameScreen) {
+		this.gameScreen = gameScreen;
+	}
 
 	public GamePanel() {
 	}
@@ -104,14 +120,14 @@ public class GamePanel extends BasePanel {
 				} else if (gameScreen.getGameState() == GameState.GAME_EXIT) {
 					subRoot.getChildren().remove(subMenu);
 					if (gameScreen.info.getScore() >= gameScreen.getTarget() && gameScreen.getType() == 1) {
-						//开始下一关
+						// 开始下一关
 						if (gameScreen.getMap() > 3) {
 							gameScreen.setMap(1);
 						}
 						UIManager.getUiManager().delPanel("GamePanel");
-						Game game = (Game)infoMain.getData();
+						Game game = (Game) infoMain.getData();
 						game.setWid(gameScreen.getMap());
-						System.out.println( "map = " + gameScreen.getMap());
+						System.out.println("map = " + gameScreen.getMap());
 						UIManager.getUiManager().regPanel("GamePanel", new GamePanel(infoLogin, infoMain));
 						UIManager.getUiManager().gotoPanel("GamePanel");
 					}
@@ -119,7 +135,7 @@ public class GamePanel extends BasePanel {
 				} else if (gameScreen.getGameState() == GameState.GAME_END) {
 					subRoot.getChildren().add(subMenu);
 					gameScreen.setGameState(GameState.GAME_EXIT);
-				} else if(gameScreen.getGameState() == GameState.GAME_WIN){
+				} else if (gameScreen.getGameState() == GameState.GAME_WIN) {
 					subRoot.getChildren().add(subMenu);
 					gameScreen.setGameState(GameState.GAME_EXIT);
 				}
@@ -149,6 +165,42 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void handle(MouseEvent event) {
 				loadClickAudio();
+				System.out.println(gameScreen.getGameState());
+				if (gameScreen.getGameState() == GameState.GAME_PAUSE) {
+					gameScreen.setGameState(GameState.GAME_EXIT);
+					if (gameScreen.getGameState() == GameState.GAME_EXIT) {
+						AudioManager.getAudioManager().getAudio("GameAudio").close();
+						LinkedList<SnakeNode> list = gameScreen.snake.getList();
+
+						// 封装数据 保存数据
+						if (gameScreen.maInfo != null) {
+							Game game2 = (Game) gameScreen.maInfo.getData();
+
+							Snake snake2 = new Snake();
+							Food food2 = new Food();
+							Wall wall2 = new Wall();
+							snake2.setId(game2.getSid());
+							LinkedList<SnakeNode> list1 = new LinkedList<SnakeNode>();
+							for (int i = 0; i < gameScreen.snake.getList().size(); i++) {
+								list1.addLast(new SnakeNode(list.get(i).getX(), list.get(i).getY()));
+							}
+							snake2.setList(list1);
+							snake2.setDir(gameScreen.snake.getDir());
+							food2.setId(game2.getFid());
+							food2.setX(gameScreen.food.getX());
+							food2.setY(gameScreen.food.getY());
+							wall2.setId(gameScreen.wall.getId());
+							game2.setSanke(snake2);
+							game2.setFood(food2);
+							game2.setWall(wall2);
+							GameService service = new GameServiceImpl();
+							service.saveGameAll(game2);
+						}
+						gameScreen.thread.stop();
+						gameScreen.timeline.stop();
+					}
+					System.out.println("我执行了");
+				}
 				Platform.exit();
 			}
 		});

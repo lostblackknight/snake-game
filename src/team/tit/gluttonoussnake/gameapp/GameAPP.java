@@ -46,7 +46,6 @@ public class GameAPP extends Application {
 	public void stop() throws Exception {
 		UIManager.getUiManager().onFinish();
 		AudioManager.getAudioManager().onFinish();
-		
 	}
 	
 	/**
